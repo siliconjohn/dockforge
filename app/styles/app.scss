@@ -5,3 +5,30 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400
 // bootstrap theme and bootstrap
 @import "yetti-theme";
 @import "bootstrap";
+@import "components";
+
+html {
+  height:100%;
+}
+
+body {
+  // this is used so that nothing gets covered by the navbar
+  padding-top: 60px;
+  height: 100%;
+}
+
+.app {
+   height:100%;
+}
+
+[data-reactroot] {
+  height: 100% !important;
+}
+
+/////////////////////////////////
+// global classes use on anywhere
+/////////////////////////////////
+
+.height-100 {
+  height: 100%
+}
