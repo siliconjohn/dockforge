@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from 'Navbar'
-import DockPicker from 'DockPicker'
-import DockView from 'DockView'
+import DockEditor from 'DockEditor'
 
 class AppContainer extends React.Component {
 
@@ -9,17 +8,7 @@ class AppContainer extends React.Component {
     return (
       <div>
         <Navbar/>
-        <div className="container-fluid height-100">
-          <div className="row height-100">
-            <div className="col-xs-8 col-sm-9 col-lg-10 dock-view-column">
-              <DockView/>
-            </div>
-            <div className="col-xs-4 col-sm-3 col-lg-2 dock-picker-column">
-              <DockPicker/>
-            </div>
-          </div>
-
-        </div>
+        <DockEditor/>
       </div>
     )
   }

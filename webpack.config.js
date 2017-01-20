@@ -14,8 +14,8 @@ const entryFiles = [
   // all bootstrap js
   //'script!bootstrap-sass/assets/javascripts/bootstrap.js',
   // or individual files
-  'script!bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
-  'script!bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
+  //'script!bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
+  //'script!bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
   './app/app.jsx'
   ]
 
@@ -23,7 +23,8 @@ const entryFiles = [
 const modulesDirectories = [
     'node_modules',
     './app/redux',
-    './app/components'
+    './app/components',
+    './app/components/dockeditor',
   ]
 
 if( production ) {
