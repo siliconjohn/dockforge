@@ -6,9 +6,9 @@ class DockView extends React.Component {
     return (
       <div className="dock-view">
         <div className="panel panel-default">
-          <div className="panel-heading">Dock view</div>
+          <div className="panel-heading">Dock Editor</div>
           <div className="panel-body">
-       
+
           </div>
         </div>
       </div>
