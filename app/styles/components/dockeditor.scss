@@ -1,7 +1,7 @@
 
 .dock-editor {
 
-  $dock-height: 900px;
+  $dock-height: 750px;
   $dock-width: 900px;
   $shore-height: 75px;
 
@@ -14,9 +14,19 @@
       height: $dock-height;
 
       .dock-view {
-        width: 100%;
-        height: $dock-height -  $shore-height;
+        position: relative;
         background-color: #dcf6ff;
+        width: 100%;
+        height: $dock-height - $shore-height;
+
+        .dock-component {
+          background-color: #C0C0C0;
+          position: absolute;
+          width: 100px;
+          height: 100px;
+          top: 100px;
+          left: 100px;
+        }
       }
 
       .shore-view {
@@ -25,7 +35,7 @@
         background-color: #ddffdc;
       }
   }
- 
+
   /////////////////////////////////
   // DockView Component
   /////////////////////////////////
