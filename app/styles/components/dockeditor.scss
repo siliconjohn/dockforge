@@ -10,30 +10,30 @@
   /////////////////////////////////
 
   .dock-shore-parent {
-      width: $dock-width;
-      height: $dock-height;
+    width: $dock-width;
+    height: $dock-height;
 
-      .dock-view {
-        position: relative;
-        background-color: #dcf6ff;
-        width: 100%;
-        height: $dock-height - $shore-height;
+    .dock-view {
+      position: relative;
+      background-color: #dcf6ff;
+      width: 100%;
+      height: $dock-height - $shore-height;
 
-        .dock-component {
-          background-color: #C0C0C0;
-          position: absolute;
-          width: 100px;
-          height: 100px;
-          top: 100px;
-          left: 100px;
-        }
+      .dock-component {
+        background-color: #C0C0C0;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 100px;
+        left: 100px;
       }
+    }
 
-      .shore-view {
-        width: 100%;
-        height: $shore-height;
-        background-color: #ddffdc;
-      }
+    .shore-view {
+      width: 100%;
+      height: $shore-height;
+      background-color: #ddffdc;
+    }
   }
 
   /////////////////////////////////
