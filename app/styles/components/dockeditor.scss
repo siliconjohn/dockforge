@@ -4,6 +4,9 @@
   $dock-height: 750px;
   $dock-width: 900px;
   $shore-height: 75px;
+  $dock-bg-color: #dcf6ff;
+  $dock-grass-color: #ddffdc;
+  $dock-component-color: #c0c0c0;
 
   /////////////////////////////////
   // DockView Component
@@ -15,12 +18,12 @@
 
     .dock-view {
       position: relative;
-      background-color: #dcf6ff;
+      background-color: $dock-bg-color;
       width: 100%;
       height: $dock-height - $shore-height;
 
       .dock-component {
-        background-color: #C0C0C0;
+        background-color: $dock-component-color;
         position: absolute;
         width: 100px;
         height: 100px;
@@ -32,7 +35,7 @@
     .shore-view {
       width: 100%;
       height: $shore-height;
-      background-color: #ddffdc;
+      background-color: $dock-grass-color;
     }
   }
 
