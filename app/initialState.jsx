@@ -34,7 +34,11 @@ export var initialState = {
                   { type: "deck", x: -100, y: 100, width: 100, length: 100, rotate:0, key:"2", children:[] }
                 ]
               }
-            ]
+            ],
+    components: [
+      { name:"Square", description:"A square"},
+      { name:"Rectangle",description:"A rectangle"}
+    ]
 }
 
 
