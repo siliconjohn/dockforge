@@ -8,18 +8,20 @@ class DockPicker extends React.Component {
     let { components } = this.props
 
     return (
-      <div className="panel panel-default dock-picker">
-        <div className="panel-heading">Dock Components</div>
-        <div className="panel-body">
-          <div className="list-group">
-            {
-              components.map((item, index) => {
-                return <DockPickerComponent { ...item } key={ index }/>
-              })
-            }
+      <div className="dock-picker">
+        <div className="panel panel-default">
+          <div className="panel-heading">Dock Components</div>
+          <div className="panel-body">
+            <div className="list-group">
+              {
+                components.map((item, index) => {
+                  return <DockPickerComponent { ...item } key={ index }/>
+                })
+              }
+            </div>
           </div>
         </div>
-      </div> 
+      </div>
     )
   }
 }
