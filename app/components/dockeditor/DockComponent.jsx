@@ -3,9 +3,11 @@ import React from 'react'
 class DockComponent extends React.Component {
 
   render() {
+    let { children } = this.props
+
     return (
       <div className="dock-component">
-      { this.props.children }
+      { children }
       </div>
     )
   }
