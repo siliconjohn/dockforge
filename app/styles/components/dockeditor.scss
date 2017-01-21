@@ -1,6 +1,31 @@
 
 .dock-editor {
 
+  $dock-height: 900px;
+  $dock-width: 900px;
+  $shore-height: 75px;
+
+  /////////////////////////////////
+  // DockView Component
+  /////////////////////////////////
+
+  .dock-shore-parent {
+      width: $dock-width;
+      height: $dock-height;
+
+      .dock-view {
+        width: 100%;
+        height: $dock-height -  $shore-height;
+        background-color: #dcf6ff;
+      }
+
+      .shore-view {
+        width: 100%;
+        height: $shore-height;
+        background-color: #ddffdc;
+      }
+  }
+ 
   /////////////////////////////////
   // DockView Component
   /////////////////////////////////
@@ -14,8 +39,15 @@
       padding-bottom: 15px;
 
       .panel {
-        height:100%;
+        height: 100%;
         margin-bottom: 0;
+        overflow:hidden;
+
+        .panel-body {
+          height:100%;
+          overflow: scroll;
+          padding: 0px 0px 0px 0px;
+        }
       }
     }
   }

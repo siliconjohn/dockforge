@@ -5,7 +5,6 @@ class DockView extends React.Component {
   render() {
     return (
       <div className="dock-view">
-        hi
       </div>
     )
   }
