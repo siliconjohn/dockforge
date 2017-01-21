@@ -79,7 +79,10 @@
         overflow:hidden;
 
         .panel-body {
-          height:100%;
+          // 42px is the approx height or the panel-header,
+          // this allows the bottom of the scrollbar to show
+          height: calc( 100% - 42px );
+
           overflow-y: scroll;
         }
       }
