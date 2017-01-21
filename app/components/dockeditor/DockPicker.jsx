@@ -14,7 +14,7 @@ class DockPicker extends React.Component {
           <div className="panel-body">
             <div className="list-group">
               {
-                components.map((item, index) => {
+                components.map(( item, index ) => {
                   return <DockPickerComponent { ...item } key={ index }/>
                 })
               }
