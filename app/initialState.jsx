@@ -1,7 +1,7 @@
 export var initialState = {
      dock: [
-            { type: "deck", left:0, bottom:0, width: 100, height: 100 },
-            { type: "deck", left:200, bottom:100, width: 100, height: 100 },
+            { type: "BOX", left:0, bottom:0, width: 100, height: 100 },
+            { type: "RECTANGLE", left:200, bottom:100, width: 200, height: 100 },
            ],
 
    derived: [
@@ -15,8 +15,8 @@ export var initialState = {
               }
             ],
     components: [
-      { name:"Square", description:"A square"},
-      { name:"Rectangle",description:"A rectangle"}
+      { name:"Square", description:"A square", type:"BOX"},
+      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE"}
     ]
 }
 //
