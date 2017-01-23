@@ -1,6 +1,6 @@
 import React from 'react'
 
-class DockPickerComponent extends React.Component {
+class DockPickerItem extends React.Component {
 
   render() {
     let { name, description } = this.props
@@ -14,9 +14,9 @@ class DockPickerComponent extends React.Component {
   }
 }
 
-DockPickerComponent.propTypes = {
+DockPickerItem.propTypes = {
   name: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
 }
 
-module.exports = DockPickerComponent
+module.exports = DockPickerItem

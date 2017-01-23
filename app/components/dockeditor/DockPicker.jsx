@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DockPickerComponent from 'DockPickerComponent'
+import DockPickerItem from 'DockPickerItem'
 
 class DockPicker extends React.Component {
 
@@ -15,7 +15,7 @@ class DockPicker extends React.Component {
             <div className="list-group">
               {
                 components.map(( item, index ) => {
-                  return <DockPickerComponent { ...item } key={ index }/>
+                  return <DockPickerItem { ...item } key={ index }/>
                 })
               }
             </div>
