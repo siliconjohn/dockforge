@@ -6,3 +6,12 @@ export var addDockComponent = ( component ) => {
     component
   }
 }
+
+export const SET_DRAG_COMPONENT = 'SET_DRAG_COMPONENT'
+
+export var setDragComponent = ( component ) => {
+  return {
+    type: SET_DRAG_COMPONENT,
+    component
+  }
+}
