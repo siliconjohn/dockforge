@@ -1,7 +1,7 @@
 
 .dock-editor {
 
-  $dock-height: 750px;
+  $dock-height: 650px;
   $dock-width: 900px;
   $shore-height: 75px;
   $dock-bg-color: #dcf6ff;
@@ -87,6 +87,25 @@
 
       .dock-picker-component {
         overflow: hidden;
+
+        .drag-item {
+          width: 100px;
+          height: 100px;
+          margin-top:8px;
+          background-color: #808080;
+
+          .drag-image {
+            background: url('/images/box.svg');
+            background-size: 64px 64px;
+            background-color: rgba(0,0,0,0);
+            width: 64px;
+            height: 64px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+          }
+        }
       }
     }
   }

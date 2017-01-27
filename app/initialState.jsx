@@ -15,8 +15,8 @@ export var initialState = {
               }
             ],
     components: [
-      { name:"Square", description:"A square", type:"BOX"},
-      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE"}
+      { name:"Square", description:"A square", type:"BOX", width: 100, length: 100,},
+      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE",  width: 100, length: 100,}
     ]
 }
 //
