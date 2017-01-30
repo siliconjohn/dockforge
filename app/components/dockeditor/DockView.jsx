@@ -39,16 +39,25 @@ class DockView extends React.Component {
 
   render() {
     var { dock } = this.props
+    // <div className="dock-view" onDrop={ this.onDrop }
+//   onDragOver={ this.onDragOver }>
 
+// </div>
     return (
-      <div className="dock-view" onDrop={ this.onDrop }
-        onDragOver={ this.onDragOver }>
+      <svg xmlns="http://www.w3.org/2000/svg" onDrop={ this.onDrop }
+      onDragOver={ this.onDragOver } viewBox="-400 -400 800 800" className="dock-svg">
+        <g>
+          <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
+          <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>
+          <line x1="0" y1="-400" x2="0" y2="400" strokeWidth="1" stroke="darkblue"/>
+        </g>
         {
           dock.map(( item, index ) => {
             return <DockComponent { ...item } key={ index }/>
           })
         }
-      </div>
+      </svg>
+
     )
   }
 }
