@@ -12,8 +12,18 @@ export var updateDockComponent = ( state = [], action ) => {
   return state
 }
 
+export var setDraggingComponent = ( state = null, action ) => {
+
+  if ( action.type == actions.SET_DRAG_COMPONENT ) {
+    return action.component
+  } else {
+    return state
+  }
+}
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
+  draggingComponent: setDraggingComponent,
   components: ( state = {} ) => state
 })

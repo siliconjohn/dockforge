@@ -16,7 +16,7 @@ class DockView extends React.Component {
   onDrop( event ) {
     event.preventDefault()
 
-    let data = JSON.parse( event.dataTransfer.getData( "text" ))
+    let data = this.props.draggingComponent
 
     // get mouse's x y drop position
     let elementRect = event.currentTarget.getBoundingClientRect()
@@ -61,6 +61,7 @@ DockView.propTypes = {
 export default connect (( state ) => {
   return {
     dock: state.dock,
-    components: state.components
+    components: state.components,
+    draggingComponent: state.draggingComponent
   }
 })( DockView )
