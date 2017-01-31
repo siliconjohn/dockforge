@@ -1,8 +1,8 @@
 
 .dock-editor {
 
-  $dock-height: 650px;
-  $dock-width: 900px;
+  $dock-height: 800px;
+  $dock-width: 800px;
   $shore-height: 75px;
   $dock-bg-color: #dcf6ff;
   $dock-grass-color: #ddffdc;
@@ -36,6 +36,8 @@
       width: 100%;
       height: $shore-height;
       background-color: $dock-grass-color;
+
+
     }
   }
 
@@ -60,6 +62,13 @@
           height:100%;
           overflow: scroll;
           padding: 0px 0px 0px 0px;
+
+          svg  {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
         }
       }
     }

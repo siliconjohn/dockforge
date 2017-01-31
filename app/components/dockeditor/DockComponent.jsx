@@ -1,4 +1,5 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 
 class DockComponent extends React.Component {
@@ -7,15 +8,31 @@ class DockComponent extends React.Component {
     super( props )
 
     this.state = {
-      isDraggingOver: false
+      isDraggingOver: false,
+
+      isDragging: false,
+      draggingStartX: 0,
+      draggingStartY: 0,
+      moveMeX:0,
+      moveMeY:0,
     }
-    
+
     // bind so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
     this.onDragLeave = this.onDragLeave.bind( this )
     this.onDragEnter = this.onDragEnter.bind( this )
+    this.onMouseOut = this.onMouseOut.bind( this )
+    this.onMouseDown = this.onMouseDown.bind( this )
+    this.onMouseMove = this.onMouseMove.bind( this )
+    this.onMouseUp = this.onMouseUp.bind( this )
   }
+
+  ////////////////////////////////////////////////////////
+  // these are for the html 5 drag and drop functionality
+  // which is used to drop NEW componets from outside the
+  // main svg element
+  ////////////////////////////////////////////////////////
 
   onDrop( event ) {
     let data = this.props.draggingComponent
@@ -57,27 +74,92 @@ class DockComponent extends React.Component {
     }
   }
 
+  ////////////////////////////////////////////////////////
+  // these are for the draging this componant within the
+  // svg element
+  ////////////////////////////////////////////////////////
+
+  onMouseUp( event ) {
+    if( this.state.isDragging == true ) {
+      this.setState({
+        isDragging: false
+      })
+    }
+  }
+
+  onMouseOut( event ) {
+    if( this.state.isDragging == true ) {
+      this.setState({
+        isDragging: false
+      })
+    }
+  }
+
+  onMouseDown( event ) {
+    let svg = document.getElementById( "svg-el" )
+    let point = svg.createSVGPoint()
+
+    // translate the screen point to svg's point, this enable the
+    // svg to be scaled to any size and the drag will still work
+    // accurately
+    point.x = event.clientX
+    point.y = event.clientY;
+    point = point.matrixTransform( svg.getScreenCTM().inverse() )
+
+    this.setState({
+      isDragging: true,
+      draggingStartX: point.x,
+      draggingStartY: point.y,
+      moveMeX: 0,
+      moveMeY: 0,
+    })
+  }
+  onMouseMove( event ) {
+    if( this.state.isDragging == true ) {
+      let svg = document.getElementById( "svg-el" )
+      let point = svg.createSVGPoint()
+
+      // translate the screen point to svg's point, this enable the
+      point.x = event.clientX
+      point.y = event.clientY;
+      point = point.matrixTransform( svg.getScreenCTM().inverse() )
+
+      let tempX = point.x - this.state.draggingStartX
+      let tempY = point.y - this.state.draggingStartY
+      findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+      // this will rerender on drag, you can use this instead of  
+      // findDOMNode(this).setAttribute
+      // this.setState({
+      //   moveMeX: tempX ,
+      //   moveMeY: tempY ,
+      // })
+    }
+  }
+
   render() {
     let { left, bottom, width, height, draggingComponent } = this.props
-    let { isDraggingOver } = this.state
-
-    // setup the position as an inline style
-    let style = {
-      left: `${left}px`,
-      bottom: `${bottom}px`,
-      width: `${width}px`,
-      height: `${height}px`,
-    }
+    let { isDragging, isDraggingOver, moveMeX, moveMeY } = this.state
 
     let noDragClass = ''
     if( isDraggingOver == true ) {
       noDragClass = ' red'
     }
 
+    let translate
+    if( isDragging == true ) {
+      translate = `translate(${moveMeX},${moveMeY})`
+    }
+
     return (
-      <div className={`dock-component${noDragClass}`} style={ style } onDrop={ this.onDrop }
-        onDragOver={ this.onDragOver } onDragLeave={ this.onDragLeave }
-        onDragEnter={ this.onDragEnter }></div>
+      <g transform={ translate }>
+        <rect onMouseMove= { this.onMouseMove } onMouseDown={ this.onMouseDown }
+          onMouseUp={ this.onMouseUp } onMouseOut={ this.onMouseOut }
+          className={`dock-component${noDragClass}`} onDrop={ this.onDrop }
+          onDragOver={ this.onDragOver } onDragLeave={ this.onDragLeave }
+          onDragEnter={ this.onDragEnter }
+          x={ left } y={ bottom } width={ width } height= { height }
+          stroke="darkblue" strokeWidth="1"  fill="red"/>
+      </g>
     )
   }
 }
