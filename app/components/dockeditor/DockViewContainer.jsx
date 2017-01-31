@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import DockView from 'DockView'
 import ShoreView from 'ShoreView'
 
@@ -11,11 +12,18 @@ class DockViewContainer extends React.Component {
   }
 
   render() {
+    let { svgScale } = this.props
+
+    let style = {
+      width: `${svgScale}px`,
+      height: `${svgScale}px`
+    }
+    
     return (
       <div className="dock-view-container">
         <div className="panel panel-default">
           <div className="panel-body dock-shore-panel-body">
-            <div className="dock-shore-parent">
+            <div className="dock-shore-parent" style={ style }>
               <DockView/>
               <ShoreView/>
             </div>
@@ -26,4 +34,8 @@ class DockViewContainer extends React.Component {
   }
 }
 
-module.exports = DockViewContainer
+export default connect (( state ) => {
+  return {
+    svgScale: state.svgScale
+  }
+})( DockViewContainer )

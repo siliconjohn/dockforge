@@ -19,7 +19,8 @@ export var initialState = {
       { name:"Rectangle",description:"A rectangle", type:"RECTANGLE",  width: 100, length: 100,}
     ],
 
-    draggingComponent: null
+    draggingComponent: null,
+    svgScale: 1200,
 }
 //
 // dock: [{ type: "deck",  width: 100, height: 100, key:"0",

@@ -21,9 +21,35 @@ export var setDraggingComponent = ( state = null, action ) => {
   }
 }
 
+export var updateSvgScale = ( state = 800, action ) => {
+
+  if ( action.type == actions.INCREMENT_SVG_SCALE ) {
+    let temp = state + 100
+
+    if( temp < 3000 ) {
+      return temp
+    } else {
+      return state
+    }
+  }
+
+  if ( action.type == actions.DECREMENT_SVG_SCALE ) {
+    let temp = state - 100
+
+    if( temp > 400 ) {
+      return temp
+    } else {
+      return state
+    }
+  }
+
+  return state
+}
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
   draggingComponent: setDraggingComponent,
+  svgScale: updateSvgScale,
   components: ( state = {} ) => state
 })

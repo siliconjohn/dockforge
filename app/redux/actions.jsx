@@ -15,3 +15,19 @@ export var setDragComponent = ( component ) => {
     component
   }
 }
+
+export const INCREMENT_SVG_SCALE = 'INCREMENT_SVG_SCALE'
+
+export var incrementSvgScale = ( ) => {
+  return {
+    type: INCREMENT_SVG_SCALE
+  }
+}
+
+export const DECREMENT_SVG_SCALE = 'DECREMENT_SVG_SCALE'
+
+export var decrementSvgScale = ( ) => {
+  return {
+    type: DECREMENT_SVG_SCALE
+  }
+}
