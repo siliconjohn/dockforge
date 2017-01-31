@@ -15,17 +15,19 @@ class DockView extends React.Component {
 
   onDrop( event ) {
     event.preventDefault()
+    let svg = document.getElementById( "svg-el" )
+    let point = svg.createSVGPoint()
+
+    // translate the screen point to svg's point
+    point.x = event.clientX
+    point.y = event.clientY;
+    point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
     let data = this.props.draggingComponent
 
-    // get mouse's x y drop position
-    let elementRect = event.currentTarget.getBoundingClientRect()
-    let dropMouseX = event.clientX - elementRect.left
-    let dropMouseY = event.clientY - elementRect.top
-
     // create the component
-    var newComponent = { type: data.type, left:dropMouseX,
-      bottom: elementRect.height - dropMouseY - data.length,
+    var newComponent = { type: data.type, left:point.x,
+      bottom:  point.y ,
       width: data.width, height:data.length }
 
     // dispatch event adding new component
