@@ -44,7 +44,7 @@ class DockView extends React.Component {
 
 // </div>
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" onDrop={ this.onDrop }
+      <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
       onDragOver={ this.onDragOver } viewBox="-400 -400 800 800" className="dock-svg">
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
