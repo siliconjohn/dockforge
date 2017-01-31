@@ -1,20 +1,20 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 
 class DockComponent extends React.Component {
 
   constructor( props ) {
     super( props )
-    
+
     this.state = {
-      isDraggingOver: false,  // old
+      isDraggingOver: false,
 
       isDragging: false,
       draggingStartX: 0,
       draggingStartY: 0,
-      draggingCurrentX: 0,
-      draggingCurrentY: 0,
-
+      moveMeX:0,
+      moveMeY:0,
     }
 
     // bind so props can be accessed
@@ -27,6 +27,12 @@ class DockComponent extends React.Component {
     this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseUp = this.onMouseUp.bind( this )
   }
+
+  ////////////////////////////////////////////////////////
+  // these are for the html 5 drag and drop functionality
+  // which is used to drop NEW componets from outside the
+  // main svg element
+  ////////////////////////////////////////////////////////
 
   onDrop( event ) {
     let data = this.props.draggingComponent
@@ -68,18 +74,10 @@ class DockComponent extends React.Component {
     }
   }
 
-
-
-
-  onMouseDown( event ) {
-    this.setState({
-      isDragging: true,
-      draggingStartX: event.clientX,
-      draggingStartY: event.clientY,
-      draggingCurrentX: event.clientX,
-      draggingCurrentY: event.clientY,
-    })
-  }
+  ////////////////////////////////////////////////////////
+  // these are for the draging this componant within the
+  // svg element
+  ////////////////////////////////////////////////////////
 
   onMouseUp( event ) {
     if( this.state.isDragging == true ) {
@@ -97,50 +95,70 @@ class DockComponent extends React.Component {
     }
   }
 
+  onMouseDown( event ) {
+    let svg = document.getElementById( "svg-el" )
+    let point = svg.createSVGPoint()
+
+    // translate the screen point to svg's point, this enable the
+    // svg to be scaled to any size and the drag will still work
+    // accurately
+    point.x = event.clientX
+    point.y = event.clientY;
+    point = point.matrixTransform( svg.getScreenCTM().inverse() )
+
+    this.setState({
+      isDragging: true,
+      draggingStartX: point.x,
+      draggingStartY: point.y,
+      moveMeX: 0,
+      moveMeY: 0,
+    })
+  }
   onMouseMove( event ) {
     if( this.state.isDragging == true ) {
-      this.setState({
-        draggingCurrentX: event.clientX,
-        draggingCurrentY: event.clientY,
-      })
+      let svg = document.getElementById( "svg-el" )
+      let point = svg.createSVGPoint()
+
+      // translate the screen point to svg's point, this enable the
+      point.x = event.clientX
+      point.y = event.clientY;
+      point = point.matrixTransform( svg.getScreenCTM().inverse() )
+
+      let tempX = point.x - this.state.draggingStartX
+      let tempY = point.y - this.state.draggingStartY
+      findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+      // this will rerender on drag, you can use this instead of  
+      // findDOMNode(this).setAttribute
+      // this.setState({
+      //   moveMeX: tempX ,
+      //   moveMeY: tempY ,
+      // })
     }
   }
 
   render() {
     let { left, bottom, width, height, draggingComponent } = this.props
-    let { isDragging } = this.state
-
-    // setup the position as an inline style
-    let style = {
-      left: `${left}px`,
-      bottom: `${bottom}px`,
-      width: `${width}px`,
-      height: `${height}px`,
-    }
+    let { isDragging, isDraggingOver, moveMeX, moveMeY } = this.state
 
     let noDragClass = ''
-    // if( isDraggingOver == true ) {
-    //   noDragClass = ' red'
-    // }
-    let translate = ""
-
-    if( isDragging == true ) {
-      let {draggingStartX,draggingCurrentX,draggingStartY,draggingCurrentY} = this.state
-      translate = `translate(${draggingCurrentX - draggingStartX },${  draggingCurrentY - draggingStartY})`
-
-    } else {
-      console.log('render');
+    if( isDraggingOver == true ) {
+      noDragClass = ' red'
     }
 
-
+    let translate
+    if( isDragging == true ) {
+      translate = `translate(${moveMeX},${moveMeY})`
+    }
 
     return (
       <g transform={ translate }>
-        <rect onMouseMove= { this.onMouseMove } onMouseDown={ this.onMouseDown } onMouseUp={ this.onMouseUp }  onMouseOut={ this.onMouseOut }
-          className={`dock-component${noDragClass}`} style={ style } onDrop={ this.onDrop }
+        <rect onMouseMove= { this.onMouseMove } onMouseDown={ this.onMouseDown }
+          onMouseUp={ this.onMouseUp } onMouseOut={ this.onMouseOut }
+          className={`dock-component${noDragClass}`} onDrop={ this.onDrop }
           onDragOver={ this.onDragOver } onDragLeave={ this.onDragLeave }
           onDragEnter={ this.onDragEnter }
-          x={ left } y={ bottom } width={ width } height= { height } stroke="darkblue" strokeWidth="1"  fill="red"/>
+          x={ left } y={ bottom } width={ width } height= { height }
+          stroke="darkblue" strokeWidth="1"  fill="red"/>
       </g>
     )
   }
