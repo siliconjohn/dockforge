@@ -7,7 +7,7 @@ class DockViewContainer extends React.Component {
 
   componentDidMount() {
     // scroll to bottom
-    var element = $(".dock-shore-panel-body")
+    var element = $(".dock-svg-scroll-parent")
     element.scrollTop( element[0].scrollHeight)
   }
 
@@ -22,8 +22,8 @@ class DockViewContainer extends React.Component {
     return (
       <div className="dock-view-container">
         <div className="panel panel-default">
-          <div className="panel-body dock-shore-panel-body">
-            <div className="dock-shore-parent" style={ style }>
+          <div className="panel-body dock-svg-scroll-parent">
+            <div className="dock-svg-parent" style={ style }>
               <DockSVG/>
               <ShoreView/>
             </div>
