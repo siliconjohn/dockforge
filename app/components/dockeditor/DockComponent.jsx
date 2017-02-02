@@ -91,7 +91,7 @@ class DockComponent extends React.Component {
       })
     }
 
-    this.props.dispatch( setMouseDraggingElement( true ))
+    this.props.dispatch( setMouseDraggingElement( false ))
   }
 
   onMouseOut( event ) {
