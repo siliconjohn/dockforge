@@ -26,6 +26,10 @@ class DockComponent extends React.Component {
     this.onMouseDown = this.onMouseDown.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseUp = this.onMouseUp.bind( this )
+    this.onTouchStart = this.onTouchStart.bind( this )
+    this.onTouchEnd = this.onTouchEnd.bind( this )
+    this.onTouchMove = this.onTouchMove.bind( this )
+    this.onTouchCancel = this.onTouchCancel.bind( this )
   }
 
   ////////////////////////////////////////////////////////
@@ -114,6 +118,7 @@ class DockComponent extends React.Component {
       moveMeY: 0,
     })
   }
+
   onMouseMove( event ) {
     if( this.state.isDragging == true ) {
       let svg = document.getElementById( "svg-el" )
@@ -127,13 +132,73 @@ class DockComponent extends React.Component {
       let tempX = point.x - this.state.draggingStartX
       let tempY = point.y - this.state.draggingStartY
       findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-      // this will rerender on drag, you can use this instead of  
+      // this will rerender on drag, you can use this instead of
       // findDOMNode(this).setAttribute
       // this.setState({
       //   moveMeX: tempX ,
       //   moveMeY: tempY ,
       // })
     }
+  }
+
+  onTouchStart( event ){
+    let svg = document.getElementById( "svg-el" )
+    let point = svg.createSVGPoint()
+
+    // translate the screen point to svg's point, this enable the
+    // svg to be scaled to any size and the drag will still work
+    // accurately
+    point.x = event.clientX
+    point.y = event.clientY;
+    point = point.matrixTransform( svg.getScreenCTM().inverse() )
+
+    this.setState({
+      isDragging: true,
+      draggingStartX: point.x,
+      draggingStartY: point.y,
+      moveMeX: 0,
+      moveMeY: 0,
+    });
+  }
+
+  onTouchCancel() {
+    if( this.state.isDragging == true ) {
+      this.setState({
+        isDragging: false
+      })
+    }
+  }
+
+  onTouchEnd() {
+    if( this.state.isDragging == true ) {
+      this.setState({
+        isDragging: false
+      })
+    }
+  }
+
+  onTouchMove( event ) {
+    // TODO: finsh moving this element on touch
+    // if( this.state.isDragging == true ) {
+    //   let svg = document.getElementById( "svg-el" )
+    //   let point = svg.createSVGPoint()
+
+      // console.log(event);
+      // // translate the screen point to svg's point, this enable the
+      // point.x = event.clientX
+      // point.y = event.clientY;
+      // point = point.matrixTransform( svg.getScreenCTM().inverse() )
+      //
+      // let tempX = point.x - this.state.draggingStartX
+      // let tempY = point.y - this.state.draggingStartY
+      // findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+      // // this will rerender on drag, you can use this instead of
+      // findDOMNode(this).setAttribute
+      // this.setState({
+      //   moveMeX: tempX ,
+      //   moveMeY: tempY ,
+      // })
+      //  }
   }
 
   render() {
@@ -154,6 +219,8 @@ class DockComponent extends React.Component {
       <g transform={ translate }>
         <rect onMouseMove= { this.onMouseMove } onMouseDown={ this.onMouseDown }
           onMouseUp={ this.onMouseUp } onMouseOut={ this.onMouseOut }
+          onTouchStart={ this.onTouchStart } onTouchEnd={ this.onTouchEnd }
+          onTouchMove={ this.onTouchMove } onTouchCancel={ this.onTouchCancel }
           className={`dock-component${noDragClass}`} onDrop={ this.onDrop }
           onDragOver={ this.onDragOver } onDragLeave={ this.onDragLeave }
           onDragEnter={ this.onDragEnter }
