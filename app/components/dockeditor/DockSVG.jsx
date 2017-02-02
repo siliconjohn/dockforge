@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
-import { addDockComponent } from 'actions'
+import { addDockComponent, setMouseMoveXY } from 'actions'
 
 class DockSVG extends React.Component {
 
@@ -42,19 +42,21 @@ class DockSVG extends React.Component {
   }
 
   onMouseMove( event ) {
-    //if( this.state.isDragging == true ) {
+
+   if( this.props.mouseDraggingElement == true ) {
 
       let svgElement = findDOMNode( this )
       let point = svgElement.createSVGPoint()
 
-      // translate the screen point to svg's point, this enable the
+      // translate the screen point to svg's point
       point.x = event.clientX
       point.y = event.clientY;
-      point = point.matrixTransform( svgElement.getScreenCTM().inverse() )
-      // 
+      point = point.matrixTransform( svgElement.getScreenCTM().inverse())
+
+      this.props.dispatch( setMouseMoveXY( [ point.x, point.y ]))
       // let tempX = point.x - this.state.draggingStartX
       // let tempY = point.y - this.state.draggingStartY
-      console.log(`translate(${point.x},${point.y})`)
+      //console.log(`translate(${point.x},${point.y})`)
       //findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
       // this will rerender on drag, you can use this instead of
       // findDOMNode(this).setAttribute
@@ -62,7 +64,7 @@ class DockSVG extends React.Component {
       //   moveMeX: tempX ,
       //   moveMeY: tempY ,
       // })
-    //}
+    }
   }
 
   render() {
@@ -97,6 +99,7 @@ export default connect (( state ) => {
   return {
     dock: state.dock,
     components: state.components,
-    draggingComponent: state.draggingComponent
+    draggingComponent: state.draggingComponent,
+    mouseDraggingElement: state.mouseDraggingElement,
   }
 })( DockSVG )

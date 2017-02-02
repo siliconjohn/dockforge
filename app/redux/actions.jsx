@@ -34,7 +34,7 @@ export var decrementSvgScale = ( ) => {
 
 export const SET_MOUSE_MOVE_XY = 'SET_MOUSE_MOVE_XY'
 
-export var setMouseMoveX = ( value ) => {
+export var setMouseMoveXY = ( value ) => {
   return {
     type: SET_MOUSE_MOVE_XY,
     value
