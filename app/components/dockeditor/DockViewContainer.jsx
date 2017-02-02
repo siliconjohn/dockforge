@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DockView from 'DockView'
+import DockSVG from 'DockSVG'
 import ShoreView from 'ShoreView'
 
 class DockViewContainer extends React.Component {
@@ -18,13 +18,13 @@ class DockViewContainer extends React.Component {
       width: `${svgScale}px`,
       height: `${svgScale}px`
     }
-    
+
     return (
       <div className="dock-view-container">
         <div className="panel panel-default">
           <div className="panel-body dock-shore-panel-body">
             <div className="dock-shore-parent" style={ style }>
-              <DockView/>
+              <DockSVG/>
               <ShoreView/>
             </div>
           </div>

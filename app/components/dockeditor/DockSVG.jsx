@@ -3,7 +3,7 @@ import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
 import { addDockComponent } from 'actions'
 
-class DockView extends React.Component {
+class DockSVG extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -41,10 +41,6 @@ class DockView extends React.Component {
 
   render() {
     var { dock } = this.props
-    // <div className="dock-view" onDrop={ this.onDrop }
-//   onDragOver={ this.onDragOver }>
-
-// </div>
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
       onDragOver={ this.onDragOver } viewBox="-400 -400 800 800" className="dock-svg">
@@ -64,7 +60,7 @@ class DockView extends React.Component {
   }
 }
 
-DockView.propTypes = {
+DockSVG.propTypes = {
   dock: React.PropTypes.array.isRequired,
   dispatch: React.PropTypes.func.isRequired,
 }
@@ -75,4 +71,4 @@ export default connect (( state ) => {
     components: state.components,
     draggingComponent: state.draggingComponent
   }
-})( DockView )
+})( DockSVG )
