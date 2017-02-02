@@ -1,6 +1,7 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
+import { setMouseDraggingElement } from 'actions'
 
 class DockComponent extends React.Component {
 
@@ -89,14 +90,16 @@ class DockComponent extends React.Component {
         isDragging: false
       })
     }
+
+    this.props.dispatch( setMouseDraggingElement( true ))
   }
 
   onMouseOut( event ) {
-    if( this.state.isDragging == true ) {
-      this.setState({
-        isDragging: false
-      })
-    }
+    // if( this.state.isDragging == true ) {
+    //   this.setState({
+    //     isDragging: false
+    //   })
+    // }
   }
 
   onMouseDown( event ) {
@@ -117,28 +120,30 @@ class DockComponent extends React.Component {
       moveMeX: 0,
       moveMeY: 0,
     })
+
+    this.props.dispatch( setMouseDraggingElement( true ))
   }
 
   onMouseMove( event ) {
-    if( this.state.isDragging == true ) {
-      let svg = document.getElementById( "svg-el" )
-      let point = svg.createSVGPoint()
-
-      // translate the screen point to svg's point, this enable the
-      point.x = event.clientX
-      point.y = event.clientY;
-      point = point.matrixTransform( svg.getScreenCTM().inverse() )
-
-      let tempX = point.x - this.state.draggingStartX
-      let tempY = point.y - this.state.draggingStartY
-      findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-      // this will rerender on drag, you can use this instead of
-      // findDOMNode(this).setAttribute
-      // this.setState({
-      //   moveMeX: tempX ,
-      //   moveMeY: tempY ,
-      // })
-    }
+    // if( this.state.isDragging == true ) {
+    //   let svg = document.getElementById( "svg-el" )
+    //   let point = svg.createSVGPoint()
+    //
+    //   // translate the screen point to svg's point, this enable the
+    //   point.x = event.clientX
+    //   point.y = event.clientY;
+    //   point = point.matrixTransform( svg.getScreenCTM().inverse() )
+    //
+    //   let tempX = point.x - this.state.draggingStartX
+    //   let tempY = point.y - this.state.draggingStartY
+    //   findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+    //   // this will rerender on drag, you can use this instead of
+    //   // findDOMNode(this).setAttribute
+    //   // this.setState({
+    //   //   moveMeX: tempX ,
+    //   //   moveMeY: tempY ,
+    //   // })
+    // }
   }
 
   onTouchStart( event ){
