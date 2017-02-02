@@ -20,7 +20,7 @@ export var initialState = {
     ],
 
     draggingComponent: null,
-    svgScale: 1200,
+    svgScale: 800,
 }
 //
 // dock: [{ type: "deck",  width: 100, height: 100, key:"0",
