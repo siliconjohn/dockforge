@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
-import { addDockComponent, setMouseMoveXY } from 'actions'
+import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
 class DockSVG extends React.Component {
 
@@ -13,6 +13,12 @@ class DockSVG extends React.Component {
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
+    this.onMouseOut = this.onMouseOut.bind( this )
+  }
+
+  onMouseOut( e ) {
+    // turn off mouse dragging when the mouse leaves the svg element
+    this.props.dispatch( setMouseDraggingElement( false ))
   }
 
   onDrop( event ) {
@@ -42,9 +48,7 @@ class DockSVG extends React.Component {
   }
 
   onMouseMove( event ) {
-
    if( this.props.mouseDraggingElement == true ) {
-
       let svgElement = findDOMNode( this )
       let point = svgElement.createSVGPoint()
 
@@ -62,8 +66,8 @@ class DockSVG extends React.Component {
 
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
-       onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
-       viewBox="-400 -400 800 800" className="dock-svg">
+        onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
+        onMouseLeave={ this.onMouseOut } viewBox="-400 -400 800 800" className="dock-svg">
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
           <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>
