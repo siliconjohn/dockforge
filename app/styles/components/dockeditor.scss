@@ -9,36 +9,43 @@
   $dock-component-color: #c0c0c0;
 
   /////////////////////////////////
-  // DockView Component
+  // SVG Parent
   /////////////////////////////////
 
-  .dock-shore-parent {
+  .dock-svg-parent {
     width: $dock-width;
     height: $dock-height;
+    touch-action: none; // this disables touch scrolling
+  }
 
-    .dock-view {
-      position: relative;
-      background-color: $dock-bg-color;
-      width: 100%;
-      height: $dock-height - $shore-height;
+  /////////////////////////////////
+  // Dock SVG
+  /////////////////////////////////
 
-      .dock-component {
-        background-color: $dock-component-color;
-        position: absolute;
-      }
+  .dock-svg {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-      .red {
-        background-color: #f00
-      }
+    .dock-component {
+      background-color: $dock-component-color;
+      position: absolute;
     }
 
-    .shore-view {
-      width: 100%;
-      height: $shore-height;
-      background-color: $dock-grass-color;
-
-
+    .red {
+      background-color: #ff0
     }
+  }
+
+  /////////////////////////////////
+  // ShoreView Component
+  /////////////////////////////////
+
+  .shore-view {
+    width: 100%;
+    height: $shore-height;
+    background-color: $dock-grass-color;
   }
 
   /////////////////////////////////
@@ -62,13 +69,6 @@
           height:100%;
           overflow: scroll;
           padding: 0px 0px 0px 0px;
-
-          svg  {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-          }
         }
       }
     }
