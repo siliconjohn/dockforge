@@ -54,16 +54,6 @@ class DockSVG extends React.Component {
       point = point.matrixTransform( svgElement.getScreenCTM().inverse())
 
       this.props.dispatch( setMouseMoveXY( [ point.x, point.y ]))
-      // let tempX = point.x - this.state.draggingStartX
-      // let tempY = point.y - this.state.draggingStartY
-      //console.log(`translate(${point.x},${point.y})`)
-      //findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-      // this will rerender on drag, you can use this instead of
-      // findDOMNode(this).setAttribute
-      // this.setState({
-      //   moveMeX: tempX ,
-      //   moveMeY: tempY ,
-      // })
     }
   }
 
