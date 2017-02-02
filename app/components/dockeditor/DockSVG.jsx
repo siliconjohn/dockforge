@@ -1,4 +1,5 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
 import { addDockComponent } from 'actions'
@@ -8,9 +9,10 @@ class DockSVG extends React.Component {
   constructor( props ) {
     super( props )
 
-    // bind onDragStart so props can be accessed
+    // bind so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
+    this.onMouseMove = this.onMouseMove.bind( this )
   }
 
   onDrop( event ) {
@@ -39,11 +41,37 @@ class DockSVG extends React.Component {
     event.dataTransfer.dropEffect = "copy"
   }
 
+  onMouseMove( event ) {
+    //if( this.state.isDragging == true ) {
+
+      let svgElement = findDOMNode( this )
+      let point = svgElement.createSVGPoint()
+
+      // translate the screen point to svg's point, this enable the
+      point.x = event.clientX
+      point.y = event.clientY;
+      point = point.matrixTransform( svgElement.getScreenCTM().inverse() )
+      // 
+      // let tempX = point.x - this.state.draggingStartX
+      // let tempY = point.y - this.state.draggingStartY
+      console.log(`translate(${point.x},${point.y})`)
+      //findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+      // this will rerender on drag, you can use this instead of
+      // findDOMNode(this).setAttribute
+      // this.setState({
+      //   moveMeX: tempX ,
+      //   moveMeY: tempY ,
+      // })
+    //}
+  }
+
   render() {
     var { dock } = this.props
+
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
-      onDragOver={ this.onDragOver } viewBox="-400 -400 800 800" className="dock-svg">
+       onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
+       viewBox="-400 -400 800 800" className="dock-svg">
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
           <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>

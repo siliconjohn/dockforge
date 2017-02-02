@@ -31,3 +31,21 @@ export var decrementSvgScale = ( ) => {
     type: DECREMENT_SVG_SCALE
   }
 }
+
+export const SET_MOUSE_MOVE_XY = 'SET_MOUSE_MOVE_XY'
+
+export var setMouseMoveX = ( value ) => {
+  return {
+    type: SET_MOUSE_MOVE_XY,
+    value
+  }
+}
+
+export const SET_MOUSE_DRAGGING_ELEMENT = 'SET_MOUSE_DRAGGING_ELEMENT'
+
+export var setMouseDraggingElement = ( value ) => {
+  return {
+    type: SET_MOUSE_DRAGGING_ELEMENT,
+    value
+  }
+}
