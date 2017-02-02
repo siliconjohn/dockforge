@@ -57,17 +57,20 @@ class DockComponent extends React.Component {
     }
   }
 
+  // TODO: USE THIS LATER FOR ADDING CONNECTED COMPONENTS
   onDragOver( event ) {
-    let data = this.props.draggingComponent
+    event.stopPropagation()
 
-    // just incase
-    if( typeOf( data ) === undefined ) return
-
-    // new component can't be dropped here ( for now )
-    if( data.source == "newComponent") {
-
-      event.stopPropagation()
-    }
+    // let data = this.props.draggingComponent
+    //
+    // // just incase
+    // if( typeOf data  === undefined ) return
+    //
+    // // new component can't be dropped here ( for now )
+    // if( data.source == "newComponent") {
+    //
+    //   event.stopPropagation()
+    // }
   }
 
   onDragLeave( event ) {
@@ -84,7 +87,7 @@ class DockComponent extends React.Component {
   ////////////////////////////////////////////////////////
 
   // moves this component by adding a transform attribute,
-  // this is only used for dragging
+  // this is only to be used for dragging
   doMouseDrag( xy ) {
     let tempX = xy[0] - this.state.draggingStartX
     let tempY = xy[1] - this.state.draggingStartY
@@ -92,26 +95,25 @@ class DockComponent extends React.Component {
   }
 
   componentWillReceiveProps ( nextProps, nextState ) {
-
+    // if mouseDraggingElement changed, turn off drag in this.state, and
+    // update element's transform attr
     if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement ) {
       if( nextProps.mouseDraggingElement == false) {
-      // turn off and reset drag to original position
-      this.setState({
-        isDragging:false,
-        draggingStartX: 0,
-        draggingStartY: 0,
-      })
+        // turn off and reset drag to original position
+        this.setState({
+          isDragging:false,
+          draggingStartX: 0,
+          draggingStartY: 0,
+        })
 
-      // remove transform attr
-      findDOMNode(this).setAttribute('transform',"")
+        // remove transform attr
+        findDOMNode(this).setAttribute('transform',"")
 
-      return true
+        return true
       }
     }
   }
   shouldComponentUpdate( nextProps, nextState ) {
-
-
     // determines if this component should update based on
     // if dragging = true and if the mouseMoveXY changed
     if( nextProps.mouseMoveXY !== this.props.mouseMoveXY ) {
@@ -119,10 +121,7 @@ class DockComponent extends React.Component {
         this.doMouseDrag( nextProps.mouseMoveXY )
       }
       return false
-    } else {
-      return true
     }
-
     return true
   }
 
@@ -130,7 +129,9 @@ class DockComponent extends React.Component {
     // turn off isDragging
     if( this.state.isDragging == true ) {
       this.setState({
-        isDragging: false
+        isDragging: false,
+        draggingStartX: 0,
+        draggingStartY: 0,
       })
       this.props.dispatch( setMouseDraggingElement( false ))
     }
