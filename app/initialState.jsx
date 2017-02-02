@@ -21,8 +21,11 @@ export var initialState = {
 
     draggingComponent: null,
     svgScale: 800,
+
+    mouseMoveXY: [0,0],
+    mouseDraggingElement: true,
 }
-//
+
 // dock: [{ type: "deck",  width: 100, height: 100, key:"0",
 //         children:[
 //           { type: "deck", width: 100, height: 100, connectParent:'left',  children:[]},

@@ -46,10 +46,30 @@ export var updateSvgScale = ( state = 800, action ) => {
   return state
 }
 
+export var setMouseMoveXY = ( state = [0,0], action ) => {
+
+  if ( action.type == actions.SET_MOUSE_MOVE_XY ) {
+    return action.value
+  } else {
+    return state
+  }
+}
+
+export var setMouseDraggingElement = ( state = false, action ) => {
+
+  if ( action.type == actions.SET_MOUSE_DRAGGING_ELEMENT ) {
+    return action.value
+  } else {
+    return state
+  }
+}
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
   draggingComponent: setDraggingComponent,
   svgScale: updateSvgScale,
+  mouseMoveXY: setMouseMoveXY,
+  mouseDraggingElement: setMouseDraggingElement,
   components: ( state = {} ) => state
 })

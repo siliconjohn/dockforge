@@ -1,6 +1,7 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
+import { setMouseDraggingElement } from 'actions'
 
 class DockComponent extends React.Component {
 
@@ -9,12 +10,9 @@ class DockComponent extends React.Component {
 
     this.state = {
       isDraggingOver: false,
-
       isDragging: false,
       draggingStartX: 0,
       draggingStartY: 0,
-      moveMeX:0,
-      moveMeY:0,
     }
 
     // bind so props can be accessed
@@ -22,14 +20,13 @@ class DockComponent extends React.Component {
     this.onDragOver = this.onDragOver.bind( this )
     this.onDragLeave = this.onDragLeave.bind( this )
     this.onDragEnter = this.onDragEnter.bind( this )
-    this.onMouseOut = this.onMouseOut.bind( this )
     this.onMouseDown = this.onMouseDown.bind( this )
-    this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseUp = this.onMouseUp.bind( this )
     this.onTouchStart = this.onTouchStart.bind( this )
     this.onTouchEnd = this.onTouchEnd.bind( this )
     this.onTouchMove = this.onTouchMove.bind( this )
     this.onTouchCancel = this.onTouchCancel.bind( this )
+    this.doMouseDrag = this.doMouseDrag.bind( this )
   }
 
   ////////////////////////////////////////////////////////
@@ -60,14 +57,20 @@ class DockComponent extends React.Component {
     }
   }
 
+  // TODO: USE THIS LATER FOR ADDING CONNECTED COMPONENTS
   onDragOver( event ) {
-    let data = this.props.draggingComponent
+    event.stopPropagation()
 
-    // new component can't be dropped here ( for now )
-    if( data.source == "newComponent") {
-
-      event.stopPropagation()
-    }
+    // let data = this.props.draggingComponent
+    //
+    // // just incase
+    // if( typeOf data  === undefined ) return
+    //
+    // // new component can't be dropped here ( for now )
+    // if( data.source == "newComponent") {
+    //
+    //   event.stopPropagation()
+    // }
   }
 
   onDragLeave( event ) {
@@ -83,61 +86,77 @@ class DockComponent extends React.Component {
   // svg element
   ////////////////////////////////////////////////////////
 
-  onMouseUp( event ) {
-    if( this.state.isDragging == true ) {
-      this.setState({
-        isDragging: false
-      })
-    }
+  // moves this component by adding a transform attribute,
+  // this is only to be used for dragging
+  doMouseDrag( xy ) {
+    let tempX = xy[0] - this.state.draggingStartX
+    let tempY = xy[1] - this.state.draggingStartY
+    findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
   }
 
-  onMouseOut( event ) {
+  componentWillReceiveProps ( nextProps, nextState ) {
+    // if mouseDraggingElement changed, turn off drag in this.state, and
+    // update element's transform attr
+    if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement ) {
+      if( nextProps.mouseDraggingElement == false) {
+        // turn off and reset drag to original position
+        this.setState({
+          isDragging:false,
+          draggingStartX: 0,
+          draggingStartY: 0,
+        })
+
+        // remove transform attr
+        findDOMNode(this).setAttribute('transform',"")
+
+        return true
+      }
+    }
+  }
+  shouldComponentUpdate( nextProps, nextState ) {
+    // determines if this component should update based on
+    // if dragging = true and if the mouseMoveXY changed
+    if( nextProps.mouseMoveXY !== this.props.mouseMoveXY ) {
+      if( this.state.isDragging == true ) {
+        this.doMouseDrag( nextProps.mouseMoveXY )
+      }
+      return false
+    }
+    return true
+  }
+
+  onMouseUp( event ) {
+    // turn off isDragging
     if( this.state.isDragging == true ) {
       this.setState({
-        isDragging: false
+        isDragging: false,
+        draggingStartX: 0,
+        draggingStartY: 0,
       })
+      this.props.dispatch( setMouseDraggingElement( false ))
     }
   }
 
   onMouseDown( event ) {
-    let svg = document.getElementById( "svg-el" )
-    let point = svg.createSVGPoint()
-
-    // translate the screen point to svg's point, this enable the
-    // svg to be scaled to any size and the drag will still work
-    // accurately
-    point.x = event.clientX
-    point.y = event.clientY;
-    point = point.matrixTransform( svg.getScreenCTM().inverse() )
-
-    this.setState({
-      isDragging: true,
-      draggingStartX: point.x,
-      draggingStartY: point.y,
-      moveMeX: 0,
-      moveMeY: 0,
-    })
-  }
-
-  onMouseMove( event ) {
-    if( this.state.isDragging == true ) {
+    // turn on isDragging
+    if( this.state.isDragging == false ) {
       let svg = document.getElementById( "svg-el" )
       let point = svg.createSVGPoint()
 
       // translate the screen point to svg's point, this enable the
+      // svg to be scaled to any size and the drag will still work
+      // accurately
       point.x = event.clientX
       point.y = event.clientY;
       point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
-      let tempX = point.x - this.state.draggingStartX
-      let tempY = point.y - this.state.draggingStartY
-      findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-      // this will rerender on drag, you can use this instead of
-      // findDOMNode(this).setAttribute
-      // this.setState({
-      //   moveMeX: tempX ,
-      //   moveMeY: tempY ,
-      // })
+      this.setState({
+        isDragging: true,
+        draggingStartX: point.x,
+        draggingStartY: point.y,
+      })
+
+      this.props.dispatch( setMouseDraggingElement( true ))
     }
   }
 
@@ -156,8 +175,6 @@ class DockComponent extends React.Component {
       isDragging: true,
       draggingStartX: point.x,
       draggingStartY: point.y,
-      moveMeX: 0,
-      moveMeY: 0,
     });
   }
 
@@ -193,32 +210,22 @@ class DockComponent extends React.Component {
       // let tempY = point.y - this.state.draggingStartY
       // findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
       // // this will rerender on drag, you can use this instead of
-      // findDOMNode(this).setAttribute
-      // this.setState({
-      //   moveMeX: tempX ,
-      //   moveMeY: tempY ,
-      // })
-      //  }
+
   }
 
   render() {
     let { left, bottom, width, height, draggingComponent } = this.props
-    let { isDragging, isDraggingOver, moveMeX, moveMeY } = this.state
+    let { isDragging, isDraggingOver } = this.state
 
     let noDragClass = ''
     if( isDraggingOver == true ) {
       noDragClass = ' red'
     }
 
-    let translate
-    if( isDragging == true ) {
-      translate = `translate(${moveMeX},${moveMeY})`
-    }
-
     return (
-      <g transform={ translate }>
-        <rect onMouseMove= { this.onMouseMove } onMouseDown={ this.onMouseDown }
-          onMouseUp={ this.onMouseUp } onMouseOut={ this.onMouseOut }
+      <g>
+        <rect onMouseDown={ this.onMouseDown }
+          onMouseUp={ this.onMouseUp }
           onTouchStart={ this.onTouchStart } onTouchEnd={ this.onTouchEnd }
           onTouchMove={ this.onTouchMove } onTouchCancel={ this.onTouchCancel }
           className={`dock-component${noDragClass}`} onDrop={ this.onDrop }
@@ -241,6 +248,8 @@ DockComponent.propTypes = {
 
 export default connect (( state ) => {
   return {
-    draggingComponent: state.draggingComponent
+    draggingComponent: state.draggingComponent,
+    mouseDraggingElement: state.mouseDraggingElement,
+    mouseMoveXY: state.mouseMoveXY,
   }
 })( DockComponent )

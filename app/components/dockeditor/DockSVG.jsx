@@ -1,16 +1,24 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
-import { addDockComponent } from 'actions'
+import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
 class DockSVG extends React.Component {
 
   constructor( props ) {
     super( props )
 
-    // bind onDragStart so props can be accessed
+    // bind so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
+    this.onMouseMove = this.onMouseMove.bind( this )
+    this.onMouseOut = this.onMouseOut.bind( this )
+  }
+
+  onMouseOut( e ) {
+    // turn off mouse dragging when the mouse leaves the svg element
+    this.props.dispatch( setMouseDraggingElement( false ))
   }
 
   onDrop( event ) {
@@ -39,11 +47,27 @@ class DockSVG extends React.Component {
     event.dataTransfer.dropEffect = "copy"
   }
 
+  onMouseMove( event ) {
+   if( this.props.mouseDraggingElement == true ) {
+      let svgElement = findDOMNode( this )
+      let point = svgElement.createSVGPoint()
+
+      // translate the screen point to svg's point
+      point.x = event.clientX
+      point.y = event.clientY;
+      point = point.matrixTransform( svgElement.getScreenCTM().inverse())
+
+      this.props.dispatch( setMouseMoveXY( [ point.x, point.y ]))
+    }
+  }
+
   render() {
     var { dock } = this.props
+
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
-      onDragOver={ this.onDragOver } viewBox="-400 -400 800 800" className="dock-svg">
+        onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
+        onMouseLeave={ this.onMouseOut } viewBox="-400 -400 800 800" className="dock-svg">
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
           <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>
@@ -69,6 +93,7 @@ export default connect (( state ) => {
   return {
     dock: state.dock,
     components: state.components,
-    draggingComponent: state.draggingComponent
+    draggingComponent: state.draggingComponent,
+    mouseDraggingElement: state.mouseDraggingElement,
   }
 })( DockSVG )
