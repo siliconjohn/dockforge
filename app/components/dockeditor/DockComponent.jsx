@@ -134,7 +134,7 @@ class DockComponent extends React.Component {
         draggingStartY: 0,
       })
       this.props.dispatch( setMouseDraggingElement( false ))
-    }
+    } 
   }
 
   onMouseDown( event ) {

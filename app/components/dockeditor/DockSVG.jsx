@@ -14,6 +14,7 @@ class DockSVG extends React.Component {
     this.onDragOver = this.onDragOver.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseOut = this.onMouseOut.bind( this )
+    this.onMouseUp = this.onMouseUp.bind( this )
   }
 
   onMouseOut( e ) {
@@ -48,7 +49,7 @@ class DockSVG extends React.Component {
   }
 
   onMouseMove( event ) {
-   if( this.props.mouseDraggingElement == true ) {
+    if( this.props.mouseDraggingElement == true ) {
       let svgElement = findDOMNode( this )
       let point = svgElement.createSVGPoint()
 
@@ -61,12 +62,17 @@ class DockSVG extends React.Component {
     }
   }
 
+  onMouseUp( event ) { 
+    this.props.dispatch( setMouseDraggingElement( false ))
+  }
+
   render() {
     var { dock } = this.props
 
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
         onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
+        onMouseUp={ this.onMouseUp }
         onMouseLeave={ this.onMouseOut } viewBox="-400 -400 800 800" className="dock-svg">
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
