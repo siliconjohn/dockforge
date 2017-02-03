@@ -24,7 +24,7 @@ export var setDraggingComponent = ( state = null, action ) => {
 export var updateSvgScale = ( state = 800, action ) => {
 
   if ( action.type == actions.INCREMENT_SVG_SCALE ) {
-    let temp = state + 100
+    let temp = state + 25
 
     if( temp < 3000 ) {
       return temp
@@ -34,7 +34,7 @@ export var updateSvgScale = ( state = 800, action ) => {
   }
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let temp = state - 100
+    let temp = state - 25
 
     if( temp > 400 ) {
       return temp
