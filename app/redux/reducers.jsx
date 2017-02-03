@@ -64,6 +64,19 @@ export var setMouseDraggingElement = ( state = false, action ) => {
   }
 }
 
+export var changeRotation = ( state  = 0, action ) => {
+
+  if ( action.type == actions.CHANGE_ROTATION ) {
+    let newState = state + 90
+    if( newState > 270 ) {
+      newState = 0
+    }
+    return newState
+  } else {
+    return state
+  }
+}
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
@@ -71,5 +84,6 @@ export const appReducers = combineReducers({
   svgScale: updateSvgScale,
   mouseMoveXY: setMouseMoveXY,
   mouseDraggingElement: setMouseDraggingElement,
+  rotation: changeRotation,
   components: ( state = {} ) => state
 })

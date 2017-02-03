@@ -49,3 +49,11 @@ export var setMouseDraggingElement = ( value ) => {
     value
   }
 }
+
+export const CHANGE_ROTATION = 'CHANGE_ROTATION'
+
+export var changeRotation = () => {
+  return {
+    type: CHANGE_ROTATION
+  }
+}

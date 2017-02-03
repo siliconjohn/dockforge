@@ -34,10 +34,37 @@ class DockSVG extends React.Component {
     point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
     let data = this.props.draggingComponent
+    let rotate = this.props.rotation
+    let x = 0
+    let y = 0
+    let multX = 1
+    let multY = 1
+    switch( rotate ) {
+      case 90:
+        multX = -1
+        multY = 1
+        y = point.x * multX - data.length
+        x = point.y * multY
+        break
+      case 180:
+        multX = -1
+        multY = -1
+        x = point.x * multX - data.width
+        y = point.y * multY - data.length
+        break
+      case 270:
+        multX = 1
+        multY = -1
+        y = point.x * multX
+        x = point.y * multY - data.width
+        break
+      default:
+        x = point.x
+        y = point.y
+    }
 
     // create the component
-    var newComponent = { type: data.type, left:point.x,
-      bottom:  point.y ,
+    var newComponent = { type: data.type, left: x, bottom: y,
       width: data.width, height:data.length }
 
     // dispatch event adding new component
@@ -81,7 +108,9 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    var { dock } = this.props
+    var { dock, rotation } = this.props
+
+    let transform = `rotate( ${rotation} )`
 
     return (
       <svg xmlns="http://www.w3.org/2000/svg"
@@ -93,18 +122,19 @@ class DockSVG extends React.Component {
         onMouseMove = { this.onMouseMove }
         onMouseUp = { this.onMouseUp }
         onMouseLeave = { this.onMouseOut }>
-        <g>
-          <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
-          <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>
-          <line x1="0" y1="-400" x2="0" y2="400" strokeWidth="1" stroke="darkblue"/>
+        <g transform={ transform }>
+          <g>
+            <rect  x="-400" y="-400" width="100%" height="100%" stroke="#5bc0de" strokeWidth="0" fill="#d5f5ff"/>
+            <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="#CCC"/>
+            <line x1="0" y1="-400" x2="0" y2="400" strokeWidth="1" stroke="#CCC"/>
+          </g>
+          {
+            dock.map(( item, index ) => {
+              return <DockComponent { ...item } key={ index }/>
+            })
+          }
         </g>
-        {
-          dock.map(( item, index ) => {
-            return <DockComponent { ...item } key={ index }/>
-          })
-        }
       </svg>
-
     )
   }
 }
@@ -120,5 +150,6 @@ export default connect (( state ) => {
     components: state.components,
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
+    rotation: state.rotation,
   }
 })( DockSVG )

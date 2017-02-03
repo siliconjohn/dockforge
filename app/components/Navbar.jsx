@@ -1,5 +1,5 @@
 import React from 'react'
-import ScaleButtons from 'ScaleButtons'
+import ToolbarButtons from 'ToolbarButtons'
 
 class Navbar extends React.Component {
 
@@ -11,7 +11,7 @@ class Navbar extends React.Component {
             <a className="navbar-brand" href="#">
              Dock Tool
             </a>
-            <ScaleButtons/>           
+            <ToolbarButtons/>
           </div>
         </div>
       </nav>

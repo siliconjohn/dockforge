@@ -121,9 +121,38 @@ class DockComponent extends React.Component {
   // moves this component by adding a transform attribute,
   // this is only to be used for dragging
   performMouseDrag( xy ) {
-    let tempX = xy[0] - this.state.draggingStartX
-    let tempY = xy[1] - this.state.draggingStartY
-    findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
+    let rotate = this.props.rotation
+    let { draggingStartX, draggingStartY } = this.state
+    let x = 0
+    let y = 0
+    let multX = 1
+    let multY = 1
+
+    switch( rotate ) {
+      case 90:
+        multX = -1
+        multY = 1
+        y = xy[0] * multX - draggingStartX * multX
+        x = xy[1] * multY - draggingStartY * multY
+        break
+      case 180:
+        multX = -1
+        multY = -1
+        x = xy[0] * multX - draggingStartX * multX
+        y = xy[1] * multY - draggingStartY * multY
+        break
+      case 270:
+        multX = 1
+        multY = -1
+        y = xy[0] * multX - draggingStartX * multX
+        x = xy[1] * multY - draggingStartY * multY
+        break
+      default:
+        x = xy[0] - draggingStartX
+        y = xy[1] - draggingStartY
+    }
+
+    findDOMNode( this ).setAttribute( 'transform',`translate(${x},${y})` )
   }
 
   onMouseUp( event ) {
@@ -259,5 +288,6 @@ export default connect (( state ) => {
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
+    rotation: state.rotation,
   }
 })( DockComponent )
