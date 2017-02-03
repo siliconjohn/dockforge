@@ -8,10 +8,10 @@ import AppContainer from 'AppContainer'
 
 require('style!css!sass!applicationStyles')
 
-const newStore = createStore( initialState )
+export const store = createStore( initialState )
 
 ReactDOM.render(
-  <Provider store={ newStore }>
+  <Provider store={ store }>
     <Router history={ hashHistory }>
        <Route path="/" component={ AppContainer }>
        </Route>
