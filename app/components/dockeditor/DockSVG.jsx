@@ -9,7 +9,7 @@ class DockSVG extends React.Component {
   constructor( props ) {
     super( props )
 
-    // bind so props can be accessed
+    // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
@@ -17,10 +17,11 @@ class DockSVG extends React.Component {
     this.onMouseUp = this.onMouseUp.bind( this )
   }
 
-  onMouseOut( e ) {
-    // turn off mouse dragging when the mouse leaves the svg element
-    this.props.dispatch( setMouseDraggingElement( false ))
-  }
+  ////////////////////////////////////////////////////////
+  // these are for the html 5 drag and drop functionality
+  // which is used to drop NEW componets from outside the
+  // main svg element
+  ////////////////////////////////////////////////////////
 
   onDrop( event ) {
     event.preventDefault()
@@ -62,18 +63,36 @@ class DockSVG extends React.Component {
     }
   }
 
-  onMouseUp( event ) { 
+  ////////////////////////////////////////////////////////
+  // these are for the draging this components within the
+  // svg element
+  ////////////////////////////////////////////////////////
+
+  onMouseOut( e ) {
+    // turn off mouse dragging when the mouse leaves the svg element
     this.props.dispatch( setMouseDraggingElement( false ))
   }
+
+  onMouseUp( event ) {
+    this.props.dispatch( setMouseDraggingElement( false ))
+  }
+
+  ////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////
 
   render() {
     var { dock } = this.props
 
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" onDrop={ this.onDrop }
-        onDragOver={ this.onDragOver }  onMouseMove= { this.onMouseMove }
-        onMouseUp={ this.onMouseUp }
-        onMouseLeave={ this.onMouseOut } viewBox="-400 -400 800 800" className="dock-svg">
+      <svg xmlns="http://www.w3.org/2000/svg"
+        id="svg-el"
+        className="dock-svg"
+        viewBox ="-400 -400 800 800"
+        onDrop = { this.onDrop }
+        onDragOver = { this.onDragOver }
+        onMouseMove = { this.onMouseMove }
+        onMouseUp = { this.onMouseUp }
+        onMouseLeave = { this.onMouseOut }>
         <g>
           <rect  x="-400" y="-400" width="100%" height="100%" stroke="darkblue" strokeWidth="1"  fill="lightgray"/>
           <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="darkblue"/>

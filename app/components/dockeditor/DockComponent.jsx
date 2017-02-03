@@ -15,7 +15,7 @@ class DockComponent extends React.Component {
       draggingStartY: 0,
     }
 
-    // bind so props can be accessed
+    // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
     this.onDragLeave = this.onDragLeave.bind( this )
@@ -26,7 +26,39 @@ class DockComponent extends React.Component {
     this.onTouchEnd = this.onTouchEnd.bind( this )
     this.onTouchMove = this.onTouchMove.bind( this )
     this.onTouchCancel = this.onTouchCancel.bind( this )
-    this.doMouseDrag = this.doMouseDrag.bind( this )
+    this.performMouseDrag = this.performMouseDrag.bind( this )
+  }
+
+  shouldComponentUpdate( nextProps, nextState ) {
+    // determines if this component should update based on
+    // if dragging = true and if the mouseMoveXY changed
+    if( nextProps.mouseMoveXY !== this.props.mouseMoveXY ) {
+      if( this.state.isDragging == true ) {
+        this.performMouseDrag( nextProps.mouseMoveXY )
+      }
+      return false
+    }
+    return true
+  }
+
+  componentWillReceiveProps ( nextProps, nextState ) {
+    // if mouseDraggingElement changed, turn off drag in this.state, and
+    // update element's transform attr
+    if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement ) {
+      if( nextProps.mouseDraggingElement == false) {
+        // turn off and reset drag to original position
+        this.setState({
+          isDragging:false,
+          draggingStartX: 0,
+          draggingStartY: 0,
+        })
+
+        // remove transform attr
+        findDOMNode(this).setAttribute('transform',"")
+
+        return true
+      }
+    }
   }
 
   ////////////////////////////////////////////////////////
@@ -57,7 +89,7 @@ class DockComponent extends React.Component {
     }
   }
 
-  // TODO: USE THIS LATER FOR ADDING CONNECTED COMPONENTS
+  //USE THIS LATER FOR ADDING CONNECTED COMPONENTS
   onDragOver( event ) {
     event.stopPropagation()
 
@@ -82,47 +114,16 @@ class DockComponent extends React.Component {
   }
 
   ////////////////////////////////////////////////////////
-  // these are for the draging this componant within the
+  // these are for the draging this components within the
   // svg element
   ////////////////////////////////////////////////////////
 
   // moves this component by adding a transform attribute,
   // this is only to be used for dragging
-  doMouseDrag( xy ) {
+  performMouseDrag( xy ) {
     let tempX = xy[0] - this.state.draggingStartX
     let tempY = xy[1] - this.state.draggingStartY
     findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-  }
-
-  componentWillReceiveProps ( nextProps, nextState ) {
-    // if mouseDraggingElement changed, turn off drag in this.state, and
-    // update element's transform attr
-    if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement ) {
-      if( nextProps.mouseDraggingElement == false) {
-        // turn off and reset drag to original position
-        this.setState({
-          isDragging:false,
-          draggingStartX: 0,
-          draggingStartY: 0,
-        })
-
-        // remove transform attr
-        findDOMNode(this).setAttribute('transform',"")
-
-        return true
-      }
-    }
-  }
-  shouldComponentUpdate( nextProps, nextState ) {
-    // determines if this component should update based on
-    // if dragging = true and if the mouseMoveXY changed
-    if( nextProps.mouseMoveXY !== this.props.mouseMoveXY ) {
-      if( this.state.isDragging == true ) {
-        this.doMouseDrag( nextProps.mouseMoveXY )
-      }
-      return false
-    }
-    return true
   }
 
   onMouseUp( event ) {
@@ -134,7 +135,7 @@ class DockComponent extends React.Component {
         draggingStartY: 0,
       })
       this.props.dispatch( setMouseDraggingElement( false ))
-    } 
+    }
   }
 
   onMouseDown( event ) {
@@ -213,6 +214,8 @@ class DockComponent extends React.Component {
 
   }
 
+  ////////////////////////////////////////////////////////
+
   render() {
     let { left, bottom, width, height, draggingComponent } = this.props
     let { isDragging, isDraggingOver } = this.state
@@ -224,15 +227,20 @@ class DockComponent extends React.Component {
 
     return (
       <g>
-        <rect onMouseDown={ this.onMouseDown }
+        <rect className={`dock-component${noDragClass}`}
+          onMouseDown={ this.onMouseDown }
           onMouseUp={ this.onMouseUp }
-          onTouchStart={ this.onTouchStart } onTouchEnd={ this.onTouchEnd }
-          onTouchMove={ this.onTouchMove } onTouchCancel={ this.onTouchCancel }
-          className={`dock-component${noDragClass}`} onDrop={ this.onDrop }
-          onDragOver={ this.onDragOver } onDragLeave={ this.onDragLeave }
+          onTouchStart={ this.onTouchStart }
+          onTouchEnd={ this.onTouchEnd }
+          onTouchMove={ this.onTouchMove }
+          onTouchCancel={ this.onTouchCancel }
+          onDrop={ this.onDrop }
+          onDragOver={ this.onDragOver }
+          onDragLeave={ this.onDragLeave }
           onDragEnter={ this.onDragEnter }
+          stroke="darkblue" strokeWidth="1"  fill="red"
           x={ left } y={ bottom } width={ width } height= { height }
-          stroke="darkblue" strokeWidth="1"  fill="red"/>
+          />
       </g>
     )
   }
