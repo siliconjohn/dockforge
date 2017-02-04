@@ -2,6 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
+import ShoreLine from 'ShoreLine'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
 class DockSVG extends React.Component {
@@ -115,7 +116,7 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    var { dock, svgRotation, svgWidth, svgHeight } = this.props
+    var { dock, svgRotation, svgWidth, svgHeight, svgShorelineHeight } = this.props
 
     // setup transoform string for the svgRotation
     let transform = `rotate(${svgRotation})`
@@ -137,16 +138,27 @@ class DockSVG extends React.Component {
     //////////////////////////////////////////
 
     let x = halfWidthNeg
-    let y = halfHeightNeg
+    let y = ( height - svgShorelineHeight ) * -1
     let w = width
     let h = height
 
     // adjust for the svgRotation
     if ( svgRotation == 90 || svgRotation == 270 ) {
-      x = halfHeightNeg
       y = halfWidthNeg
       w = height
       h = width
+
+      // adjust for shoreline
+      if( svgRotation == 90 ) {
+        x = 0 - svgShorelineHeight
+      } else {
+        x = ( height * -1 ) + svgShorelineHeight
+      }
+    }
+
+    // adjust for shoreline
+    if( svgRotation == 180 ) {
+      y = svgShorelineHeight * -1
     }
 
     let viewBox = `${x} ${y} ${w} ${h}`
@@ -159,8 +171,9 @@ class DockSVG extends React.Component {
         onMouseMove={ this.onMouseMove } onMouseUp={ this.onMouseUp } onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g>
-            <rect x={ halfWidthNeg  } y={ halfHeightNeg } width={ width } height={ height } stroke="#5bc0de"
+            <rect x={ halfWidthNeg  } y={ height * -1 } width={ width } height={ height } stroke="#5bc0de"
                strokeWidth="0" fill="#d5f5ff"/>
+            <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
             <line x1={ halfWidth } y1="0" x2={ halfWidthNeg } y2="0" strokeWidth="1" stroke="#CCC"/>
             <line x1="0" y1={ halfHeight } x2="0" y2={ halfHeightNeg } strokeWidth="1" stroke="#CCC"/>
           </g>
@@ -189,5 +202,6 @@ export default connect (( state ) => {
     svgRotation: state.svgRotation,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
+    svgShorelineHeight: state.svgShorelineHeight,
   }
 })( DockSVG )

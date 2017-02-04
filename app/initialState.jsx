@@ -24,7 +24,7 @@ export var initialState = {
     svgScale: 1.0,
     svgWidth: 1000,
     svgHeight: 600,
-
+    svgShorelineHeight: 75,
     svgRotation: 0,
 
     mouseMoveXY: [0,0],

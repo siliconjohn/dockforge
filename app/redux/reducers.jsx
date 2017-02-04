@@ -87,5 +87,6 @@ export const appReducers = combineReducers({
   svgRotation: changeSvgRotation,
   svgWidth: (state = {}) => state,
   svgHeight: (state = {}) => state,
+  svgShorelineHeight: (state = {}) => state,
   components: ( state = {} ) => state
 })
