@@ -121,12 +121,16 @@ class DockComponent extends React.Component {
   // moves this component by adding a transform attribute,
   // this is only to be used for dragging
   performMouseDrag( xy ) {
-    let rotate = this.props.rotation
+    let rotate = this.props.svgRotation
     let { draggingStartX, draggingStartY } = this.state
     let x = 0
     let y = 0
     let multX = 1
     let multY = 1
+
+    ////////////////////////////////////////////
+    // adjust the point to accomadate svgRotation
+    ////////////////////////////////////////////
 
     switch( rotate ) {
       case 90:
@@ -288,6 +292,6 @@ export default connect (( state ) => {
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
-    rotation: state.rotation,
+    svgRotation: state.svgRotation,
   }
 })( DockComponent )

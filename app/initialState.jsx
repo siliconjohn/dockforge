@@ -1,7 +1,7 @@
 export var initialState = {
      dock: [
-            { type: "BOX", left:0, bottom:0, width: 100, height: 100 },
-            { type: "RECTANGLE", left:200, bottom:100, width: 200, height: 100 },
+            { type: "BOX", left:0, bottom:-100, width: 100, height: 100 },
+            { type: "RECTANGLE", left:200, bottom:-200, width: 200, height: 100 },
            ],
 
    derived: [
@@ -20,8 +20,13 @@ export var initialState = {
     ],
 
     draggingComponent: null,
-    svgScale: 600,
-    rotation: 0,
+
+    svgScale: 1.0,
+    svgWidth: 1000,
+    svgHeight: 600,
+
+    svgRotation: 0,
+
     mouseMoveXY: [0,0],
     mouseDraggingElement: true,
 

@@ -50,10 +50,10 @@ export var setMouseDraggingElement = ( value ) => {
   }
 }
 
-export const CHANGE_ROTATION = 'CHANGE_ROTATION'
+export const CHANGE_svgRotation = 'CHANGE_svgRotation'
 
-export var changeRotation = () => {
+export var changeSvgRotation = () => {
   return {
-    type: CHANGE_ROTATION
+    type: CHANGE_svgRotation
   }
 }

@@ -25,6 +25,7 @@ class DockSVG extends React.Component {
 
   onDrop( event ) {
     event.preventDefault()
+
     let svg = document.getElementById( "svg-el" )
     let point = svg.createSVGPoint()
 
@@ -33,12 +34,17 @@ class DockSVG extends React.Component {
     point.y = event.clientY;
     point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
+    ////////////////////////////////////////////
+    // adjust the point to accomadate svgRotation
+    ////////////////////////////////////////////
+
     let data = this.props.draggingComponent
-    let rotate = this.props.rotation
+    let rotate = this.props.svgRotation
     let x = 0
     let y = 0
     let multX = 1
     let multY = 1
+
     switch( rotate ) {
       case 90:
         multX = -1
@@ -73,6 +79,7 @@ class DockSVG extends React.Component {
 
   onDragOver( event ) {
     event.preventDefault()
+
     event.dataTransfer.dropEffect = "copy"
   }
 
@@ -108,25 +115,54 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    var { dock, rotation } = this.props
+    var { dock, svgRotation, svgWidth, svgHeight } = this.props
 
-    let transform = `rotate( ${rotation} )`
+    // setup transoform string for the svgRotation
+    let transform = `rotate(${svgRotation})`
+
+    //////////////////////////////////////////
+    // setup vars for the svg size
+    //////////////////////////////////////////
+
+    let width = svgWidth
+    let height = svgHeight
+    let halfWidth =  width / 2
+    let halfHeight =  height / 2
+    let halfWidthNeg =  halfWidth * -1
+    let halfHeightNeg =  halfHeight * -1
+
+    //////////////////////////////////////////
+    // create string for viewbox, it changes
+    // based on the svgRotation
+    //////////////////////////////////////////
+
+    let x = halfWidthNeg
+    let y = halfHeightNeg
+    let w = width
+    let h = height
+
+    // adjust for the svgRotation
+    if ( svgRotation == 90 || svgRotation == 270 ) {
+      x = halfHeightNeg
+      y = halfWidthNeg
+      w = height
+      h = width
+    }
+
+    let viewBox = `${x} ${y} ${w} ${h}`
+
+    //////////////////////////////////////////
 
     return (
-      <svg xmlns="http://www.w3.org/2000/svg"
-        id="svg-el"
-        className="dock-svg"
-        viewBox ="-400 -400 800 800"
-        onDrop = { this.onDrop }
-        onDragOver = { this.onDragOver }
-        onMouseMove = { this.onMouseMove }
-        onMouseUp = { this.onMouseUp }
-        onMouseLeave = { this.onMouseOut }>
+      <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" className="dock-svg"
+        viewBox={ viewBox } onDrop={ this.onDrop } onDragOver={ this.onDragOver }
+        onMouseMove={ this.onMouseMove } onMouseUp={ this.onMouseUp } onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g>
-            <rect  x="-400" y="-400" width="100%" height="100%" stroke="#5bc0de" strokeWidth="0" fill="#d5f5ff"/>
-            <line x1="-400" y1="0" x2="400" y2="0" strokeWidth="1" stroke="#CCC"/>
-            <line x1="0" y1="-400" x2="0" y2="400" strokeWidth="1" stroke="#CCC"/>
+            <rect x={ halfWidthNeg  } y={ halfHeightNeg } width={ width } height={ height } stroke="#5bc0de"
+               strokeWidth="0" fill="#d5f5ff"/>
+            <line x1={ halfWidth } y1="0" x2={ halfWidthNeg } y2="0" strokeWidth="1" stroke="#CCC"/>
+            <line x1="0" y1={ halfHeight } x2="0" y2={ halfHeightNeg } strokeWidth="1" stroke="#CCC"/>
           </g>
           {
             dock.map(( item, index ) => {
@@ -150,6 +186,8 @@ export default connect (( state ) => {
     components: state.components,
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
-    rotation: state.rotation,
+    svgRotation: state.svgRotation,
+    svgWidth: state.svgWidth,
+    svgHeight: state.svgHeight,
   }
 })( DockSVG )

@@ -21,12 +21,12 @@ export var setDraggingComponent = ( state = null, action ) => {
   }
 }
 
-export var updateSvgScale = ( state = 800, action ) => {
+export var updateSvgScale = ( state = 1.0, action ) => {
 
   if ( action.type == actions.INCREMENT_SVG_SCALE ) {
-    let temp = state + 25
+    let temp = state + 0.10
 
-    if( temp < 3000 ) {
+    if( temp < 300 ) {
       return temp
     } else {
       return state
@@ -34,9 +34,9 @@ export var updateSvgScale = ( state = 800, action ) => {
   }
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let temp = state - 25
+    let temp = state - 0.10
 
-    if( temp > 400 ) {
+    if( temp > 0.20 ) {
       return temp
     } else {
       return state
@@ -64,9 +64,9 @@ export var setMouseDraggingElement = ( state = false, action ) => {
   }
 }
 
-export var changeRotation = ( state  = 0, action ) => {
+export var changeSvgRotation = ( state  = 0, action ) => {
 
-  if ( action.type == actions.CHANGE_ROTATION ) {
+  if ( action.type == actions.CHANGE_svgRotation ) {
     let newState = state + 90
     if( newState > 270 ) {
       newState = 0
@@ -84,6 +84,8 @@ export const appReducers = combineReducers({
   svgScale: updateSvgScale,
   mouseMoveXY: setMouseMoveXY,
   mouseDraggingElement: setMouseDraggingElement,
-  rotation: changeRotation,
+  svgRotation: changeSvgRotation,
+  svgWidth: (state = {}) => state,
+  svgHeight: (state = {}) => state,
   components: ( state = {} ) => state
 })
