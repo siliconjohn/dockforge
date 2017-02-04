@@ -5,6 +5,7 @@ import DockComponent from 'DockComponent'
 import ShoreLine from 'ShoreLine'
 import Water from 'Water'
 import Cross from 'Cross'
+import Grid from 'Grid'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
 class DockSVG extends React.Component {
@@ -175,6 +176,7 @@ class DockSVG extends React.Component {
           <g className="background">
             <Water x={ halfWidthNeg } y={ height * -1 } width={ width } height={ height }/>
             <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
+            <Grid halfWidth={ halfWidth } height={ height - svgShorelineHeight }/>
             <Cross halfWidth={ halfWidth } halfHeight={ halfHeight }
              shoreLineHeight={ svgShorelineHeight } height={ height - svgShorelineHeight }/>
           </g>

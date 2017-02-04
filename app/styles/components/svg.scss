@@ -3,8 +3,11 @@
 /////////////////////////////////
 
 $water-color: #d5f5ff;
-$shoreline-color: #caffcd;
+$shoreline-color: #d8ffda;
 $dock-component-color: #c0c0c0;
+$cross-color: #333;
+$grid-color: #c2e2ec;
+$grid-color-highlight: #afc1c6;
 
 .dock-svg {
   -webkit-user-select: none;
@@ -26,7 +29,16 @@ $dock-component-color: #c0c0c0;
 
     .cross {
       stroke-width: 1;
-      stroke: #CCC;
+      stroke: $cross-color;
+    }
+
+    .grid {
+      stroke-width: 1;
+      stroke: $grid-color;
+
+      .highlight {
+        stroke: $grid-color-highlight;
+      }
     }
   }
 
