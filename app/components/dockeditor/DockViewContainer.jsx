@@ -31,7 +31,7 @@ class DockViewContainer extends React.Component {
       <div className="dock-view-container">
         <div className="panel panel-default">
           <div className="panel-body dock-svg-scroll-parent">
-            <div className="dock-svg-parent" style={ style }>
+            <div className="dock-svg-parent center-block" style={ style }>
               <DockSVG/>
             </div>
           </div>
