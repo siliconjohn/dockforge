@@ -6,8 +6,7 @@ class ShoreLine extends React.Component {
     let { width, height } = this.props
 
     return (
-      <rect x={ ( width / 2 ) * -1  } y={ 0 } width={ width }
-        height={ height } stroke="#caffcd" strokeWidth="0" fill="#caffcd"/>
+      <rect className="shoreline" x={ ( width / 2 ) * -1  } y={ 0 } width={ width } height={ height }/>
     )
   }
 }

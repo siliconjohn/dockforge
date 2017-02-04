@@ -1,0 +1,40 @@
+/////////////////////////////////
+// Dock SVG
+/////////////////////////////////
+
+$water-color: #d5f5ff;
+$shoreline-color: #caffcd;
+$dock-component-color: #c0c0c0;
+
+.dock-svg {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .background {
+
+    .water {
+      stroke-width: 0;
+      fill: $water-color;
+    }
+
+    .shoreline {
+      stroke-width: 0;
+      fill:$shoreline-color;
+    }
+
+    .cross {
+      stroke-width: 1;
+      stroke: #CCC;
+    }
+  }
+
+  .dock-component {
+    position: absolute;
+  }
+
+  .red {
+    background-color: #ff0
+  }
+}

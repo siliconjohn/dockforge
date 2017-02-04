@@ -6,11 +6,9 @@ class Water extends React.Component {
     let { x, y, width, height } = this.props
 
     return (
-      <rect x={ x } y={ y } width={ width }
-        height={ height } stroke="#5bc0de" strokeWidth="0" fill="#d5f5ff"/>
+      <rect className="water" x={ x } y={ y } width={ width } height={ height }/>
     )
   }
 }
 
 module.exports = Water
- 
