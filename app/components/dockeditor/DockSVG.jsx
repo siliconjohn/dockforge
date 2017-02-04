@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
 import ShoreLine from 'ShoreLine'
+import Water from 'Water'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
 class DockSVG extends React.Component {
@@ -171,8 +172,7 @@ class DockSVG extends React.Component {
         onMouseMove={ this.onMouseMove } onMouseUp={ this.onMouseUp } onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g>
-            <rect x={ halfWidthNeg  } y={ height * -1 } width={ width } height={ height } stroke="#5bc0de"
-               strokeWidth="0" fill="#d5f5ff"/>
+            <Water x={ halfWidthNeg } y={ height * -1 } width={ width } height={ height }/>
             <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
             <line x1={ halfWidth } y1="0" x2={ halfWidthNeg } y2="0" strokeWidth="1" stroke="#CCC"/>
             <line x1="0" y1={ halfHeight } x2="0" y2={ halfHeightNeg } strokeWidth="1" stroke="#CCC"/>
