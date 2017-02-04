@@ -20,10 +20,13 @@ export var initialState = {
     ],
 
     draggingComponent: null,
-    svgScale: 600,
-    svgWidth: 2000,
+
+    svgScale: 1.0,
+    svgWidth: 1000,
     svgHeight: 600,
+
     rotation: 0,
+
     mouseMoveXY: [0,0],
     mouseDraggingElement: true,
 
