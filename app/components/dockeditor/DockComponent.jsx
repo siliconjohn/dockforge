@@ -128,6 +128,10 @@ class DockComponent extends React.Component {
     let multX = 1
     let multY = 1
 
+    ////////////////////////////////////////////
+    // adjust the point to accomadate rotation
+    ////////////////////////////////////////////
+
     switch( rotate ) {
       case 90:
         multX = -1

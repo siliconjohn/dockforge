@@ -85,5 +85,7 @@ export const appReducers = combineReducers({
   mouseMoveXY: setMouseMoveXY,
   mouseDraggingElement: setMouseDraggingElement,
   rotation: changeRotation,
+  svgWidth: (state = {}) => state,
+  svgHeight: (state = {}) => state,
   components: ( state = {} ) => state
 })

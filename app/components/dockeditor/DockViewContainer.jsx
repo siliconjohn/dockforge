@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DockSVG from 'DockSVG' 
+import DockSVG from 'DockSVG'
 
 class DockViewContainer extends React.Component {
 
