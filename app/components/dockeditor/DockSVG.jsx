@@ -35,11 +35,11 @@ class DockSVG extends React.Component {
     point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
     ////////////////////////////////////////////
-    // adjust the point to accomadate rotation
+    // adjust the point to accomadate svgRotation
     ////////////////////////////////////////////
 
     let data = this.props.draggingComponent
-    let rotate = this.props.rotation
+    let rotate = this.props.svgRotation
     let x = 0
     let y = 0
     let multX = 1
@@ -115,10 +115,10 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    var { dock, rotation, svgWidth, svgHeight } = this.props
+    var { dock, svgRotation, svgWidth, svgHeight } = this.props
 
-    // setup transoform string for the rotation
-    let transform = `rotate(${rotation})`
+    // setup transoform string for the svgRotation
+    let transform = `rotate(${svgRotation})`
 
     //////////////////////////////////////////
     // setup vars for the svg size
@@ -133,7 +133,7 @@ class DockSVG extends React.Component {
 
     //////////////////////////////////////////
     // create string for viewbox, it changes
-    // based on the rotation
+    // based on the svgRotation
     //////////////////////////////////////////
 
     let x = halfWidthNeg
@@ -141,8 +141,8 @@ class DockSVG extends React.Component {
     let w = width
     let h = height
 
-    // adjust for the rotation
-    if ( rotation == 90 || rotation == 270 ) {
+    // adjust for the svgRotation
+    if ( svgRotation == 90 || svgRotation == 270 ) {
       x = halfHeightNeg
       y = halfWidthNeg
       w = height
@@ -186,7 +186,7 @@ export default connect (( state ) => {
     components: state.components,
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
-    rotation: state.rotation,
+    svgRotation: state.svgRotation,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
   }

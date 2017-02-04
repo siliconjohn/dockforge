@@ -25,7 +25,7 @@ export var initialState = {
     svgWidth: 1000,
     svgHeight: 600,
 
-    rotation: 0,
+    svgRotation: 0,
 
     mouseMoveXY: [0,0],
     mouseDraggingElement: true,

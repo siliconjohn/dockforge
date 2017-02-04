@@ -11,11 +11,11 @@ class DockViewContainer extends React.Component {
   }
 
   render() {
-    let { svgScale, svgWidth, svgHeight, rotation } = this.props
+    let { svgScale, svgWidth, svgHeight, svgRotation } = this.props
     let style
 
     // setup scale, adjusting for rotaion
-    if( rotation == 90 || rotation == 270 ) {
+    if( svgRotation == 90 || svgRotation == 270 ) {
       style = {
         height: `${ Math.round( svgWidth * svgScale ) }px`,
         width: `${ Math.round( svgHeight * svgScale ) }px`
@@ -46,6 +46,6 @@ export default connect (( state ) => {
     svgScale: state.svgScale,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
-    rotation: state.rotation,
+    svgRotation: state.svgRotation,
   }
 })( DockViewContainer )

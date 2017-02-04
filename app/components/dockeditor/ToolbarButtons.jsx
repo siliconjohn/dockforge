@@ -1,5 +1,5 @@
 import React from 'react'
-import { incrementSvgScale, decrementSvgScale, changeRotation } from 'actions'
+import { incrementSvgScale, decrementSvgScale, changeSvgRotation } from 'actions'
 import { store } from '../../app.jsx'
 
 class ToolbarButtons extends React.Component {
@@ -24,7 +24,7 @@ class ToolbarButtons extends React.Component {
         <span> </span>
         <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
           onClick={ ()=> {
-            store.dispatch( changeRotation() )
+            store.dispatch( changeSvgRotation() )
           }}>
           <span className="glyphicon glyphicon-repeat"></span>
         </button>
