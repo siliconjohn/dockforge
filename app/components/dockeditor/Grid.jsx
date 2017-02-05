@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class Grid extends React.Component {
 
   render() {
-    let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid } = this.props
+    let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid, svgRotation } = this.props
 
     if( svgShowGrid == false ) return null
 
@@ -57,11 +57,22 @@ class Grid extends React.Component {
         {
           // draw text ( every 10' )
           rows.map(( item, index ) => {
-
             if (item % 120 != 0 ) return
-            return  <text x={ halfWidth * -1 + 2} y={ item + 13 }
-              className="text">{ `${index}'` }</text>
 
+            // setup rotation
+            let r = svgRotation == 0 ? 0 : 360 - svgRotation
+
+            return (
+              <g transform={`translate(${  halfWidth * -1 + 10  },${ item + 10 })`} key={ index }>
+                <text x="0" y="0"
+                  className="text"
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  transform={`rotate(${ r })`}>
+                  { `${index}'` }
+                </text>
+              </g>
+            )
           })
         }
       </g>
@@ -72,12 +83,14 @@ class Grid extends React.Component {
 Grid.propTypes = {
   svgWidth: React.PropTypes.number.isRequired,
   svgHeight: React.PropTypes.number.isRequired,
+  svgRotation: React.PropTypes.number.isRequired,
   svgShorelineHeight: React.PropTypes.number.isRequired,
   svgShowGrid: React.PropTypes.bool.isRequired,
 }
 
 export default connect (( state ) => {
   return {
+    svgRotation: state.svgRotation,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
     svgShowGrid: state.svgShowGrid,
