@@ -54,6 +54,16 @@ class Grid extends React.Component {
               x2={ item } y2={ height * -1  }/>
           })
         }
+        {
+          // draw text ( every 10' )
+          rows.map(( item, index ) => {
+
+            if (item % 120 != 0 ) return
+            return  <text x={ halfWidth * -1 + 2} y={ item + 13 }
+              className="text">{ `${index}'` }</text>
+
+          })
+        }
       </g>
     )
   }

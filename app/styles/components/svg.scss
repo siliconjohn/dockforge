@@ -7,7 +7,8 @@ $shoreline-color: #d8ffda;
 $dock-component-color: #c0c0c0;
 $cross-color: #333;
 $grid-color: #c2e2ec;
-$grid-color-highlight: #afc1c6;
+$grid-color-highlight: #aaa;
+$text-color: #777;
 
 .dock-svg {
   -webkit-user-select: none;
@@ -38,6 +39,12 @@ $grid-color-highlight: #afc1c6;
 
       .highlight {
         stroke: $grid-color-highlight;
+      }
+
+      .text {
+        stroke-width: 0;
+        font-size:12px;
+        fill: $text-color;
       }
     }
   }
