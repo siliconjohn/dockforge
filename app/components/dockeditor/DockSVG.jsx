@@ -175,7 +175,7 @@ class DockSVG extends React.Component {
         <g transform={ transform }>
           <g className="background">
             <Water/>
-            <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
+            <ShoreLine/>
             <Grid/>
             <Cross/>
           </g>
