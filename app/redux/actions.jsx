@@ -57,3 +57,27 @@ export var changeSvgRotation = () => {
     type: CHANGE_svgRotation
   }
 }
+
+export const TOGGLE_SHOW_GRID = 'TOGGLE_SHOW_GRID'
+
+export var toggleShowGrid = () => {
+  return {
+    type: TOGGLE_SHOW_GRID
+  }
+}
+
+export const TOGGLE_SHOW_CROSS = 'TOGGLE_SHOW_CROSS'
+
+export var toggleShowCross = () => {
+  return {
+    type: TOGGLE_SHOW_CROSS
+  }
+}
+
+export const TOGGLE_SHOW_DISTANCES = 'TOGGLE_SHOW_DISTANCES'
+
+export var toggleShowDistances = () => {
+  return {
+    type: TOGGLE_SHOW_DISTANCES
+  }
+}

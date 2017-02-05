@@ -77,6 +77,33 @@ export var changeSvgRotation = ( state  = 0, action ) => {
   }
 }
 
+export var toggleShowGrid = ( state = true, action ) => {
+
+  if( action.type == actions.TOGGLE_SHOW_GRID ) {
+    return !state
+  } else {
+    return state
+  }
+}
+
+export var toggleShowCross = ( state = true, action ) => {
+
+  if( action.type == actions.TOGGLE_SHOW_CROSS ) {
+    return !state
+  } else {
+    return state
+  }
+}
+
+export var toggleShowDistances = ( state = true, action ) => {
+
+  if( action.type == actions.TOGGLE_SHOW_DISTANCES) {
+    return !state
+  } else {
+    return state
+  }
+}
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
@@ -87,6 +114,9 @@ export const appReducers = combineReducers({
   svgRotation: changeSvgRotation,
   svgWidth: (state = {}) => state,
   svgHeight: (state = {}) => state,
+  svgShowGrid: toggleShowGrid,
+  svgShowCross: toggleShowCross,
+  svgShowDistances: (state = {}) => state,
   svgShorelineHeight: (state = {}) => state,
   components: ( state = {} ) => state
 })

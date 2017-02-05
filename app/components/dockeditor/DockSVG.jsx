@@ -176,9 +176,8 @@ class DockSVG extends React.Component {
           <g className="background">
             <Water x={ halfWidthNeg } y={ height * -1 } width={ width } height={ height }/>
             <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
-            <Grid halfWidth={ halfWidth } height={ height - svgShorelineHeight }/>
-            <Cross halfWidth={ halfWidth } halfHeight={ halfHeight }
-             shoreLineHeight={ svgShorelineHeight } height={ height - svgShorelineHeight }/>
+            <Grid/>
+            <Cross/>
           </g>
           {
             dock.map(( item, index ) => {
@@ -205,6 +204,6 @@ export default connect (( state ) => {
     svgRotation: state.svgRotation,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
-    svgShorelineHeight: state.svgShorelineHeight,
+    svgShorelineHeight: state.svgShorelineHeight, 
   }
 })( DockSVG )
