@@ -193,17 +193,20 @@ class DockSVG extends React.Component {
 DockSVG.propTypes = {
   dock: React.PropTypes.array.isRequired,
   dispatch: React.PropTypes.func.isRequired,
+  svgShorelineHeight: React.PropTypes.number.isRequired,
+  svgHeight: React.PropTypes.number.isRequired,
+  svgWidth: React.PropTypes.number.isRequired,
+  svgRotation: React.PropTypes.number.isRequired,
 }
 
 export default connect (( state ) => {
   return {
     dock: state.dock,
-    components: state.components,
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     svgRotation: state.svgRotation,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
-    svgShorelineHeight: state.svgShorelineHeight, 
+    svgShorelineHeight: state.svgShorelineHeight,
   }
 })( DockSVG )
