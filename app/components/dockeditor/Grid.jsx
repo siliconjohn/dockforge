@@ -12,8 +12,7 @@ class Grid extends React.Component {
 
     // build array of column positions
     let cols = []
-    for( var x = 0;x < halfWidth; x += 12 ) cols.push( x ) // > 0
-    for( var x = -12;x > 0 - halfWidth; x -= 12 ) cols.push( x ) // < 0
+    for( var x =  0 - halfWidth + ( halfWidth % 12 ); x < halfWidth; x += 12 ) cols.push( x )
 
     return (
       <g className="grid">
