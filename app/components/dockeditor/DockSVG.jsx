@@ -174,7 +174,7 @@ class DockSVG extends React.Component {
         onMouseMove={ this.onMouseMove } onMouseUp={ this.onMouseUp } onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g className="background">
-            <Water x={ halfWidthNeg } y={ height * -1 } width={ width } height={ height }/>
+            <Water/>
             <ShoreLine width={ svgWidth } height={ svgShorelineHeight }/>
             <Grid/>
             <Cross/>

@@ -1,14 +1,28 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 class Water extends React.Component {
 
   render() {
-    let { x, y, width, height } = this.props
+    let { svgWidth, svgHeight, svgShorelineHeight }  = this.props
 
     return (
-      <rect className="water" x={ x } y={ y } width={ width } height={ height }/>
+      <rect className="water" x={ 0 - svgWidth  / 2 } y={ 0 - svgHeight + svgShorelineHeight }
+       width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
     )
   }
 }
 
-module.exports = Water
+Water.propTypes = {
+  svgWidth: React.PropTypes.number.isRequired,
+  svgHeight: React.PropTypes.number.isRequired,
+  svgShorelineHeight: React.PropTypes.number.isRequired,
+}
+
+export default connect (( state ) => {
+  return {
+    svgWidth: state.svgWidth,
+    svgHeight: state.svgHeight,
+    svgShorelineHeight: state.svgShorelineHeight,
+  }
+})( Water )
