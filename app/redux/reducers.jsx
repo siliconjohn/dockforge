@@ -66,7 +66,7 @@ export var setMouseDraggingElement = ( state = false, action ) => {
 
 export var changeSvgRotation = ( state  = 0, action ) => {
 
-  if ( action.type == actions.CHANGE_svgRotation ) {
+  if ( action.type == actions.CHANGE_SVG_ROTATION ) {
     let newState = state + 90
     if( newState > 270 ) {
       newState = 0
