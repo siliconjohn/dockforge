@@ -31,6 +31,38 @@ export var decrementSvgScale = ( ) => {
     type: DECREMENT_SVG_SCALE
   }
 }
+ 
+export const INCREMENT_SVG_WIDTH = 'INCREMENT_SVG_WIDTH'
+
+export var incrementSvgWidth = ( ) => {
+  return {
+    type: INCREMENT_SVG_WIDTH
+  }
+}
+
+export const DECREMENT_SVG_WIDTH = 'DECREMENT_SVG_WIDTH'
+
+export var decrementSvgWidth = ( ) => {
+  return {
+    type: DECREMENT_SVG_WIDTH
+  }
+}
+
+export const INCREMENT_SVG_HEIGHT = 'INCREMENT_SVG_HEIGHT'
+
+export var incrementSvgHeight = ( ) => {
+  return {
+    type: INCREMENT_SVG_HEIGHT
+  }
+}
+
+export const DECREMENT_SVG_HEIGHT = 'DECREMENT_SVG_HEIGHT'
+
+export var decrementSvgHeight = ( ) => {
+  return {
+    type: DECREMENT_SVG_HEIGHT
+  }
+}
 
 export const SET_MOUSE_MOVE_XY = 'SET_MOUSE_MOVE_XY'
 
