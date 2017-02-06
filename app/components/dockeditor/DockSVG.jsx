@@ -132,8 +132,8 @@ class DockSVG extends React.Component {
     let height = svgHeight
     let halfWidth =  width / 2
     let halfHeight =  height / 2
-    let halfWidthNeg =  halfWidth * -1
-    let halfHeightNeg =  halfHeight * -1
+    let halfWidthNeg =  -halfWidth
+    let halfHeightNeg =  -halfHeight
 
     //////////////////////////////////////////
     // create string for viewbox, it changes
@@ -141,7 +141,7 @@ class DockSVG extends React.Component {
     //////////////////////////////////////////
 
     let x = halfWidthNeg
-    let y = ( height - svgShorelineHeight ) * -1
+    let y = -( height - svgShorelineHeight )
     let w = width
     let h = height
 
@@ -155,13 +155,13 @@ class DockSVG extends React.Component {
       if( svgRotation == 90 ) {
         x = 0 - svgShorelineHeight
       } else {
-        x = ( height * -1 ) + svgShorelineHeight
+        x = -height + svgShorelineHeight
       }
     }
 
     // adjust for shoreline
     if( svgRotation == 180 ) {
-      y = svgShorelineHeight * -1
+      y = -svgShorelineHeight 
     }
 
     let viewBox = `${x} ${y} ${w} ${h}`

@@ -7,7 +7,7 @@ class Water extends React.Component {
     let { svgWidth, svgHeight, svgShorelineHeight }  = this.props
 
     return (
-      <rect className="water" x={ 0 - svgWidth  / 2 } y={ 0 - svgHeight + svgShorelineHeight }
+      <rect className="water" x={ -svgWidth  / 2 } y={ -svgHeight + svgShorelineHeight }
        width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
     )
   }

@@ -12,8 +12,8 @@ class Cross extends React.Component {
 
     return (
       <g className="cross">
-        <line x1={ halfWidth } y1="0" x2={ halfWidth * -1 } y2="0"/>
-        <line x1="0" y1={ svgShorelineHeight } x2="0" y2={ svgHeight * -1 }/>
+        <line x1={ halfWidth } y1="0" x2={ -halfWidth } y2="0"/>
+        <line x1="0" y1={ svgShorelineHeight } x2="0" y2={ -svgHeight }/>
       </g>
     )
   }

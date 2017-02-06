@@ -13,13 +13,13 @@ class Grid extends React.Component {
     let halfWidth = svgWidth / 2
 
     // build array of row positions
-    let h = height * -1
+    let h = -height
     let rows = []
     for( var y = 0; y > h; y -= 12 ) rows.push( y )
 
     // build array of column positions
     let cols = []
-    for( var x =  0 - halfWidth + ( halfWidth % 12 ); x < halfWidth; x += 12 ) cols.push( x )
+    for( var x =  -halfWidth + ( halfWidth % 12 ); x < halfWidth; x += 12 ) cols.push( x )
 
     return (
       <g className="grid">
@@ -27,14 +27,14 @@ class Grid extends React.Component {
           // draw non highlighted rows
           rows.map(( item, index ) => {
             if (item % 120 == 0 ) return
-            return <line key={ `row-${index}` } x1={ halfWidth } y1={ item } x2={ halfWidth * -1 } y2={ item }/>
+            return <line key={ `row-${index}` } x1={ halfWidth } y1={ item } x2={ -halfWidth } y2={ item }/>
           })
         }
         {
           // draw non highlighted cols
           cols.map(( item, index ) => {
             if (item % 120 == 0 ) return
-            return <line key={ `col-${index}` } x1={ item } y1={ 0  } x2={ item } y2={ height * -1  }/>
+            return <line key={ `col-${index}` } x1={ item } y1={ 0  } x2={ item } y2={ -height  }/>
           })
         }
         {
@@ -43,7 +43,7 @@ class Grid extends React.Component {
 
             if (item % 120 != 0 ) return
             return <line key={ `row-${index}` } className="highlight"
-              x1={ halfWidth } y1={ item } x2={ halfWidth * -1 } y2={ item }/>
+              x1={ halfWidth } y1={ item } x2={ -halfWidth } y2={ item }/>
           })
         }
         {
@@ -51,7 +51,7 @@ class Grid extends React.Component {
           cols.map(( item, index ) => {
             if (item % 120 != 0 )  return
             return <line key={ `col-${index}` } className="highlight" x1={ item } y1={ 0  }
-              x2={ item } y2={ height * -1  }/>
+              x2={ item } y2={ -height  }/>
           })
         }
         {
@@ -63,7 +63,7 @@ class Grid extends React.Component {
             let r = svgRotation == 0 ? 0 : 360 - svgRotation
 
             return (
-              <g transform={`translate(${  halfWidth * -1 + 10  },${ item + 10 })`} key={ index }>
+              <g transform={`translate(${  -halfWidth + 10  },${ item + 10 })`} key={ index }>
                 <text x="0" y="0"
                   className="text"
                   textAnchor="middle"
