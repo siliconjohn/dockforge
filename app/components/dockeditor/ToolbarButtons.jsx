@@ -1,6 +1,7 @@
 import React from 'react'
 import { incrementSvgScale, decrementSvgScale, changeSvgRotation,
-  toggleShowGrid, toggleShowCross } from 'actions'
+  toggleShowGrid, toggleShowCross, incrementSvgWidth, decrementSvgWidth,
+  incrementSvgHeight, decrementSvgHeight } from 'actions'
 import { store } from '../../app.jsx'
 
 class ToolbarButtons extends React.Component {
@@ -42,6 +43,36 @@ class ToolbarButtons extends React.Component {
               store.dispatch( toggleShowCross() )
             }}>
             <span className="glyphicon glyphicon-th-large"></span>
+          </button>
+        </div>
+        <span> </span>
+        <div className="btn-group" role="group" aria-label="Expand or contract width">
+          <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
+            onClick={ ()=> {
+              store.dispatch( decrementSvgWidth() )
+            }}>
+            <span className="glyphicon glyphicon-minus"></span>
+          </button>
+          <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
+            onClick={ ()=> {
+              store.dispatch( incrementSvgWidth() )
+            }}>
+            <span className="glyphicon glyphicon-plus"></span>
+          </button>
+        </div>
+        <span> </span>
+        <div className="btn-group" role="group" aria-label="Expand or contract height">
+          <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
+            onClick={ ()=> {
+              store.dispatch( decrementSvgHeight() )
+            }}>
+            <span className="glyphicon glyphicon-minus"></span>
+          </button>
+          <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
+            onClick={ ()=> {
+              store.dispatch( incrementSvgHeight() )
+            }}>
+            <span className="glyphicon glyphicon-plus"></span>
           </button>
         </div>
       </div>
