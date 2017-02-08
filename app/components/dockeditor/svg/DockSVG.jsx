@@ -197,6 +197,8 @@ DockSVG.propTypes = {
   svgHeight: React.PropTypes.number.isRequired,
   svgWidth: React.PropTypes.number.isRequired,
   svgRotation: React.PropTypes.number.isRequired,
+  mouseDraggingElement: React.PropTypes.bool,
+  draggingComponent: React.PropTypes.object,
 }
 
 export default connect (( state ) => {
