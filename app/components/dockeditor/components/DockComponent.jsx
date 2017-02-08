@@ -250,7 +250,7 @@ class DockComponent extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    let { left, bottom, width, height, draggingComponent } = this.props
+    let { left, bottom, width, length, draggingComponent } = this.props
     let { isDragging, isDraggingOver } = this.state
 
     let noDragClass = ''
@@ -272,8 +272,7 @@ class DockComponent extends React.Component {
           onDragLeave={ this.onDragLeave }
           onDragEnter={ this.onDragEnter }
           stroke="darkblue" strokeWidth="1"  fill="red"
-          x={ left } y={ bottom } width={ width } height= { height }
-          />
+          x={ left } y={ bottom - length } width={ width } height= { length }/>
       </g>
     )
   }
@@ -283,7 +282,7 @@ DockComponent.propTypes = {
   bottom: React.PropTypes.number.isRequired,
   left: React.PropTypes.number.isRequired,
   width: React.PropTypes.number.isRequired,
-  height: React.PropTypes.number.isRequired,
+  length: React.PropTypes.number.isRequired,
   draggingComponent: React.PropTypes.object
 }
 
