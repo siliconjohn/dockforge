@@ -1,7 +1,7 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
-import { setMouseDraggingElement } from 'actions'
+import { setMouseDraggingElement, moveDockComponent } from 'actions'
 
 class DockComponent extends React.Component {
 
@@ -14,6 +14,10 @@ class DockComponent extends React.Component {
       draggingStartX: 0,
       draggingStartY: 0,
     }
+
+    // used in drag
+    this.lastMouseDragXDistance = 0
+    this.lastMouseDragYDistance = 0
 
     // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
@@ -156,10 +160,16 @@ class DockComponent extends React.Component {
         y = xy[1] - draggingStartY
     }
 
+    this.lastMouseDragXDistance = x
+    this.lastMouseDragYDistance = y
+
     findDOMNode( this ).setAttribute( 'transform',`translate(${x},${y})` )
   }
 
   onMouseUp( event ) {
+    let { draggingStartX, draggingStartY } = this.state
+    let { left, bottom, uuid } = this.props
+
     // turn off isDragging
     if( this.state.isDragging == true ) {
       this.setState({
@@ -168,6 +178,13 @@ class DockComponent extends React.Component {
         draggingStartY: 0,
       })
       this.props.dispatch( setMouseDraggingElement( false ))
+
+      // move the component
+      let options = {}
+      options.uuid = uuid
+      options.left = this.lastMouseDragXDistance
+      options.bottom = this.lastMouseDragYDistance
+      this.props.dispatch( moveDockComponent( options ))
     }
   }
 
@@ -283,6 +300,7 @@ DockComponent.propTypes = {
   left: React.PropTypes.number.isRequired,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
+  uuid: React.PropTypes.string.isRequired,
   draggingComponent: React.PropTypes.object
 }
 

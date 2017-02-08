@@ -113,3 +113,12 @@ export var toggleShowDistances = () => {
     type: TOGGLE_SHOW_DISTANCES
   }
 }
+
+export const MOVE_DOCK_COMPONENT = 'MOVE_DOCK_COMPONENT'
+
+export var moveDockComponent = ( value ) => {
+  return {
+    type: MOVE_DOCK_COMPONENT,
+    value
+  }
+}

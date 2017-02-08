@@ -1,7 +1,7 @@
 export var initialState = {
      dock: [
-            { type: "BOX", left:0, bottom:0, width: 120, height: 120 },
-            { type: "RECTANGLE", left:200, bottom:0, width: 200, height: 100 },
+            { type: "BOX", left:0, bottom:0, width: 120, height: 120, uuid:"test1" },
+            { type: "RECTANGLE", left:200, bottom:0, width: 200, height: 100, uuid:"test2" },
            ],
 
    derived: [

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
+import * as UUID from 'uuid-js'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -18,6 +19,20 @@ export var updateDockComponent = ( state = [], action ) => {
   if ( action.type == actions.ADD_DOCK_COMPONENT ) {
     var newState = Object.assign( [], state )
     newState.push( action.component )
+    return newState
+  }
+
+  if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
+    let newState = Object.assign( [], state )
+
+    let component = newState.find( ( c ) =>  c.uuid === action.value.uuid  )
+
+    // if found component
+    if( component !== undefined ) {
+      component.left += action.value.left
+      component.bottom += action.value.bottom
+    }
+
     return newState
   }
 

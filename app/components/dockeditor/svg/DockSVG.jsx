@@ -7,6 +7,7 @@ import Water from 'Water'
 import CenterLine from 'CenterLine'
 import Grid from 'Grid'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
+import * as UUID from 'uuid-js'
 
 class DockSVG extends React.Component {
 
@@ -75,7 +76,8 @@ class DockSVG extends React.Component {
 
     // create the component
     var newComponent = { type: data.type, left: x, bottom: y,
-      width: data.width, height:data.height }
+      width: data.width, height:data.height,
+      uuid: UUID.create(1).toString() }
 
     // dispatch event adding new component
     this.props.dispatch( addDockComponent( newComponent ))
