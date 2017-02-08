@@ -38,7 +38,7 @@ class DockPickerItem extends React.Component {
     let { name, description } = this.props
 
     return (
-      <div href="#" className="list-group-item dock-picker-component">
+      <div href="#" className="list-group-item dock-picker-item">
         <p className="list-group-item-heading">{ name }</p>
         <p className="list-group-item-text small">{ description }</p>
         <div className="drag-item center-block" draggable="true" onDragStart={ this.onDragStart }
