@@ -41,6 +41,13 @@ class DockViewContainer extends React.Component {
   }
 }
 
+DockViewContainer.PropTypes = {
+  svgWidth: React.PropTypes.number.isRequired,
+  svgHeight: React.PropTypes.number.isRequired,
+  svgScale: React.PropTypes.number.isRequired,
+  svgRotation: React.PropTypes.number.isRequired,
+}
+
 export default connect (( state ) => {
   return {
     svgScale: state.svgScale,
