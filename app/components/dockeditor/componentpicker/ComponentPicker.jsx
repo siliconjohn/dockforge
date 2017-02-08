@@ -13,11 +13,11 @@ class ComponentPicker extends React.Component {
           <div className="panel-heading">Components</div>
           <div className="panel-body">
             <div className="list-group">
-              {
-                components.map(( item, index ) => {
-                  return <ComponentPickerItem { ...item } key={ index }/>
-                })
-              }
+            {
+              components.map(( item, index ) => {
+                return <ComponentPickerItem { ...item } key={ index }/>
+              })
+            }
             </div>
           </div>
         </div>
