@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 
+// consts used in the reducers below
+// changed them to anything you want
 const SVG_SCALE_INCREMENT = 0.1
 const SVG_SCALE_MIN = 0.5
 const SVG_SCALE_MAX = 200
