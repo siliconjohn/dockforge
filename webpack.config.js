@@ -25,7 +25,6 @@ const modulesDirectories = [
     './app/redux',
     './app/components',
     './app/components/dockeditor',
-    './app/components/dockeditor/componentpicker',
   ]
 
 if( production ) {

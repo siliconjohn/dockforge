@@ -37,13 +37,13 @@
   }
 
   /////////////////////////////////
-  // ComponentPicker Component
+  // DockPicker Component
   /////////////////////////////////
 
-  .component-picker-column {
+  .dock-picker-column {
     height:100%;
 
-    .component-picker {
+    .dock-picker {
       height: 100%;
       padding-bottom: 15px;
 
@@ -61,7 +61,7 @@
         }
       }
 
-      .component-picker-item {
+      .dock-picker-item {
         overflow: hidden;
         border-width: 0 !important;
 
