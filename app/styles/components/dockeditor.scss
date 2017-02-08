@@ -21,7 +21,7 @@
     .dock-view-container {
       height: 100%;
       padding-bottom: 15px;
-
+       
       .panel {
         height: 100%;
         margin-bottom: 0;
@@ -31,6 +31,8 @@
           height:100%;
           overflow: scroll;
           padding: 0px 0px 0px 0px;
+          overflow-x: auto;
+          overflow-y: auto;
         }
       }
     }
