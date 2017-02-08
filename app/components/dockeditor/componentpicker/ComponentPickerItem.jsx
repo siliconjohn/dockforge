@@ -15,7 +15,7 @@ class ComponentPickerItem extends React.Component {
   onDragStart( event ) {
     // create json for this object's relevent props
     const data =  { type:this.props.type, width:this.props.width,
-      length:this.props.length, source:"newComponent" }
+      height:this.props.height, source:"newComponent" }
 
 
     // set drag data because firefox doesn't allow dragging with out it
@@ -54,7 +54,7 @@ ComponentPickerItem.propTypes = {
   name: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
   width: React.PropTypes.number.isRequired,
-  length: React.PropTypes.number.isRequired,
+  height: React.PropTypes.number.isRequired,
   dispatch: React.PropTypes.func.isRequired
 }
 

@@ -65,17 +65,17 @@ class DockSVG extends React.Component {
       case 270:
         multX = 1
         multY = -1
-        y = point.x * multX + data.length
+        y = point.x * multX + data.height
         x = point.y * multY - data.width
         break
       default:
         x = point.x
-        y = point.y + data.length
+        y = point.y + data.height
     }
 
     // create the component
     var newComponent = { type: data.type, left: x, bottom: y,
-      width: data.width, length:data.length }
+      width: data.width, height:data.height }
 
     // dispatch event adding new component
     this.props.dispatch( addDockComponent( newComponent ))

@@ -1,22 +1,22 @@
 export var initialState = {
      dock: [
-            { type: "BOX", left:0, bottom:0, width: 120, length: 120 },
-            { type: "RECTANGLE", left:200, bottom:0, width: 200, length: 100 },
+            { type: "BOX", left:0, bottom:0, width: 120, height: 120 },
+            { type: "RECTANGLE", left:200, bottom:0, width: 200, height: 100 },
            ],
 
    derived: [
-              { type: "deck", x: 0, y: 0, width: 100, length: 100, rotate:0, key:"0",
+              { type: "deck", x: 0, y: 0, width: 100, height: 100, rotate:0, key:"0",
                 children:[
-                  { type: "deck", x: 100, y: 100, width: 100, length: 100, rotate:0, key:"1", children:[
-                    { type: "deck", x: 100, y: 200, width: 100, length: 100, rotate:0, key:"4", children:[] }
+                  { type: "deck", x: 100, y: 100, width: 100, height: 100, rotate:0, key:"1", children:[
+                    { type: "deck", x: 100, y: 200, width: 100, height: 100, rotate:0, key:"4", children:[] }
                   ] },
-                  { type: "deck", x: -100, y: 100, width: 100, length: 100, rotate:0, key:"2", children:[] }
+                  { type: "deck", x: -100, y: 100, width: 100, height: 100, rotate:0, key:"2", children:[] }
                 ]
               }
             ],
     components: [
-      { name:"Square", description:"A square", type:"BOX", width: 100, length: 100,},
-      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE",  width: 100, length: 100,}
+      { name:"Square", description:"A square", type:"BOX", width: 100, height: 100,},
+      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE",  width: 100, height: 100,}
     ],
 
     draggingComponent: null,
@@ -63,14 +63,14 @@ export var initialState = {
 
 // ,
 //            children:[
-//              { type: "deck", x: 0, y: 100, width: 100, length: 100, rotate:0, key:"5",
+//              { type: "deck", x: 0, y: 100, width: 100, height: 100, rotate:0, key:"5",
 //                children:[
-//                  { type: "deck", x: 100, y: 100, width: 100, length: 100, rotate:0, key:"1" },
-//                  { type: "deck", x: -100, y: 100, width: 100, length: 100, rotate:0, key:"2",
+//                  { type: "deck", x: 100, y: 100, width: 100, height: 100, rotate:0, key:"1" },
+//                  { type: "deck", x: -100, y: 100, width: 100, height: 100, rotate:0, key:"2",
 //                    children:[
-//                      { type: "deck", x: -100, y: -200, width: 100, length: 100, rotate:0, key:"3",
+//                      { type: "deck", x: -100, y: -200, width: 100, height: 100, rotate:0, key:"3",
 //                        children:[
-//                          { type: "deck", x: -100, y: 300, width: 100, length: 100, rotate:0, key:"4" }
+//                          { type: "deck", x: -100, y: 300, width: 100, height: 100, rotate:0, key:"4" }
 //                        ]
 //                      }
 //                    ]
