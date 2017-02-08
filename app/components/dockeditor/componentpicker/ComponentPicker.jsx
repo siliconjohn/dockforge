@@ -1,21 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DockPickerItem from 'DockPickerItem'
+import ComponentPickerItem from 'ComponentPickerItem'
 
-class DockPicker extends React.Component {
+class ComponentPicker extends React.Component {
 
   render() {
     let { components } = this.props
 
     return (
-      <div className="dock-picker">
+      <div className="component-picker">
         <div className="panel panel-default">
           <div className="panel-heading">Dock Components</div>
           <div className="panel-body">
             <div className="list-group">
               {
                 components.map(( item, index ) => {
-                  return <DockPickerItem { ...item } key={ index }/>
+                  return <ComponentPickerItem { ...item } key={ index }/>
                 })
               }
             </div>
@@ -26,7 +26,7 @@ class DockPicker extends React.Component {
   }
 }
 
-DockPicker.propTypes = {
+ComponentPicker.propTypes = {
   components: React.PropTypes.array.isRequired
 }
 
@@ -34,4 +34,4 @@ export default connect (( state ) => {
   return {
     components: state.components
   }
-})( DockPicker )
+})( ComponentPicker )

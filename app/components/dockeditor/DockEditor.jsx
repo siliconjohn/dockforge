@@ -1,5 +1,5 @@
 import React from 'react'
-import DockPicker from 'DockPicker'
+import ComponentPicker from 'ComponentPicker'
 import DockViewContainer from 'DockViewContainer'
 
 class DockEditor extends React.Component {
@@ -11,8 +11,8 @@ class DockEditor extends React.Component {
           <div className="col-xs-8 col-sm-9 col-lg-10 dock-view-column">
             <DockViewContainer/>
           </div>
-          <div className="col-xs-4 col-sm-3 col-lg-2 dock-picker-column">
-            <DockPicker/>
+          <div className="col-xs-4 col-sm-3 col-lg-2 component-picker-column">
+            <ComponentPicker/>
           </div>
         </div>
       </div>

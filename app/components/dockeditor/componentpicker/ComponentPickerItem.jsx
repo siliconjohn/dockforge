@@ -2,7 +2,7 @@ import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { setDragComponent } from 'actions'
 
-class DockPickerItem extends React.Component {
+class ComponentPickerItem extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -38,7 +38,7 @@ class DockPickerItem extends React.Component {
     let { name, description } = this.props
 
     return (
-      <div href="#" className="list-group-item dock-picker-item">
+      <div href="#" className="list-group-item component-picker-item">
         <p className="list-group-item-heading">{ name }</p>
         <p className="list-group-item-text small">{ description }</p>
         <div className="drag-item center-block" draggable="true" onDragStart={ this.onDragStart }
@@ -50,7 +50,7 @@ class DockPickerItem extends React.Component {
   }
 }
 
-DockPickerItem.propTypes = {
+ComponentPickerItem.propTypes = {
   name: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
   width: React.PropTypes.number.isRequired,
@@ -63,4 +63,4 @@ export default connect (( state ) => {
   return {
     components: state.components
   }
-})( DockPickerItem )
+})( ComponentPickerItem )
