@@ -58,7 +58,6 @@ ComponentPickerItem.propTypes = {
   dispatch: React.PropTypes.func.isRequired
 }
 
-
 export default connect (( state ) => {
   return {
     components: state.components
