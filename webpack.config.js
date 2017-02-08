@@ -27,6 +27,7 @@ const modulesDirectories = [
     './app/components/dockeditor',
     './app/components/dockeditor/componentpicker',
     './app/components/dockeditor/svg',
+    './app/components/dockeditor/components/',
   ]
 
 if( production ) {
