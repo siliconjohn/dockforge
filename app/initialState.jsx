@@ -27,7 +27,7 @@ export var initialState = {
     svgShorelineHeight: 75,
     svgRotation: 0,
     svgShowGrid: true,
-    svgShowCross: true,
+    svgShowCenterLine: true,
     svgShowDistances: true,
 
     mouseMoveXY: [0,0],

@@ -1,6 +1,6 @@
 import React from 'react'
 import { incrementSvgScale, decrementSvgScale, changeSvgRotation,
-  toggleShowGrid, toggleShowCross, incrementSvgWidth, decrementSvgWidth,
+  toggleShowGrid, toggleShowCenterLine, incrementSvgWidth, decrementSvgWidth,
   incrementSvgHeight, decrementSvgHeight } from 'actions'
 import { store } from '../../app.jsx'
 
@@ -40,7 +40,7 @@ class ToolbarButtons extends React.Component {
           </button>
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( toggleShowCross() )
+              store.dispatch( toggleShowCenterLine() )
             }}>
             <span className="glyphicon glyphicon-th-large"></span>
           </button>

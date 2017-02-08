@@ -31,7 +31,7 @@ export var decrementSvgScale = ( ) => {
     type: DECREMENT_SVG_SCALE
   }
 }
- 
+
 export const INCREMENT_SVG_WIDTH = 'INCREMENT_SVG_WIDTH'
 
 export var incrementSvgWidth = ( ) => {
@@ -98,11 +98,11 @@ export var toggleShowGrid = () => {
   }
 }
 
-export const TOGGLE_SHOW_CROSS = 'TOGGLE_SHOW_CROSS'
+export const TOGGLE_SHOW_CENTER_LINE = 'TOGGLE_SHOW_CENTER_LINE'
 
-export var toggleShowCross = () => {
+export var toggleShowCenterLine = () => {
   return {
-    type: TOGGLE_SHOW_CROSS
+    type: TOGGLE_SHOW_CENTER_LINE
   }
 }
 

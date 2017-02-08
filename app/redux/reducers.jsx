@@ -93,9 +93,9 @@ export var toggleShowGrid = ( state = true, action ) => {
   }
 }
 
-export var toggleShowCross = ( state = true, action ) => {
+export var toggleShowCenterLine = ( state = true, action ) => {
 
-  if( action.type == actions.TOGGLE_SHOW_CROSS ) {
+  if( action.type == actions.TOGGLE_SHOW_CENTER_LINE ) {
     return !state
   } else {
     return state
@@ -144,7 +144,7 @@ export var changeSvgHeight = ( state = MIN_SVG_HEIGHT, action ) => {
 
   return state
 }
-  
+
 export const appReducers = combineReducers({
   derived: ( state ={ } ) => state,
   dock: updateDockComponent,
@@ -156,7 +156,7 @@ export const appReducers = combineReducers({
   svgWidth: changeSvgWidth,
   svgHeight: changeSvgHeight,
   svgShowGrid: toggleShowGrid,
-  svgShowCross: toggleShowCross,
+  svgShowCenterLine: toggleShowCenterLine,
   svgShowDistances: (state = {}) => state,
   svgShorelineHeight: (state = {}) => state,
   components: ( state = {} ) => state
