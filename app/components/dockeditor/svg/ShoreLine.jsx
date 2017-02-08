@@ -7,7 +7,8 @@ class ShoreLine extends React.Component {
     let { svgWidth, svgShorelineHeight }  = this.props
 
     return (
-      <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 } width={ svgWidth } height={ svgShorelineHeight }/>
+      <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
+       width={ svgWidth } height={ svgShorelineHeight }/>
     )
   }
 }
