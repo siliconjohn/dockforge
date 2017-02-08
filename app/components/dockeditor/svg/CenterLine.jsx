@@ -1,27 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class Cross extends React.Component {
+class CenterLine extends React.Component {
 
   render() {
-    let { svgShorelineHeight, svgShowCross, svgHeight, svgWidth } = this.props
+    let { svgShorelineHeight, svgShowCenterLine, svgHeight, svgWidth } = this.props
 
-    if( svgShowCross == false ) return null
+    if( svgShowCenterLine == false ) return null
 
     let halfWidth = svgWidth / 2
 
     return (
-      <g className="cross">
-        <line x1={ halfWidth } y1="0" x2={ -halfWidth } y2="0"/>
+      <g className="center-line">
         <line x1="0" y1={ svgShorelineHeight } x2="0" y2={ -svgHeight }/>
       </g>
     )
   }
 }
 
-Cross.propTypes = {
+CenterLine.propTypes = {
   svgShorelineHeight: React.PropTypes.number.isRequired,
-  svgShowCross: React.PropTypes.bool.isRequired,
+  svgShowCenterLine: React.PropTypes.bool.isRequired,
   svgHeight: React.PropTypes.number.isRequired,
   svgWidth: React.PropTypes.number.isRequired,
 }
@@ -31,6 +30,6 @@ export default connect (( state ) => {
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,
     svgShorelineHeight: state.svgShorelineHeight,
-    svgShowCross: state.svgShowCross,
+    svgShowCenterLine: state.svgShowCenterLine,
   }
-})( Cross )
+})( CenterLine )

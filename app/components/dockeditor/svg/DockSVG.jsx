@@ -4,7 +4,7 @@ import { connect, dispatch } from 'react-redux'
 import DockComponent from 'DockComponent'
 import ShoreLine from 'ShoreLine'
 import Water from 'Water'
-import Cross from 'Cross'
+import CenterLine from 'CenterLine'
 import Grid from 'Grid'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 
@@ -161,7 +161,7 @@ class DockSVG extends React.Component {
 
     // adjust for shoreline
     if( svgRotation == 180 ) {
-      y = -svgShorelineHeight 
+      y = -svgShorelineHeight
     }
 
     let viewBox = `${x} ${y} ${w} ${h}`
@@ -177,7 +177,7 @@ class DockSVG extends React.Component {
             <Water/>
             <ShoreLine/>
             <Grid/>
-            <Cross/>
+            <CenterLine/>
           </g>
           {
             dock.map(( item, index ) => {
