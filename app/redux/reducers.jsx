@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 
+const SVG_SCALE_INCREMENT = 0.1
+const SVG_SCALE_MIN = 0.5
+const SVG_SCALE_MAX = 200
 const MIN_SVG_WIDTH = 400
 const MAX_SVG_WIDTH = 4000
 const MIN_SVG_HEIGHT = 400
@@ -31,9 +34,9 @@ export var setDraggingComponent = ( state = null, action ) => {
 export var updateSvgScale = ( state = 1.0, action ) => {
 
   if ( action.type == actions.INCREMENT_SVG_SCALE ) {
-    let temp = state + 0.10
+    let temp = state + SVG_SCALE_INCREMENT
 
-    if( temp < 300 ) {
+    if( temp < SVG_SCALE_MAX ) {
       return temp
     } else {
       return state
@@ -41,9 +44,9 @@ export var updateSvgScale = ( state = 1.0, action ) => {
   }
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let temp = state - 0.10
+    let temp = state - SVG_SCALE_INCREMENT
 
-    if( temp > 0.20 ) {
+    if( temp > SVG_SCALE_MIN ) {
       return temp
     } else {
       return state
