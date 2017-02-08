@@ -10,7 +10,7 @@ class ComponentPicker extends React.Component {
     return (
       <div className="component-picker">
         <div className="panel panel-default">
-          <div className="panel-heading">Dock Components</div>
+          <div className="panel-heading">Components</div>
           <div className="panel-body">
             <div className="list-group">
               {
