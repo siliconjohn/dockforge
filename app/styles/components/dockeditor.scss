@@ -7,7 +7,8 @@
 
   .dock-svg-parent {
     touch-action: none; // this disables touch scrolling
-    padding-top: 60px;
+    padding-top: 44px;
+
   }
 
   /////////////////////////////////
@@ -21,11 +22,12 @@
     .dock-view-container {
       height: 100%;
       padding-bottom: 15px;
-       
+
       .panel {
         height: 100%;
         margin-bottom: 0;
         overflow:hidden;
+        border-width: 0;
 
         .panel-body {
           height:100%;
