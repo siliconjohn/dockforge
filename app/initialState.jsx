@@ -1,7 +1,7 @@
 export var initialState = {
      dock: [
-            { type: "BOX", left:0, bottom:0, width: 120, height: 120, uuid:"test1" },
-            { type: "RECTANGLE", left:200, bottom:0, width: 200, height: 100, uuid:"test2" },
+            { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1" },
+            { type: "Rectangle", left:200, bottom:0, width: 240, height: 120, uuid:"test2" },
            ],
 
    derived: [
@@ -15,14 +15,14 @@ export var initialState = {
               }
             ],
     components: [
-      { name:"Square", description:"A square", type:"BOX", width: 100, height: 100,},
-      { name:"Rectangle",description:"A rectangle", type:"RECTANGLE",  width: 100, height: 100,}
+      { name:"Square", description:"A square", type:"Square", width: 100, height: 100,},
+      { name:"Rectangle",description:"A rectangle", type:"Rectangle",  width: 240, height: 120,}
     ],
 
     draggingComponent: null,
 
     svgScale: 1.0,
-    svgWidth: 1000,
+    svgWidth: 600,
     svgHeight: 600,
     svgShorelineHeight: 75,
     svgRotation: 0,

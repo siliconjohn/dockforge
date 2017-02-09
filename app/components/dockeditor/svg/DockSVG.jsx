@@ -1,13 +1,14 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
-import DockComponent from 'DockComponent'
+import Draggable from 'Draggable'
 import ShoreLine from 'ShoreLine'
 import Water from 'Water'
 import CenterLine from 'CenterLine'
 import Grid from 'Grid'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 import * as UUID from 'uuid-js'
+import { getComponent } from 'editor'
 
 class DockSVG extends React.Component {
 
@@ -181,11 +182,13 @@ class DockSVG extends React.Component {
             <Grid/>
             <CenterLine/>
           </g>
+          <g className="components">
           {
             dock.map(( item, index ) => {
-              return <DockComponent { ...item } key={ index }/>
+              return getComponent( item )
             })
           }
+          </g>
         </g>
       </svg>
     )

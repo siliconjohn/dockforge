@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveDockComponent } from 'actions'
 
-class DockComponent extends React.Component {
+class Draggable extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -280,26 +280,23 @@ class DockComponent extends React.Component {
     }
 
     return (
-      <g>
-        <rect className={`dock-component${noDragClass}`}
-          onMouseDown={ this.onMouseDown }
-          onMouseUp={ this.onMouseUp }
-          onTouchStart={ this.onTouchStart }
-          onTouchEnd={ this.onTouchEnd }
-          onTouchMove={ this.onTouchMove }
-          onTouchCancel={ this.onTouchCancel }
-          onDrop={ this.onDrop }
-          onDragOver={ this.onDragOver }
-          onDragLeave={ this.onDragLeave }
-          onDragEnter={ this.onDragEnter }
-          stroke="darkblue" strokeWidth="1"  fill="red"
-          x={ left } y={ bottom - height } width={ width } height= { height }/>
+      <g onMouseDown={ this.onMouseDown }
+        onMouseUp={ this.onMouseUp }
+        onTouchStart={ this.onTouchStart }
+        onTouchEnd={ this.onTouchEnd }
+        onTouchMove={ this.onTouchMove }
+        onTouchCancel={ this.onTouchCancel }
+        onDrop={ this.onDrop }
+        onDragOver={ this.onDragOver }
+        onDragLeave={ this.onDragLeave }
+        onDragEnter={ this.onDragEnter }>
+        {this.props.children}
       </g>
     )
   }
 }
 
-DockComponent.propTypes = {
+Draggable.propTypes = {
   bottom: React.PropTypes.number.isRequired,
   left: React.PropTypes.number.isRequired,
   width: React.PropTypes.number.isRequired,
@@ -315,4 +312,4 @@ export default connect (( state ) => {
     mouseMoveXY: state.mouseMoveXY,
     svgRotation: state.svgRotation,
   }
-})( DockComponent )
+})( Draggable )
