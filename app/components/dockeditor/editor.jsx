@@ -3,18 +3,15 @@ import Square from 'Square'
 import Rectangle from 'Rectangle'
 
 // returns the proper component giving the attr.type
-// only used to create new componenets
-// when you add a new component it needs to be added
-// here to be available to the app
+
+// When you add a new component it needs to be added
+// to this object to be available to the app
+const components = {
+  Square: Square,
+  Rectangle: Rectangle
+};
+
 module.exports.getComponent = ( attr ) => {
-  
-  if( attr.type == 'Square' ) {
-    return <Square { ...attr } key={ attr.uuid }/>
-  }
-
-  if( attr.type == 'Rectangle' ) {
-    return <Rectangle { ...attr } key={ attr.uuid }/>
-  }
-
-  return null
+  let SpecificComponent = components[attr.type]
+  return <SpecificComponent { ...attr } key={ attr.uuid } />
 }
