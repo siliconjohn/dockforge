@@ -185,6 +185,10 @@ class DockComponent extends React.Component {
       options.left = this.lastMouseDragXDistance
       options.bottom = this.lastMouseDragYDistance
       this.props.dispatch( moveDockComponent( options ))
+
+      // reset values
+      this.lastMouseDragXDistance = 0
+      this.lastMouseDragYDistance = 0
     }
   }
 
