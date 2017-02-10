@@ -8,6 +8,9 @@
     "start": "node server.js",
     "postinstall": "webpack -p --config ./webpack.config.js --progress"
   },
+  "engines": {
+    "node": "6.9.1"
+  },
   "author": "siliconjohn",
   "license": "MIT",
   "repository": {
