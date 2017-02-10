@@ -28,7 +28,6 @@ class Draggable extends React.Component {
     this.onMouseUp = this.onMouseUp.bind( this )
     this.onTouchStart = this.onTouchStart.bind( this )
     this.onTouchEnd = this.onTouchEnd.bind( this )
-    this.onTouchMove = this.onTouchMove.bind( this )
     this.onTouchCancel = this.onTouchCancel.bind( this )
     this.performMouseDrag = this.performMouseDrag.bind( this )
   }
@@ -218,19 +217,22 @@ class Draggable extends React.Component {
   onTouchStart( event ){
     let svg = document.getElementById( "svg-el" )
     let point = svg.createSVGPoint()
+    let touch = event.touches[0]
 
     // translate the screen point to svg's point, this enable the
     // svg to be scaled to any size and the drag will still work
     // accurately
-    point.x = event.clientX
-    point.y = event.clientY;
+    point.x = touch.clientX
+    point.y = touch.clientY;
     point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
     this.setState({
       isDragging: true,
       draggingStartX: point.x,
       draggingStartY: point.y,
-    });
+    })
+
+    this.props.dispatch( setMouseDraggingElement( true ))
   }
 
   onTouchCancel() {
@@ -242,30 +244,30 @@ class Draggable extends React.Component {
   }
 
   onTouchEnd() {
+    let { draggingStartX, draggingStartY } = this.state
+    let { left, bottom, uuid } = this.props
+
+    // turn off isDragging
     if( this.state.isDragging == true ) {
       this.setState({
-        isDragging: false
+        isDragging: false,
+        draggingStartX: 0,
+        draggingStartY: 0,
       })
+
+      this.props.dispatch( setMouseDraggingElement( false ))
+
+      // move the component
+      let options = {}
+      options.uuid = uuid
+      options.left = this.lastMouseDragXDistance
+      options.bottom = this.lastMouseDragYDistance
+      this.props.dispatch( moveDockComponent( options ))
+
+      // reset values
+      this.lastMouseDragXDistance = 0
+      this.lastMouseDragYDistance = 0
     }
-  }
-
-  onTouchMove( event ) {
-    // TODO: finsh moving this element on touch
-    // if( this.state.isDragging == true ) {
-    //   let svg = document.getElementById( "svg-el" )
-    //   let point = svg.createSVGPoint()
-
-      // console.log(event);
-      // // translate the screen point to svg's point, this enable the
-      // point.x = event.clientX
-      // point.y = event.clientY;
-      // point = point.matrixTransform( svg.getScreenCTM().inverse() )
-      //
-      // let tempX = point.x - this.state.draggingStartX
-      // let tempY = point.y - this.state.draggingStartY
-      // findDOMNode(this).setAttribute('transform',`translate(${tempX},${tempY})`)
-      // // this will rerender on drag, you can use this instead of
-
   }
 
   ////////////////////////////////////////////////////////

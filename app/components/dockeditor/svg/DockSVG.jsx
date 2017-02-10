@@ -20,7 +20,7 @@ class DockSVG extends React.Component {
     this.onDragOver = this.onDragOver.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseOut = this.onMouseOut.bind( this )
-    this.onMouseUp = this.onMouseUp.bind( this )
+    this.onTouchMove = this.onTouchMove.bind( this ) 
   }
 
   ////////////////////////////////////////////////////////
@@ -110,12 +110,24 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   onMouseOut( e ) {
-    // turn off mouse dragging when the mouse leaves the svg element
-    this.props.dispatch( setMouseDraggingElement( false ))
+    if( this.props.mouseDraggingElement == true ) {
+      this.props.dispatch( setMouseDraggingElement( false ))
+    }
   }
 
-  onMouseUp( event ) {
-    this.props.dispatch( setMouseDraggingElement( false ))
+  onTouchMove( event ) {
+    if( this.props.mouseDraggingElement == true ) {
+      let touch = event.touches[0]
+      let svgElement = findDOMNode( this )
+      let point = svgElement.createSVGPoint()
+
+      // translate the screen point to svg's point
+      point.x = touch.clientX
+      point.y = touch.clientY;
+      point = point.matrixTransform( svgElement.getScreenCTM().inverse())
+
+      this.props.dispatch( setMouseMoveXY( [ point.x, point.y ]))
+    }
   }
 
   ////////////////////////////////////////////////////////
@@ -174,7 +186,8 @@ class DockSVG extends React.Component {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" className="dock-svg"
         viewBox={ viewBox } onDrop={ this.onDrop } onDragOver={ this.onDragOver }
-        onMouseMove={ this.onMouseMove } onMouseUp={ this.onMouseUp } onMouseLeave={ this.onMouseOut }>
+        onMouseMove={ this.onMouseMove } onTouchMove={ this.onTouchMove }
+        onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g className="background">
             <Water/>

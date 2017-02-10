@@ -82,6 +82,24 @@ export var setMouseDraggingElement = ( value ) => {
   }
 }
 
+export const SET_TOUCH_MOVE_XY = 'SET_TOUCH_MOVE_XY'
+
+export var setTouchMoveXY = ( value ) => {
+  return {
+    type: SET_TOUCH_MOVE_XY,
+    value
+  }
+}
+
+export const SET_TOUCH_DRAGGING_ELEMENT = 'SET_TOUCH_DRAGGING_ELEMENT'
+
+export var setTouchDraggingElement = ( value ) => {
+  return {
+    type: SET_TOUCH_DRAGGING_ELEMENT,
+    value
+  }
+}
+
 export const CHANGE_SVG_ROTATION = 'CHANGE_SVG_ROTATION'
 
 export var changeSvgRotation = () => {

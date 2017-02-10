@@ -31,7 +31,9 @@ export var initialState = {
     svgShowDistances: true,
 
     mouseMoveXY: [0,0],
-    mouseDraggingElement: true,
+    mouseDraggingElement: false,
+    touchMoveXY: [0,0],
+    touchDraggingElement: false,
 
 }
 

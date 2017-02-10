@@ -91,6 +91,24 @@ export var setMouseDraggingElement = ( state = false, action ) => {
   }
 }
 
+export var setTouchMoveXY = ( state = [0,0], action ) => {
+
+  if ( action.type == actions.SET_TOUCH_MOVE_XY ) {
+    return action.value
+  } else {
+    return state
+  }
+}
+
+export var setTouchDraggingElement = ( state = false, action ) => {
+
+  if ( action.type == actions.SET_TOUCH_DRAGGING_ELEMENT ) {
+    return action.value
+  } else {
+    return state
+  }
+}
+
 export var changeSvgRotation = ( state  = 0, action ) => {
 
   if ( action.type == actions.CHANGE_SVG_ROTATION ) {
@@ -177,6 +195,8 @@ export const appReducers = combineReducers({
   svgHeight: changeSvgHeight,
   svgShowGrid: toggleShowGrid,
   svgShowCenterLine: toggleShowCenterLine,
+  touchMoveXY: setTouchMoveXY,
+  touchDraggingElement: setTouchDraggingElement,
   svgShowDistances: (state = {}) => state,
   svgShorelineHeight: (state = {}) => state,
   components: ( state = {} ) => state
