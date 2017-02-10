@@ -71,25 +71,29 @@ class Draggable extends React.Component {
   ////////////////////////////////////////////////////////
 
   onDrop( event ) {
-    let data = this.props.draggingComponent
+    try {
+      let data = this.props.draggingComponent
 
-    // new component can't be dropped here ( for now )
-    if( data.source == "newComponent") {
-      event.preventDefault()
-      event.stopPropagation()
-    }
+      // new component can't be dropped here ( for now )
+      if( data.source == "newComponent") {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+    } catch( e ) { }
   }
 
   onDragEnter( event ) {
-    let data = this.props.draggingComponent
+    try {
+      let data = this.props.draggingComponent
 
-    // new component can't be dropped here ( for now )
-    if( data.source == "newComponent") {
-      this.setState({
-        isDraggingOver:true
-      })
-      event.stopPropagation()
-    }
+      // new component can't be dropped here ( for now )
+      if( data.source == "newComponent") {
+        this.setState({
+          isDraggingOver:true
+        })
+        event.stopPropagation()
+      }
+    } catch( e ) { }
   }
 
   //USE THIS LATER FOR ADDING CONNECTED COMPONENTS
