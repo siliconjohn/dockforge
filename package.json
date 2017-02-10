@@ -1,5 +1,5 @@
 {
-  "name": "DockTool",
+  "name": "docktool",
   "version": "0.0.1",
   "description": "Tool for designing boat docks",
   "main": "server.js",
