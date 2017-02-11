@@ -1,21 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class CenterLine extends React.Component {
+var CenterLine = ( props ) => {
+  let { svgShorelineHeight, svgShowCenterLine, svgHeight, svgWidth } = props
 
-  render() {
-    let { svgShorelineHeight, svgShowCenterLine, svgHeight, svgWidth } = this.props
+  if( svgShowCenterLine == false ) return null
 
-    if( svgShowCenterLine == false ) return null
+  let halfWidth = svgWidth / 2
 
-    let halfWidth = svgWidth / 2
-
-    return (
-      <g className="center-line">
-        <line x1="0" y1={ svgShorelineHeight } x2="0" y2={ -svgHeight }/>
-      </g>
-    )
-  }
+  return (
+    <g className="center-line">
+      <line x1="0" y1={ svgShorelineHeight } x2="0" y2={ -svgHeight }/>
+    </g>
+  )
 }
 
 CenterLine.propTypes = {

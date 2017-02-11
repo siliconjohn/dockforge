@@ -1,16 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class ShoreLine extends React.Component {
+var ShoreLine = ( props ) => {
+  let { svgWidth, svgShorelineHeight }  = props
 
-  render() {
-    let { svgWidth, svgShorelineHeight }  = this.props
-
-    return (
-      <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
-       width={ svgWidth } height={ svgShorelineHeight }/>
-    )
-  }
+  return (
+    <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
+     width={ svgWidth } height={ svgShorelineHeight }/>
+  )
 }
 
 ShoreLine.propTypes = {

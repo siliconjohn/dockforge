@@ -1,16 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class Water extends React.Component {
+var Water = ( props ) => {
+  let { svgWidth, svgHeight, svgShorelineHeight }  =  props
 
-  render() {
-    let { svgWidth, svgHeight, svgShorelineHeight }  = this.props
+  return (
+    <rect className="water" x={ -svgWidth  / 2 } y={ -svgHeight + svgShorelineHeight }
+         width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
+  )
 
-    return (
-      <rect className="water" x={ -svgWidth  / 2 } y={ -svgHeight + svgShorelineHeight }
-       width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
-    )
-  }
 }
 
 Water.propTypes = {
