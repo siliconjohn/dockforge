@@ -1,9 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const BabiliPlugin = require('babili-webpack-plugin');
-// const WebpackErrorNotificationPlugin = require('webpack-error-notification');
-// const WebpackNotifierPlugin = require('webpack-notifier');
-
+const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = function (env) {
   const nodeEnv = env && env ? 'production' : 'development'
@@ -42,7 +40,7 @@ module.exports = function (env) {
       },
       extensions: [".js", ".jsx"],
     },
- 
+
     plugins: [
       new webpack.ProvidePlugin({
         '$': 'jquery',
@@ -51,7 +49,8 @@ module.exports = function (env) {
       new webpack.DefinePlugin({
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
       }),
-      new BabiliPlugin()
+      new BabiliPlugin(),
+      new WebpackNotifierPlugin()
     ],
 
     module: {
