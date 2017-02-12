@@ -1,6 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
-const BabiliPlugin = require('babili-webpack-plugin');
+const webpack = require('webpack'); 
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = function (env) {
@@ -49,7 +48,6 @@ module.exports = function (env) {
       new webpack.DefinePlugin({
         'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
       }),
-      new BabiliPlugin(),
       new WebpackNotifierPlugin()
     ],
 
