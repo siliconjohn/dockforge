@@ -68,18 +68,18 @@ module.exports = function (env) {
           ],
         },
         {
-                test: /\.scss$/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "sass-loader",
-                    options: {
-                        includePaths: [path.resolve(__dirname, './node_modules/bootstrap-sass/assets')]
-                    }
-                }]
-            }
+          test: /\.scss$/,
+          use: [{
+              loader: "style-loader"
+          }, {
+              loader: "css-loader"
+          }, {
+              loader: "sass-loader",
+              options: {
+                  includePaths: [path.resolve(__dirname, './node_modules/bootstrap-sass/assets')]
+              }
+          }]
+        }
       ],
     },
     devtool: 'source-map'
