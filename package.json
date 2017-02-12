@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start",
     "start": "node server.js",
-    "postinstall": "webpack -p --config ./webpack.config.js production --progress --env production"
+    "postinstall": "webpack -p --config ./webpack.config.js --env production"
   },
   "engines": {
     "node": "6.9.1"
