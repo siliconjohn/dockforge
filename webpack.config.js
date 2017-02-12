@@ -6,8 +6,8 @@ const webpack = require('webpack');
 
 module.exports = function (env) {
 
-  const nodeEnv = env && env.prod ? 'production' : 'development'
-  console.log(env);
+  const nodeEnv = env && env ? 'production' : 'development'
+  console.log(nodeEnv);
   return {
     context: path.resolve( __dirname, './app' ),
 
