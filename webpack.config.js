@@ -5,9 +5,8 @@ const webpack = require('webpack');
 
 
 module.exports = function (env) {
-  console.log(env);
-  const nodeEnv =  'production'  ;
-  //const isProd = nodeEnv === 'production';
+
+  const nodeEnv = env && env.prod ? 'production' : 'development'
 
   return {
     context: path.resolve( __dirname, './app' ),
@@ -52,7 +51,7 @@ module.exports = function (env) {
         'jQuery': 'jquery',
       }),
       new webpack.DefinePlugin({
-        'process.env': { NODE_ENV: JSON.stringify('production') }
+        'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
       }),
     ],
 
