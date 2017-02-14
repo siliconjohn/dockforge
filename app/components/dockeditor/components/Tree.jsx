@@ -50,12 +50,7 @@ class Tree extends React.Component {
             renderBottom = parentBottom + height + pixelOffset
             break
 
-        }
-        if( connectParent == "right" ) {
-          renderLeft = parentLeft + parentWidth + pixelOffset
-          renderBottom = parentBottom
-        }
-
+        } 
       } else {
         throw "Can't render, no left, bottom, parentLeft or parentBottom properties"
       }
