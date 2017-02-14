@@ -279,13 +279,13 @@ class Draggable extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    let { left, bottom, width, height, draggingComponent } = this.props
-    let { isDragging, isDraggingOver } = this.state
-
-    let noDragClass = ''
-    if( isDraggingOver == true ) {
-      noDragClass = ' red'
-    }
+    //3let { left, bottom, width, height, draggingComponent } = this.props
+    // let { isDragging, isDraggingOver } = this.state
+    //
+    // let noDragClass = ''
+    // if( isDraggingOver == true ) {
+    //   noDragClass = ' red'
+    // }
 
     return (
       <g onMouseDown={ this.onMouseDown }
@@ -305,8 +305,8 @@ class Draggable extends React.Component {
 }
 
 Draggable.propTypes = {
-  bottom: React.PropTypes.number.isRequired,
-  left: React.PropTypes.number.isRequired,
+  bottom: React.PropTypes.number,
+  left: React.PropTypes.number,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
   uuid: React.PropTypes.string.isRequired,

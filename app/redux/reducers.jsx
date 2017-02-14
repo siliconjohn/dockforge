@@ -17,7 +17,9 @@ const SVG_HEIGHT_INCREMENT = 120
 export var updateDockComponent = ( state = [], action ) => {
 
   if ( action.type == actions.ADD_DOCK_COMPONENT ) {
-    var newState = Object.assign( [], state )
+    let newState = Object.assign( [], state )
+    action.component.children = []
+    action.component.connectParent = "root"
     newState.push( action.component )
     return newState
   }
@@ -183,7 +185,7 @@ export var changeSvgHeight = ( state = MIN_SVG_HEIGHT, action ) => {
   return state
 }
 
-export const appReducers = combineReducers({ 
+export const appReducers = combineReducers({
   dock: updateDockComponent,
   draggingComponent: setDraggingComponent,
   svgScale: updateSvgScale,
