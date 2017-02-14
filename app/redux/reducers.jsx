@@ -183,8 +183,7 @@ export var changeSvgHeight = ( state = MIN_SVG_HEIGHT, action ) => {
   return state
 }
 
-export const appReducers = combineReducers({
-  derived: ( state ={ } ) => state,
+export const appReducers = combineReducers({ 
   dock: updateDockComponent,
   draggingComponent: setDraggingComponent,
   svgScale: updateSvgScale,

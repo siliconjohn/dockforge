@@ -3,17 +3,7 @@ export var initialState = {
             { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1" },
             { type: "Rectangle", left:200, bottom:0, width: 240, height: 120, uuid:"test2" },
            ],
-
-   derived: [
-              { type: "deck", x: 0, y: 0, width: 100, height: 100, rotate:0, key:"0",
-                children:[
-                  { type: "deck", x: 100, y: 100, width: 100, height: 100, rotate:0, key:"1", children:[
-                    { type: "deck", x: 100, y: 200, width: 100, height: 100, rotate:0, key:"4", children:[] }
-                  ] },
-                  { type: "deck", x: -100, y: 100, width: 100, height: 100, rotate:0, key:"2", children:[] }
-                ]
-              }
-            ],
+ 
     components: [
       { name:"Square", description:"A square", type:"Square", width: 100, height: 100,},
       { name:"Rectangle",description:"A rectangle", type:"Rectangle",  width: 240, height: 120,}
