@@ -193,6 +193,8 @@ class Draggable extends React.Component {
       this.lastMouseDragYDistance = 0
 
       event.stopPropagation()
+    } else {
+      this.props.dispatch( setMouseDraggingElement( false ))
     }
   }
 
