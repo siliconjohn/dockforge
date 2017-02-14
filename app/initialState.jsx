@@ -10,7 +10,18 @@ export var initialState = {
               ] }
 
             ]},
-            { type: "Rectangle", left:200, bottom:0, width: 240, height: 120, uuid:"test2",  children:[] },
+            { type: "Rectangle", left:0, bottom:-250, width: 240, height: 120, uuid:"test2", connectParent:'root', children:[
+              { type: "Square", width: 120, height: 120, uuid:"child1", connectParent:'top',children:[
+                { type: "Square", width: 120, height: 120, uuid:"child3", connectParent:'left',children:[
+                    { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'left', children:[
+                          { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'bottom', children:[]}
+                    ]}
+                ] }
+              ] }
+
+            ]},
+            { type: "Square", left:300, bottom:-250, width: 240, height: 120, uuid:"tesrt2", connectParent:'root', children:[]}
+
            ],
 
     components: [
@@ -20,8 +31,8 @@ export var initialState = {
 
     draggingComponent: null,
 
-    svgScale: 1.0,
-    svgWidth: 600,
+    svgScale: 0.8,
+    svgWidth: 1000,
     svgHeight: 600,
     svgShorelineHeight: 75,
     svgRotation: 0,
@@ -35,48 +46,3 @@ export var initialState = {
     touchDraggingElement: false,
 
 }
-
-// dock: [{ type: "deck",  width: 100, height: 100, key:"0",
-//         children:[
-//           { type: "deck", width: 100, height: 100, connectParent:'left',  children:[]},
-//           { type: "deck", width: 100, height: 200, connectParent:'top',    key:"5",
-//             children:[
-//               { type: "deck", width: 100, height: 100, connectParent:'top',
-//                 children:[
-//                   { type: "deck", width: 100, height: 100, connectParent:'left',  children:[], key:"22" }
-//
-//
-//                 ]},
-//                { type: "deck", width: 100, height: 100, connectParent:'right',  children:[], key:"2",
-//                 children:[
-//                   { type: "deck", width: 100, height: 100, connectParent:'right',  children:[], key:"3",
-//                     children:[
-//                       { type: "deck", width: 100, height: 100, connectParent:'top',  children  :[], key:"4" },
-//                       { type: "deck", width: 100, height: 100, connectParent:'bottom',  children:[], key:"22" }
-//                     ]
-//                   }
-//                 ]
-//               }
-//             ]
-//           }
-//         ]
-//       }],
-
-// ,
-//            children:[
-//              { type: "deck", x: 0, y: 100, width: 100, height: 100, rotate:0, key:"5",
-//                children:[
-//                  { type: "deck", x: 100, y: 100, width: 100, height: 100, rotate:0, key:"1" },
-//                  { type: "deck", x: -100, y: 100, width: 100, height: 100, rotate:0, key:"2",
-//                    children:[
-//                      { type: "deck", x: -100, y: -200, width: 100, height: 100, rotate:0, key:"3",
-//                        children:[
-//                          { type: "deck", x: -100, y: 300, width: 100, height: 100, rotate:0, key:"4" }
-//                        ]
-//                      }
-//                    ]
-//                  }
-//                ]
-//              }
-//            ]
-//          }
