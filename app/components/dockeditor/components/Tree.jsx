@@ -2,6 +2,8 @@ import React from 'react'
 import Draggable from 'Draggable'
 import { getComponent } from 'editor'
 
+// this is the root class for all components that need
+// to be part of a tree of components
 class Tree extends React.Component {
 
   // this is overrode in decendant classes
