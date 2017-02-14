@@ -1,9 +1,11 @@
 export var initialState = {
      dock: [
-            { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1" },
-            { type: "Rectangle", left:200, bottom:0, width: 240, height: 120, uuid:"test2" },
+            { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1", children:[
+              { type: "Square", left:100, bottom:-100, width: 120, height: 120, uuid:"child1", connectParent:'top',children:[] }
+            ]},
+            { type: "Rectangle", left:200, bottom:0, width: 240, height: 120, uuid:"test2",  children:[] },
            ],
- 
+
     components: [
       { name:"Square", description:"A square", type:"Square", width: 100, height: 100,},
       { name:"Rectangle",description:"A rectangle", type:"Rectangle",  width: 240, height: 120,}

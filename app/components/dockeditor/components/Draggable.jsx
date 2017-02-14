@@ -165,7 +165,6 @@ class Draggable extends React.Component {
 
     this.lastMouseDragXDistance = x
     this.lastMouseDragYDistance = y
-
     findDOMNode( this ).setAttribute( 'transform',`translate(${x},${y})` )
   }
 
@@ -192,6 +191,8 @@ class Draggable extends React.Component {
       // reset values
       this.lastMouseDragXDistance = 0
       this.lastMouseDragYDistance = 0
+
+      event.stopPropagation()
     }
   }
 
@@ -215,6 +216,7 @@ class Draggable extends React.Component {
       })
 
       this.props.dispatch( setMouseDraggingElement( true ))
+      event.stopPropagation()
     }
   }
 
@@ -308,7 +310,8 @@ Draggable.propTypes = {
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
   uuid: React.PropTypes.string.isRequired,
-  draggingComponent: React.PropTypes.object
+  draggingComponent: React.PropTypes.object,
+  children: React.PropTypes.array
 }
 
 export default connect (( state ) => {
