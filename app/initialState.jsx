@@ -1,9 +1,9 @@
 export var initialState = {
   dock: {
-          svgWidth: 500,
-          svgHeight: 500,
+          svgWidth: 600,
+          svgHeight: 600,
           svgScale: 0.8,
-          svgRotation: 90,
+          svgRotation: 0,
           svgShorelineHeight: 75,
           svgShowGrid: true,
           svgShowCenterLine: true,
