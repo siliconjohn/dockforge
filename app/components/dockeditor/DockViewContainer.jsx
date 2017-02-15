@@ -27,12 +27,17 @@ class DockViewContainer extends React.Component {
       }
     }
 
+    let dockSVGComponent = null
+    if( this.props.dock != undefined ) {
+     dockSVGComponent = <DockSVG dock={ this.props.dock }/>
+    }
+
     return (
       <div className="dock-view-container">
         <div className="panel panel-default">
           <div className="panel-body dock-svg-scroll-parent">
             <div className="dock-svg-parent center-block" style={ style }>
-              <DockSVG/>
+              { dockSVGComponent }
             </div>
           </div>
         </div>
@@ -42,6 +47,7 @@ class DockViewContainer extends React.Component {
 }
 
 DockViewContainer.PropTypes = {
+  dock: React.PropTypes.array.isRequired,
   svgWidth: React.PropTypes.number.isRequired,
   svgHeight: React.PropTypes.number.isRequired,
   svgScale: React.PropTypes.number.isRequired,
@@ -50,6 +56,7 @@ DockViewContainer.PropTypes = {
 
 export default connect (( state ) => {
   return {
+    dock: state.dock,
     svgScale: state.svgScale,
     svgWidth: state.svgWidth,
     svgHeight: state.svgHeight,

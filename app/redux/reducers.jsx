@@ -14,20 +14,19 @@ const MAX_SVG_HEIGHT = 6000
 const SVG_WIDTH_INCREMENT = 120
 const SVG_HEIGHT_INCREMENT = 120
 
-export var updateDockComponent = ( state = [], action ) => {
+export var updateDockComponent = ( state = {}, action ) => {
 
   if ( action.type == actions.ADD_DOCK_COMPONENT ) {
-    let newState = Object.assign( [], state )
+    let newState = Object.assign( {}, state )
     action.component.children = []
     action.component.connectParent = "root"
-    newState.push( action.component )
+    newState.elements.push( action.component )
     return newState
   }
 
   if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
-    let newState = Object.assign( [], state )
-
-    let component = newState.find( ( c ) =>  c.uuid === action.value.uuid  )
+    let newState = Object.assign( {}, state )
+    let component = newState.elements.find( ( c ) =>  c.uuid === action.value.uuid  )
 
     // if found component
     if( component !== undefined ) {

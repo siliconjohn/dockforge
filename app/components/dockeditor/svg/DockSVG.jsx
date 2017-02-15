@@ -20,7 +20,7 @@ class DockSVG extends React.Component {
     this.onDragOver = this.onDragOver.bind( this )
     this.onMouseMove = this.onMouseMove.bind( this )
     this.onMouseOut = this.onMouseOut.bind( this )
-    this.onTouchMove = this.onTouchMove.bind( this ) 
+    this.onTouchMove = this.onTouchMove.bind( this )
   }
 
   ////////////////////////////////////////////////////////
@@ -134,7 +134,8 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    var { dock, svgRotation, svgWidth, svgHeight, svgShorelineHeight } = this.props
+    let { svgRotation, svgWidth, svgHeight, svgShorelineHeight } = this.props
+    let dock = this.props.dock.elements
 
     // setup transoform string for the svgRotation
     let transform = `rotate(${svgRotation})`
@@ -209,7 +210,7 @@ class DockSVG extends React.Component {
 }
 
 DockSVG.propTypes = {
-  dock: React.PropTypes.array.isRequired,
+  dock: React.PropTypes.object.isRequired,
   dispatch: React.PropTypes.func.isRequired,
   svgShorelineHeight: React.PropTypes.number.isRequired,
   svgHeight: React.PropTypes.number.isRequired,
@@ -220,8 +221,7 @@ DockSVG.propTypes = {
 }
 
 export default connect (( state ) => {
-  return {
-    dock: state.dock,
+  return { 
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     svgRotation: state.svgRotation,
