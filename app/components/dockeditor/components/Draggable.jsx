@@ -128,7 +128,7 @@ class Draggable extends React.Component {
   // moves this component by adding a transform attribute,
   // this is only to be used for dragging
   performMouseDrag( xy ) {
-    let rotate = this.props.svgRotation
+    let rotate = this.context.svgRotation
     let { draggingStartX, draggingStartY } = this.state
     let x = 0
     let y = 0
@@ -307,6 +307,7 @@ class Draggable extends React.Component {
 }
 
 Draggable.propTypes = {
+  dock: React.PropTypes.object,
   bottom: React.PropTypes.number,
   left: React.PropTypes.number,
   width: React.PropTypes.number.isRequired,
@@ -316,11 +317,14 @@ Draggable.propTypes = {
   children: React.PropTypes.array
 }
 
+Draggable.contextTypes = {
+  svgRotation: React.PropTypes.number
+}
+
 export default connect (( state ) => {
   return {
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
-    svgRotation: state.svgRotation,
   }
 })( Draggable )

@@ -11,7 +11,8 @@ class DockViewContainer extends React.Component {
   }
 
   render() {
-    let { svgScale, svgWidth, svgHeight, svgRotation } = this.props
+    let { svgWidth, svgHeight, svgScale, svgRotation } = this.props.dock
+
     let style
 
     // setup scale, adjusting for rotaion
@@ -28,8 +29,8 @@ class DockViewContainer extends React.Component {
     }
 
     let dockSVGComponent = null
-    if( this.props.dock != undefined ) {
-     dockSVGComponent = <DockSVG dock={ this.props.dock }/>
+    if( this.props.dock != undefined && this.props.dock != null ) {
+      dockSVGComponent = <DockSVG { ...this.props.dock }/>
     }
 
     return (
@@ -47,19 +48,11 @@ class DockViewContainer extends React.Component {
 }
 
 DockViewContainer.PropTypes = {
-  dock: React.PropTypes.array.isRequired,
-  svgWidth: React.PropTypes.number.isRequired,
-  svgHeight: React.PropTypes.number.isRequired,
-  svgScale: React.PropTypes.number.isRequired,
-  svgRotation: React.PropTypes.number.isRequired,
+  dock: React.PropTypes.object.isRequired
 }
 
 export default connect (( state ) => {
   return {
-    dock: state.dock,
-    svgScale: state.svgScale,
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgRotation: state.svgRotation,
+    dock: state.dock
   }
 })( DockViewContainer )

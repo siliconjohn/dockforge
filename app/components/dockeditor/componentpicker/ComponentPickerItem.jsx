@@ -17,7 +17,6 @@ class ComponentPickerItem extends React.Component {
     const data =  { type:this.props.type, width:this.props.width,
       height:this.props.height, source:"newComponent" }
 
-
     // set drag data because firefox doesn't allow dragging with out it
     event.dataTransfer.setData('text/plain', JSON.stringify( data ))
 
@@ -26,6 +25,7 @@ class ComponentPickerItem extends React.Component {
 
     // set drag image
     event.dataTransfer.setDragImage( this.refs.dragImage, 0, 0 )
+    
     return true
   }
 

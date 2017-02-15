@@ -1,5 +1,4 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react' 
 
 var CenterLine = ( props ) => {
   let { svgShorelineHeight, svgShowCenterLine, svgHeight, svgWidth } = props
@@ -22,11 +21,4 @@ CenterLine.propTypes = {
   svgWidth: React.PropTypes.number.isRequired,
 }
 
-export default connect (( state ) => {
-  return {
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgShorelineHeight: state.svgShorelineHeight,
-    svgShowCenterLine: state.svgShowCenterLine,
-  }
-})( CenterLine )
+module.exports = CenterLine

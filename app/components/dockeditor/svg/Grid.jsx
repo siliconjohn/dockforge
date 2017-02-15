@@ -1,9 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 var Grid = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid, svgRotation } = props
-
+ 
   if( svgShowGrid == false ) return null
 
   // setup size vars
@@ -85,12 +84,4 @@ Grid.propTypes = {
   svgShowGrid: React.PropTypes.bool.isRequired,
 }
 
-export default connect (( state ) => {
-  return {
-    svgRotation: state.svgRotation,
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgShowGrid: state.svgShowGrid,
-    svgShorelineHeight: state.svgShorelineHeight,
-  }
-})( Grid )
+module.exports = Grid

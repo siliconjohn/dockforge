@@ -20,20 +20,111 @@ export var updateDockComponent = ( state = {}, action ) => {
     let newState = Object.assign( {}, state )
     action.component.children = []
     action.component.connectParent = "root"
-    newState.elements.push( action.component )
+    newState.components.push( action.component )
     return newState
   }
 
   if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
     let newState = Object.assign( {}, state )
-    let component = newState.elements.find( ( c ) =>  c.uuid === action.value.uuid  )
-
-    // if found component
+    let component = newState.components.find( ( c ) =>  c.uuid === action.value.uuid  )
     if( component !== undefined ) {
       component.left += action.value.left
       component.bottom += action.value.bottom
+      return newState
+    } else {
+      return state
     }
+  }
 
+  if( action.type == actions.INCREMENT_SVG_WIDTH ) {
+    if( state.svgWidth + SVG_WIDTH_INCREMENT < MAX_SVG_WIDTH ) {
+      let newState = Object.assign( {}, state )
+      newState.svgWidth = state.svgWidth + SVG_WIDTH_INCREMENT
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if( action.type == actions.DECREMENT_SVG_WIDTH ) {
+    if( state.svgWidth - SVG_WIDTH_INCREMENT > MIN_SVG_WIDTH ) {
+      let newState = Object.assign( {}, state )
+      newState.svgWidth = state.svgWidth - SVG_WIDTH_INCREMENT
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if( action.type == actions.INCREMENT_SVG_HEIGHT ) {
+    if( state.svgHeight + SVG_HEIGHT_INCREMENT < MAX_SVG_HEIGHT ) {
+      let newState = Object.assign( {}, state )
+      newState.svgHeight = state.svgHeight + SVG_HEIGHT_INCREMENT
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if( action.type == actions.DECREMENT_SVG_HEIGHT ) {
+    if( state.svgHeight - SVG_HEIGHT_INCREMENT > MIN_SVG_HEIGHT ) {
+      let newState = Object.assign( {}, state )
+      newState.svgHeight = state.svgHeight - SVG_HEIGHT_INCREMENT
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if ( action.type == actions.CHANGE_SVG_ROTATION ) {
+    let newState = Object.assign( {}, state )
+    let newRotation = newState.svgRotation + 90
+    if( newRotation > 270 ) {
+      newRotation = 0
+    }
+    newState.svgRotation = newRotation
+    return newState
+  }
+
+  if ( action.type == actions.INCREMENT_SVG_SCALE ) {
+    let newState = Object.assign( {}, state )
+    let temp = newState.svgScale + SVG_SCALE_INCREMENT
+
+    if( temp < SVG_SCALE_MAX ) {
+      newState.svgScale = temp
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if ( action.type == actions.DECREMENT_SVG_SCALE ) {
+    let newState = Object.assign( {}, state )
+    let temp = newState.svgScale - SVG_SCALE_INCREMENT
+
+    if( temp > SVG_SCALE_MIN ) {
+      newState.svgScale = temp
+      return newState
+    } else {
+      return state
+    }
+  }
+
+  if( action.type == actions.TOGGLE_SHOW_GRID ) {
+    let newState = Object.assign( {}, state )
+    newState.svgShowGrid = !newState.svgShowGrid
+    return newState
+  }
+
+  if( action.type == actions.TOGGLE_SHOW_CENTER_LINE ) {
+    let newState = Object.assign( {}, state )
+    newState.svgShowCenterLine = !newState.svgShowCenterLine
+    return newState
+  }
+
+  if( action.type == actions.TOGGLE_SHOW_DISTANCES ) {
+    let newState = Object.assign( {}, state )
+    newState.svgShowDistances = !newState.svgShowDistances
     return newState
   }
 
@@ -47,31 +138,6 @@ export var setDraggingComponent = ( state = null, action ) => {
   } else {
     return state
   }
-}
-
-export var updateSvgScale = ( state = 1.0, action ) => {
-
-  if ( action.type == actions.INCREMENT_SVG_SCALE ) {
-    let temp = state + SVG_SCALE_INCREMENT
-
-    if( temp < SVG_SCALE_MAX ) {
-      return temp
-    } else {
-      return state
-    }
-  }
-
-  if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let temp = state - SVG_SCALE_INCREMENT
-
-    if( temp > SVG_SCALE_MIN ) {
-      return temp
-    } else {
-      return state
-    }
-  }
-
-  return state
 }
 
 export var setMouseMoveXY = ( state = [0,0], action ) => {
@@ -110,91 +176,11 @@ export var setTouchDraggingElement = ( state = false, action ) => {
   }
 }
 
-export var changeSvgRotation = ( state  = 0, action ) => {
-
-  if ( action.type == actions.CHANGE_SVG_ROTATION ) {
-    let newState = state + 90
-    if( newState > 270 ) {
-      newState = 0
-    }
-    return newState
-  } else {
-    return state
-  }
-}
-
-export var toggleShowGrid = ( state = true, action ) => {
-
-  if( action.type == actions.TOGGLE_SHOW_GRID ) {
-    return !state
-  } else {
-    return state
-  }
-}
-
-export var toggleShowCenterLine = ( state = true, action ) => {
-
-  if( action.type == actions.TOGGLE_SHOW_CENTER_LINE ) {
-    return !state
-  } else {
-    return state
-  }
-}
-
-export var toggleShowDistances = ( state = true, action ) => {
-
-  if( action.type == actions.TOGGLE_SHOW_DISTANCES) {
-    return !state
-  } else {
-    return state
-  }
-}
-
-export var changeSvgWidth = ( state = MIN_SVG_WIDTH, action ) => {
-
-  if( action.type == actions.INCREMENT_SVG_WIDTH ) {
-    if( state + SVG_WIDTH_INCREMENT < MAX_SVG_WIDTH ) {
-      return state + SVG_WIDTH_INCREMENT
-    }
-  }
-
-  if( action.type == actions.DECREMENT_SVG_WIDTH ) {
-    if( state - SVG_WIDTH_INCREMENT > MIN_SVG_WIDTH ) {
-      return state - SVG_WIDTH_INCREMENT
-    }
-  }
-
-  return state
-}
-
-export var changeSvgHeight = ( state = MIN_SVG_HEIGHT, action ) => {
-
-  if( action.type == actions.INCREMENT_SVG_HEIGHT ) {
-    if( state + SVG_HEIGHT_INCREMENT < MAX_SVG_HEIGHT ) {
-      return state + SVG_HEIGHT_INCREMENT
-    }
-  }
-
-  if( action.type == actions.DECREMENT_SVG_HEIGHT ) {
-    if( state - SVG_HEIGHT_INCREMENT > MIN_SVG_HEIGHT ) {
-      return state - SVG_HEIGHT_INCREMENT
-    }
-  }
-
-  return state
-}
-
 export const appReducers = combineReducers({
   dock: updateDockComponent,
   draggingComponent: setDraggingComponent,
-  svgScale: updateSvgScale,
   mouseMoveXY: setMouseMoveXY,
   mouseDraggingElement: setMouseDraggingElement,
-  svgRotation: changeSvgRotation,
-  svgWidth: changeSvgWidth,
-  svgHeight: changeSvgHeight,
-  svgShowGrid: toggleShowGrid,
-  svgShowCenterLine: toggleShowCenterLine,
   touchMoveXY: setTouchMoveXY,
   touchDraggingElement: setTouchDraggingElement,
   svgShowDistances: (state = {}) => state,

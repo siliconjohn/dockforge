@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 var Water = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight }  =  props
@@ -8,7 +7,6 @@ var Water = ( props ) => {
     <rect className="water" x={ -svgWidth  / 2 } y={ -svgHeight + svgShorelineHeight }
          width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
   )
-
 }
 
 Water.propTypes = {
@@ -17,10 +15,4 @@ Water.propTypes = {
   svgShorelineHeight: React.PropTypes.number.isRequired,
 }
 
-export default connect (( state ) => {
-  return {
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgShorelineHeight: state.svgShorelineHeight,
-  }
-})( Water )
+module.exports = Water

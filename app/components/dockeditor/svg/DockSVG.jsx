@@ -23,6 +23,10 @@ class DockSVG extends React.Component {
     this.onTouchMove = this.onTouchMove.bind( this )
   }
 
+  getChildContext() {
+    return { svgRotation: this.props.svgRotation }
+  }
+
   ////////////////////////////////////////////////////////
   // these are for the html 5 drag and drop functionality
   // which is used to drop NEW componets from outside the
@@ -133,9 +137,21 @@ class DockSVG extends React.Component {
   ////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////
 
+  getComponents() {
+    let components = this.props.components
+
+    if( components != undefined ) {
+      return components.map(( item, index ) => {
+        return getComponent( item )
+      })
+    } else {
+      return null
+    }
+  }
+
   render() {
-    let { svgRotation, svgWidth, svgHeight, svgShorelineHeight } = this.props
-    let dock = this.props.dock.elements
+    let { svgRotation, svgShorelineHeight } = this.props
+    let { svgWidth, svgHeight } = this.props
 
     // setup transoform string for the svgRotation
     let transform = `rotate(${svgRotation})`
@@ -191,17 +207,13 @@ class DockSVG extends React.Component {
         onMouseLeave={ this.onMouseOut }>
         <g transform={ transform }>
           <g className="background">
-            <Water/>
-            <ShoreLine/>
-            <Grid/>
-            <CenterLine/>
+            <Water { ...this.props } />
+            <ShoreLine { ...this.props } />
+            <Grid { ...this.props } />
+            <CenterLine { ...this.props } />
           </g>
           <g className="components">
-          {
-            dock.map(( item, index ) => {
-              return getComponent( item )
-            })
-          }
+          { this.getComponents() }
           </g>
         </g>
       </svg>
@@ -210,23 +222,23 @@ class DockSVG extends React.Component {
 }
 
 DockSVG.propTypes = {
-  dock: React.PropTypes.object.isRequired,
   dispatch: React.PropTypes.func.isRequired,
   svgShorelineHeight: React.PropTypes.number.isRequired,
   svgHeight: React.PropTypes.number.isRequired,
   svgWidth: React.PropTypes.number.isRequired,
   svgRotation: React.PropTypes.number.isRequired,
+  svgScale: React.PropTypes.number.isRequired,
   mouseDraggingElement: React.PropTypes.bool,
   draggingComponent: React.PropTypes.object,
 }
 
+DockSVG.childContextTypes = {
+  svgRotation: React.PropTypes.number
+}
+
 export default connect (( state ) => {
-  return { 
+  return {
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
-    svgRotation: state.svgRotation,
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgShorelineHeight: state.svgShorelineHeight,
   }
 })( DockSVG )
