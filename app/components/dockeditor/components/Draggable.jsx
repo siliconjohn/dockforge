@@ -239,7 +239,7 @@ class Draggable extends React.Component {
       draggingStartX: point.x,
       draggingStartY: point.y,
     })
-
+    event.stopPropagation()
     this.props.dispatch( setMouseDraggingElement( true ))
   }
 
