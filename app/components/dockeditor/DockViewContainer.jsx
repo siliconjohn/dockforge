@@ -11,7 +11,8 @@ class DockViewContainer extends React.Component {
   }
 
   render() {
-    let { svgScale, svgWidth, svgHeight, svgRotation } = this.props
+    let { svgWidth, svgHeight, svgScale, svgRotation } = this.props.dock
+
     let style
 
     // setup scale, adjusting for rotaion
@@ -27,12 +28,17 @@ class DockViewContainer extends React.Component {
       }
     }
 
+    let dockSVGComponent = null
+    if( this.props.dock != undefined && this.props.dock != null ) {
+      dockSVGComponent = <DockSVG { ...this.props.dock }/>
+    }
+
     return (
       <div className="dock-view-container">
         <div className="panel panel-default">
           <div className="panel-body dock-svg-scroll-parent">
             <div className="dock-svg-parent center-block" style={ style }>
-              <DockSVG/>
+              { dockSVGComponent }
             </div>
           </div>
         </div>
@@ -42,17 +48,11 @@ class DockViewContainer extends React.Component {
 }
 
 DockViewContainer.PropTypes = {
-  svgWidth: React.PropTypes.number.isRequired,
-  svgHeight: React.PropTypes.number.isRequired,
-  svgScale: React.PropTypes.number.isRequired,
-  svgRotation: React.PropTypes.number.isRequired,
+  dock: React.PropTypes.object.isRequired
 }
 
 export default connect (( state ) => {
   return {
-    svgScale: state.svgScale,
-    svgWidth: state.svgWidth,
-    svgHeight: state.svgHeight,
-    svgRotation: state.svgRotation,
+    dock: state.dock
   }
 })( DockViewContainer )

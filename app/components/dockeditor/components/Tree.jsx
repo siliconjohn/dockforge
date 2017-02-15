@@ -50,7 +50,7 @@ class Tree extends React.Component {
             renderBottom = parentBottom + height + pixelOffset
             break
 
-        } 
+        }  
       } else {
         throw "Can't render, no left, bottom, parentLeft or parentBottom properties"
       }

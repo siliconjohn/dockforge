@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 var ShoreLine = ( props ) => {
   let { svgWidth, svgShorelineHeight }  = props
@@ -15,9 +14,4 @@ ShoreLine.propTypes = {
   svgShorelineHeight: React.PropTypes.number.isRequired,
 }
 
-export default connect (( state ) => {
-  return {
-    svgWidth: state.svgWidth,
-    svgShorelineHeight: state.svgShorelineHeight,
-  }
-})( ShoreLine )
+module.exports = ShoreLine
