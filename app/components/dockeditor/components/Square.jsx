@@ -1,5 +1,5 @@
 import React from 'react'
-import Tree from 'tree'
+import Tree from 'Tree'
 
 class Square extends Tree {
 
