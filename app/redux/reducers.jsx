@@ -16,6 +16,18 @@ const SVG_HEIGHT_INCREMENT = 120
 
 export var updateDockComponent = ( state = {}, action ) => {
 
+  if( action.type == actions.TOGGLE_READ_ONLY ) {
+    let newState = Object.assign( {}, state )
+    newState.readOnly = !newState.readOnly
+    return newState
+  }
+
+  // all actions below this statement will not functions
+  // when the dock is in readOnly mode.
+  if( state.readOnly == true ) {
+    return state
+  }
+
   if ( action.type == actions.ADD_DOCK_COMPONENT ) {
     let newState = Object.assign( {}, state )
     action.component.children = []
@@ -125,12 +137,6 @@ export var updateDockComponent = ( state = {}, action ) => {
   if( action.type == actions.TOGGLE_SHOW_DISTANCES ) {
     let newState = Object.assign( {}, state )
     newState.svgShowDistances = !newState.svgShowDistances
-    return newState
-  }
-
-  if( action.type == actions.TOGGLE_READ_ONLY ) {
-    let newState = Object.assign( {}, state )
-    newState.readOnly = !newState.readOnly
     return newState
   }
 
