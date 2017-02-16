@@ -8,7 +8,7 @@ export var initialState = {
           svgShowGrid: true,
           svgShowCenterLine: true,
           svgShowDistances: true,
-
+          readOnly: false,
           components:[
             { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1",  connectParent:'root', children:[
               { type: "Square", width: 120, height: 120, uuid:"child1", connectParent:'top',children:[

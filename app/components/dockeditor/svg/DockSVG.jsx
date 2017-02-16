@@ -24,7 +24,7 @@ class DockSVG extends React.Component {
   }
 
   getChildContext() {
-    return { svgRotation: this.props.svgRotation }
+    return { svgRotation: this.props.svgRotation, readOnly: this.props.readOnly }
   }
 
   ////////////////////////////////////////////////////////
@@ -150,8 +150,8 @@ class DockSVG extends React.Component {
   }
 
   render() {
-    let { svgRotation, svgShorelineHeight } = this.props
-    let { svgWidth, svgHeight } = this.props
+    let { svgRotation, svgShorelineHeight, svgWidth, svgHeight,
+      readOnly } = this.props
 
     // setup transoform string for the svgRotation
     let transform = `rotate(${svgRotation})`
@@ -201,10 +201,13 @@ class DockSVG extends React.Component {
     //////////////////////////////////////////
 
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" id="svg-el" className="dock-svg"
-        viewBox={ viewBox } onDrop={ this.onDrop } onDragOver={ this.onDragOver }
-        onMouseMove={ this.onMouseMove } onTouchMove={ this.onTouchMove }
-        onMouseLeave={ this.onMouseOut }>
+      <svg xmlns="http://www.w3.org/2000/svg" id="svg-el"
+        className="dock-svg" viewBox={ viewBox }
+        onDrop={ readOnly == true ? null : this.onDrop }
+        onDragOver={ readOnly == true ? null : this.onDragOver }
+        onMouseMove={ readOnly == true ? null : this.onMouseMove }
+        onTouchMove={ readOnly == true ? null : this.onTouchMove }
+        onMouseLeave={ readOnly == true ? null : this.onMouseOut }>
         <g transform={ transform }>
           <g className="background">
             <Water { ...this.props } />
@@ -228,12 +231,14 @@ DockSVG.propTypes = {
   svgWidth: React.PropTypes.number.isRequired,
   svgRotation: React.PropTypes.number.isRequired,
   svgScale: React.PropTypes.number.isRequired,
+  readOnly: React.PropTypes.bool.isRequired,
   mouseDraggingElement: React.PropTypes.bool,
   draggingComponent: React.PropTypes.object,
 }
 
 DockSVG.childContextTypes = {
-  svgRotation: React.PropTypes.number
+  svgRotation: React.PropTypes.number,
+  readOnly: React.PropTypes.bool
 }
 
 export default connect (( state ) => {

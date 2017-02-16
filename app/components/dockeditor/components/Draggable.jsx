@@ -281,6 +281,8 @@ class Draggable extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
+    let { readOnly } = this.props
+
     //3let { left, bottom, width, height, draggingComponent } = this.props
     // let { isDragging, isDraggingOver } = this.state
     //
@@ -290,16 +292,16 @@ class Draggable extends React.Component {
     // }
 
     return (
-      <g onMouseDown={ this.onMouseDown }
-        onMouseUp={ this.onMouseUp }
-        onTouchStart={ this.onTouchStart }
-        onTouchEnd={ this.onTouchEnd }
-        onTouchMove={ this.onTouchMove }
-        onTouchCancel={ this.onTouchCancel }
-        onDrop={ this.onDrop }
-        onDragOver={ this.onDragOver }
-        onDragLeave={ this.onDragLeave }
-        onDragEnter={ this.onDragEnter }>
+      <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
+        onMouseUp={ readOnly == true ? null : this.onMouseUp }
+        onTouchStart={ readOnly == true ? null : this.onTouchStart }
+        onTouchEnd={ readOnly == true ? null : this.onTouchEnd }
+        onTouchMove={ readOnly == true ? null : this.onTouchMove }
+        onTouchCancel={ readOnly == true ? null : this.onTouchCancel }
+        onDrop={ readOnly == true ? null : this.onDrop }
+        onDragOver={ readOnly == true ? null : this.onDragOver }
+        onDragLeave={ readOnly == true ? null : this.onDragLeave }
+        onDragEnter={ readOnly == true ? null : this.onDragEnter }>
         {this.props.children}
       </g>
     )
@@ -318,7 +320,7 @@ Draggable.propTypes = {
 }
 
 Draggable.contextTypes = {
-  svgRotation: React.PropTypes.number
+  svgRotation: React.PropTypes.number 
 }
 
 export default connect (( state ) => {

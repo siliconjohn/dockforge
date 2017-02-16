@@ -132,6 +132,14 @@ export var toggleShowDistances = () => {
   }
 }
 
+export const TOGGLE_READ_ONLY = 'TOGGLE_READ_ONLY'
+
+export var toggleReadOnly = () => {
+  return {
+    type: TOGGLE_READ_ONLY
+  }
+}
+
 export const MOVE_DOCK_COMPONENT = 'MOVE_DOCK_COMPONENT'
 
 export var moveDockComponent = ( value ) => {

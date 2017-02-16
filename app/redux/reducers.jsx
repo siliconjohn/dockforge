@@ -128,6 +128,12 @@ export var updateDockComponent = ( state = {}, action ) => {
     return newState
   }
 
+  if( action.type == actions.TOGGLE_READ_ONLY ) {
+    let newState = Object.assign( {}, state )
+    newState.readOnly = !newState.readOnly
+    return newState
+  }
+
   return state
 }
 
