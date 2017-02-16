@@ -50,14 +50,14 @@ class Tree extends React.Component {
             renderBottom = parentBottom + height + pixelOffset
             break
 
-        }  
+        }
       } else {
         throw "Can't render, no left, bottom, parentLeft or parentBottom properties"
       }
     }
 
     return (
-      <Draggable { ...this.props } >
+      <Draggable { ...this.props } > 
         {
           this.getRenderedComponent({ left:renderLeft, bottom:renderBottom, width:width, height:height })
         }
