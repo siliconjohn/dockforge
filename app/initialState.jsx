@@ -46,6 +46,9 @@ export var initialState = {
     touchMoveXY: [0,0],
     touchDraggingElement: false,
 
+    newDock: { svgWidth: 1000, svgHeight: 600, svgScale: 0.8, svgRotation: 0, svgShorelineHeight: 75, svgShowGrid: false,
+       svgShowCenterLine: false, svgShowDistances: true, readOnly: false, components:[ ]}
+
 }
 
 //

@@ -23,7 +23,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if( action.type == actions.OPEN_DOCK ) {
-    let newState = Object.assign( {}, action.value )
+    // stringify the value just to make sure we are working with
+    // a new copy of the dock object
+    let newState = JSON.parse(JSON.stringify( action.value ))
     return newState
   }
 
@@ -200,6 +202,7 @@ export const appReducers = combineReducers({
   mouseDraggingElement: setMouseDraggingElement,
   touchMoveXY: setTouchMoveXY,
   touchDraggingElement: setTouchDraggingElement,
+  newDock: ( state = {} ) => state,
   svgShowDistances: (state = {}) => state,
   svgShorelineHeight: (state = {}) => state,
   components: ( state = {} ) => state

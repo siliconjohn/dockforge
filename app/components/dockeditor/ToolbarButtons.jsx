@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { incrementSvgScale, decrementSvgScale, changeSvgRotation,
   toggleShowGrid, toggleShowCenterLine, incrementSvgWidth, decrementSvgWidth,
-  incrementSvgHeight, decrementSvgHeight } from 'actions'
+  incrementSvgHeight, decrementSvgHeight, openDock } from 'actions'
 import { store } from '../../app.jsx'
 
 class ToolbarButtons extends React.Component {
@@ -12,13 +13,13 @@ class ToolbarButtons extends React.Component {
         <div className="btn-group" role="group" aria-label="Zoom in and out buttons">
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( decrementSvgScale() )
+              store.dispatch( decrementSvgScale())
             }}>
             <span className="glyphicon glyphicon-minus"></span>
           </button>
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( incrementSvgScale() )
+              store.dispatch( incrementSvgScale())
             }}>
             <span className="glyphicon glyphicon-plus"></span>
           </button>
@@ -26,7 +27,7 @@ class ToolbarButtons extends React.Component {
         <span> </span>
         <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
           onClick={ ()=> {
-            store.dispatch( changeSvgRotation() )
+            store.dispatch( changeSvgRotation())
           }}>
           <span className="glyphicon glyphicon-repeat"></span>
         </button>
@@ -34,13 +35,13 @@ class ToolbarButtons extends React.Component {
         <div className="btn-group" role="group" aria-label="Show grid or cross">
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( toggleShowGrid() )
+              store.dispatch( toggleShowGrid())
             }}>
             <span className="glyphicon glyphicon-th"></span>
           </button>
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( toggleShowCenterLine() )
+              store.dispatch( toggleShowCenterLine())
             }}>
             <span className="glyphicon glyphicon-th-large"></span>
           </button>
@@ -49,13 +50,13 @@ class ToolbarButtons extends React.Component {
         <div className="btn-group" role="group" aria-label="Expand or contract width">
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( decrementSvgWidth() )
+              store.dispatch( decrementSvgWidth())
             }}>
             <span className="glyphicon glyphicon-minus"></span>
           </button>
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( incrementSvgWidth() )
+              store.dispatch( incrementSvgWidth())
             }}>
             <span className="glyphicon glyphicon-plus"></span>
           </button>
@@ -64,20 +65,34 @@ class ToolbarButtons extends React.Component {
         <div className="btn-group" role="group" aria-label="Expand or contract height">
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( decrementSvgHeight() )
+              store.dispatch( decrementSvgHeight())
             }}>
             <span className="glyphicon glyphicon-minus"></span>
           </button>
           <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
             onClick={ ()=> {
-              store.dispatch( incrementSvgHeight() )
+              store.dispatch( incrementSvgHeight())
             }}>
             <span className="glyphicon glyphicon-plus"></span>
           </button>
         </div>
+        <span> </span>
+        <div className="btn-group" role="group" aria-label="Expand or contract height">
+          <button type="button" className="btn btn-xxs btn-xs btn-info navbar-btn"
+            onClick={ ()=> {
+              store.dispatch( openDock( this.props.newDock))
+            }}>
+            <span className="glyphicon glyphicon-file"></span>
+          </button>
+
+        </div>
       </div>
-    )
+  )
   }
 }
 
-module.exports = ToolbarButtons
+export default connect (( state) => {
+  return {
+    newDock: state.newDock
+  }
+})( ToolbarButtons)
