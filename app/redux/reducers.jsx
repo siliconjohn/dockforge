@@ -22,6 +22,11 @@ export var updateDockComponent = ( state = {}, action ) => {
     return newState
   }
 
+  if( action.type == actions.OPEN_DOCK ) {
+    let newState = Object.assign( {}, action.value )
+    return newState
+  }
+
   // all actions below this statement will not functions
   // when the dock is in readOnly mode.
   if( state.readOnly == true ) {

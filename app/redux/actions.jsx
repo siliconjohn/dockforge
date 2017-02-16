@@ -148,3 +148,12 @@ export var moveDockComponent = ( value ) => {
     value
   }
 }
+
+export const OPEN_DOCK = 'OPEN_DOCK'
+
+export var openDock = ( value ) => {
+  return {
+    type: OPEN_DOCK,
+    value
+  }
+}

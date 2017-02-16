@@ -47,3 +47,20 @@ export var initialState = {
     touchDraggingElement: false,
 
 }
+
+//
+//
+// {
+//   action:"OPEN_DOCK",
+//   value:"{   svgWidth: 1000, svgHeight: 600, svgScale: 0.8, svgRotation: 0, svgShorelineHeight: 75, svgShowGrid: false, svgShowCenterLine: false, svgShowDistances: true, readOnly: false,
+//           components:[
+//             { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1",
+//                connectParent:'root', children:  ]}
+//           ]}"
+// }
+//
+//     dock2: {   svgWidth: 1000, svgHeight: 600, svgScale: 0.8, svgRotation: 0, svgShorelineHeight: 75, svgShowGrid: false, svgShowCenterLine: false, svgShowDistances: true, readOnly: false,
+//             components:[
+//               { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1",
+//                  connectParent:'root', children:  ]}
+//             ]}
