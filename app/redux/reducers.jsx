@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 import * as UUID from 'uuid-js'
+import { findObjectInArrayRecursive } from 'editor'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -44,13 +45,29 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
-    let newState = Object.assign( {}, state )
-    let component = newState.components.find( ( c ) =>  c.uuid === action.value.uuid  )
+    var newState = Object.assign( {}, state )
+    var component = newState.components.find(( c ) => c.uuid === action.value.uuid )
+
+    // if non root, move to root
+    if( component == undefined ) {
+      var n = findObjectInArrayRecursive( action.value.uuid, newState.components )
+
+      newState.components = n
+      component = newState.components.find(( c ) => c.uuid === action.value.uuid )
+
+      component.left = action.value.left
+      component.bottom= action.value.bottom
+      return newState
+    }
+
+    // if root level comp
     if( component !== undefined ) {
-      component.left += action.value.left
-      component.bottom += action.value.bottom
+      component.left = action.value.left
+      component.bottom = action.value.bottom
       return newState
     } else {
+      // let n = findObjectInArrayRecursive( action.value.uuid, newState.components )
+      // newState.components = n
       return state
     }
   }
