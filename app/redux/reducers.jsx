@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 import * as UUID from 'uuid-js'
-import { findObjectInArrayRecursive } from 'editor'
+import { moveObjectToRootOfArray } from 'editor'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -44,30 +44,30 @@ export var updateDockComponent = ( state = {}, action ) => {
     return newState
   }
 
+  // moves a component by setting it's left and bottom props and moves
+  // it to the root level of the array of components
   if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
     var newState = Object.assign( {}, state )
+
+    // find the component at root level of components array
     var component = newState.components.find(( c ) => c.uuid === action.value.uuid )
 
-    // if non root, move to root
+    // if component not found at root level, find and move to root
     if( component == undefined ) {
-      var n = findObjectInArrayRecursive( action.value.uuid, newState.components )
+      let comp = moveObjectToRootOfArray( action.value.uuid, newState.components )
 
-      newState.components = n
-      component = newState.components.find(( c ) => c.uuid === action.value.uuid )
-
-      component.left = action.value.left
-      component.bottom= action.value.bottom
-      return newState
+      if( comp != undefined ) {
+        newState.components = comp
+        component = newState.components.find(( c ) => c.uuid === action.value.uuid )
+      }
     }
 
-    // if root level comp
+    // if there is a component, move it
     if( component !== undefined ) {
       component.left = action.value.left
       component.bottom = action.value.bottom
       return newState
     } else {
-      // let n = findObjectInArrayRecursive( action.value.uuid, newState.components )
-      // newState.components = n
       return state
     }
   }

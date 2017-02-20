@@ -61,36 +61,31 @@ module.exports.getComponentsAt = ( options ) => {
   return result
 }
 
-
-module.exports.findObjectInArrayRecursive = ( uuid, array ) =>
+// this is used to move an object in an components array to the
+// root level of the array of objects
+module.exports.moveObjectToRootOfArray = ( uuid, array ) =>
 {
   var foundObject
 
-  let findInChildren = ( array ) => {
-
-    for(let i = 0;i < array.length ; i++ ) {
+  let findInTree = ( array ) => {
+    for( let i = 0; i < array.length; i++ ) {
       if( foundObject != undefined )break;
       let item = array[i]
       if( array[i].uuid == uuid ) {
-        foundObject = array.splice(i,1)[0]
-        break;
+        foundObject = array.splice( i, 1 )[0]
+        break
       }
-      findInChildren( array[i].children )
+      findInTree( array[i] .children )
     }
-
   }
 
-  findInChildren( array )
+  findInTree( array )
 
-
-  // need to
-  // remove from current spot
-  // move to new parent. either the root or a uuid
-
-
-  if( foundObject != undefined ){
+  if( foundObject != undefined ) {
     foundObject.connectParent="root"
     array.push( foundObject )
+  } else {
+    return undefined
   }
 
   return array
