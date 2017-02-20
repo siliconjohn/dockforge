@@ -140,11 +140,11 @@ export var toggleReadOnly = () => {
   }
 }
 
-export const MOVE_DOCK_COMPONENT = 'MOVE_DOCK_COMPONENT'
+export const MOVE_COMPONENT = 'MOVE_COMPONENT'
 
-export var moveDockComponent = ( value ) => {
+export var moveComponent = ( value ) => {
   return {
-    type: MOVE_DOCK_COMPONENT,
+    type: MOVE_COMPONENT,
     value
   }
 }

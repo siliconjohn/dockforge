@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { getRootComponent, getStatelessComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
-import { setMouseDraggingElement, moveDockComponent } from 'actions'
+import { setMouseDraggingElement, moveComponent } from 'actions'
 
 // this is the root class for all components that need
 // to be part of a ComponentBase of components
@@ -194,7 +194,7 @@ class ComponentBase extends React.Component {
       options.uuid = uuid
       options.left = this.renderLeft  + this.lastMouseDragXDistance
       options.bottom = this.renderBottom + this.lastMouseDragYDistance
-      this.props.dispatch( moveDockComponent( options ))
+      this.props.dispatch( moveComponent( options ))
 
       // // check for overlapp with other component
       // let rect = {}
@@ -292,7 +292,7 @@ class ComponentBase extends React.Component {
       options.uuid = uuid
       options.left = this.lastMouseDragXDistance
       options.bottom = this.lastMouseDragYDistance
-      this.props.dispatch( moveDockComponent( options ))
+      this.props.dispatch( moveComponent( options ))
 
       // reset values
       this.lastMouseDragXDistance = 0

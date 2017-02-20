@@ -46,7 +46,7 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   // moves a component by setting it's left and bottom props and moves
   // it to the root level of the array of components
-  if ( action.type == actions.MOVE_DOCK_COMPONENT ) {
+  if ( action.type == actions.MOVE_COMPONENT ) {
     var newState = Object.assign( {}, state )
 
     // find the component at root level of components array
