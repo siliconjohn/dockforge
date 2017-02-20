@@ -2,6 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveDockComponent } from 'actions'
+import { getComponentsAt } from 'editor'
 
 class Draggable extends React.Component {
 
@@ -170,7 +171,7 @@ class Draggable extends React.Component {
 
   onMouseUp( event ) {
     let { draggingStartX, draggingStartY } = this.state
-    let { left, bottom, uuid } = this.props
+    let { left, bottom, width, height, uuid } = this.props
 
     // turn off isDragging
     if( this.state.isDragging == true ) {
@@ -184,9 +185,23 @@ class Draggable extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = this.lastMouseDragXDistance
-      options.bottom = this.lastMouseDragYDistance
+      options.left = left + this.lastMouseDragXDistance
+      options.bottom = bottom + this.lastMouseDragYDistance
       this.props.dispatch( moveDockComponent( options ))
+
+      // // check for overlapp with other component
+      // let rect = {}
+      // rect.left = left + this.lastMouseDragXDistance
+      // rect.bottom = bottom + this.lastMouseDragYDistance
+      // rect.right = rect.left + width
+      // rect.top = rect.bottom - height
+      //
+      // let hits = getComponentsAt({ rect: rect, exclude:uuid })
+      // if( hits.length == 0 ) {
+      //   this.props.dispatch( moveComponentToRoot( options ))
+      // }
+
+      ////////////////////////////////////////////////////////
 
       // reset values
       this.lastMouseDragXDistance = 0
@@ -208,7 +223,7 @@ class Draggable extends React.Component {
       // svg to be scaled to any size and the drag will still work
       // accurately
       point.x = event.clientX
-      point.y = event.clientY;
+      point.y = event.clientY
       point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
       this.setState({
@@ -320,7 +335,7 @@ Draggable.propTypes = {
 }
 
 Draggable.contextTypes = {
-  svgRotation: React.PropTypes.number 
+  svgRotation: React.PropTypes.number
 }
 
 export default connect (( state ) => {
