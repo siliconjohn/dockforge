@@ -1,14 +1,13 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect, dispatch } from 'react-redux'
-import Draggable from 'Draggable'
 import ShoreLine from 'ShoreLine'
 import Water from 'Water'
 import CenterLine from 'CenterLine'
 import Grid from 'Grid'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 import * as UUID from 'uuid-js'
-import { getComponent } from 'editor'
+import { getRootComponent } from 'editor'
 
 class DockSVG extends React.Component {
 
@@ -142,7 +141,7 @@ class DockSVG extends React.Component {
 
     if( components != undefined ) {
       return components.map(( item, index ) => {
-        return getComponent( item )
+        return getRootComponent( item )
       })
     } else {
       return null

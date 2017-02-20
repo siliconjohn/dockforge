@@ -1,9 +1,12 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
+import { getRootComponent, getStatelessComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveDockComponent } from 'actions'
 
-class Draggable extends React.Component {
+// this is the root class for all components that need
+// to be part of a ComponentRoot of components
+class ComponentRoot extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -18,6 +21,11 @@ class Draggable extends React.Component {
     // used in drag
     this.lastMouseDragXDistance = 0
     this.lastMouseDragYDistance = 0
+
+    // the onscreen position of last render
+    // this is  needed for drag
+    this.renderLeft = 0
+    this.renderBottom = 0
 
     // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
@@ -170,7 +178,7 @@ class Draggable extends React.Component {
 
   onMouseUp( event ) {
     let { draggingStartX, draggingStartY } = this.state
-    let { left, bottom, uuid } = this.props
+    let { left, bottom, width, height, uuid } = this.props
 
     // turn off isDragging
     if( this.state.isDragging == true ) {
@@ -184,9 +192,23 @@ class Draggable extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = this.lastMouseDragXDistance
-      options.bottom = this.lastMouseDragYDistance
+      options.left = this.renderLeft  + this.lastMouseDragXDistance
+      options.bottom = this.renderBottom + this.lastMouseDragYDistance
       this.props.dispatch( moveDockComponent( options ))
+
+      // // check for overlapp with other component
+      // let rect = {}
+      // rect.left = left + this.lastMouseDragXDistance
+      // rect.bottom = bottom + this.lastMouseDragYDistance
+      // rect.right = rect.left + width
+      // rect.top = rect.bottom - height
+      //
+      // let hits = getComponentsAt({ rect: rect, exclude:uuid })
+      // if( hits.length == 0 ) {
+      //   this.props.dispatch( moveComponentToRoot( options ))
+      // }
+
+      ////////////////////////////////////////////////////////
 
       // reset values
       this.lastMouseDragXDistance = 0
@@ -208,7 +230,7 @@ class Draggable extends React.Component {
       // svg to be scaled to any size and the drag will still work
       // accurately
       point.x = event.clientX
-      point.y = event.clientY;
+      point.y = event.clientY
       point = point.matrixTransform( svg.getScreenCTM().inverse() )
 
       this.setState({
@@ -281,15 +303,63 @@ class Draggable extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    let { readOnly } = this.props
+    let { left, bottom, width, height, parentLeft, parentBottom,
+      parentWidth, parentHeight, connectParent, uuid, readOnly,
+      type } = this.props
 
-    //3let { left, bottom, width, height, draggingComponent } = this.props
-    // let { isDragging, isDraggingOver } = this.state
-    //
-    // let noDragClass = ''
-    // if( isDraggingOver == true ) {
-    //   noDragClass = ' red'
-    // }
+    // spacing between children and parents, will use later
+    var pixelOffset = 0//this.props.root == "true" ? 0 : 2
+
+    let renderLeft = 0
+    let renderBottom = 0
+
+    // if it has the left and bottom properties assume it is a root element
+    // and render it there
+    if( left != undefined && bottom != undefined && connectParent == 'root') {
+      renderLeft = left
+      renderBottom = bottom
+    } else {
+      // set render positions relative to the parent
+      if( parentLeft != undefined && parentBottom != undefined ) {
+        renderLeft = parentLeft
+        renderBottom = parentBottom - parentHeight
+
+        switch ( connectParent ) {
+          case 'top':
+            renderLeft = parentLeft
+            renderBottom = parentBottom - parentHeight - pixelOffset
+            break
+          case 'right':
+            renderLeft = parentLeft + parentWidth + pixelOffset
+            renderBottom = parentBottom
+            break
+          case 'left':
+            renderLeft = parentLeft - width - pixelOffset
+            renderBottom = parentBottom
+            break
+          case 'bottom':
+            renderLeft = parentLeft
+            renderBottom = parentBottom + height + pixelOffset
+            break
+        }
+      } else {
+        throw "Can't render, no left, bottom, parentLeft or parentBottom properties"
+      }
+    }
+
+    // remember it's position, used from dragging
+    this.renderLeft = renderLeft
+    this.renderBottom = renderBottom
+
+    // the props used for the stateless component below
+    let statelessCompProps = {
+      type: type,
+      left: renderLeft,
+      bottom: renderBottom,
+      width: width,
+      height: height,
+      uuid: uuid
+    }
 
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
@@ -301,26 +371,41 @@ class Draggable extends React.Component {
         onDrop={ readOnly == true ? null : this.onDrop }
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
-        onDragEnter={ readOnly == true ? null : this.onDragEnter }>
-        {this.props.children}
-      </g>
+        onDragEnter={ readOnly == true ? null : this.onDragEnter }
+        data-uuid={ uuid }>
+        { getStatelessComponent( statelessCompProps )}
+        {
+          this.props.children.map(( item, index) => {
+            item.parentLeft = renderLeft
+            item.parentBottom = renderBottom
+            item.parentWidth = width
+            item.parentHeight = height
+            return getRootComponent( item )
+          })
+        }
+      }
+    </g>
     )
   }
 }
 
-Draggable.propTypes = {
+ComponentRoot.propTypes = {
   dock: React.PropTypes.object,
-  bottom: React.PropTypes.number,
-  left: React.PropTypes.number,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
+  left: React.PropTypes.number,
+  bottom: React.PropTypes.number,
+  parentLeft: React.PropTypes.number,
+  parentBottom: React.PropTypes.number,
+  parentWidth: React.PropTypes.number,
+  parentHeight: React.PropTypes.number,
   uuid: React.PropTypes.string.isRequired,
   draggingComponent: React.PropTypes.object,
-  children: React.PropTypes.array
+  children: React.PropTypes.array.isRequired
 }
 
-Draggable.contextTypes = {
-  svgRotation: React.PropTypes.number 
+ComponentRoot.contextTypes = {
+  svgRotation: React.PropTypes.number
 }
 
 export default connect (( state ) => {
@@ -329,4 +414,4 @@ export default connect (( state ) => {
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
   }
-})( Draggable )
+})( ComponentRoot )
