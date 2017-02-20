@@ -22,6 +22,11 @@ class Tree extends React.Component {
     this.lastMouseDragXDistance = 0
     this.lastMouseDragYDistance = 0
 
+    // the onscreen position of last render
+    // this is  needed for drag
+    this.renderLeft = 0
+    this.renderBottom = 0
+
     // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
@@ -187,8 +192,8 @@ class Tree extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = left + this.lastMouseDragXDistance
-      options.bottom = bottom + this.lastMouseDragYDistance
+      options.left = this.renderLeft  + this.lastMouseDragXDistance
+      options.bottom = this.renderBottom + this.lastMouseDragYDistance
       this.props.dispatch( moveDockComponent( options ))
 
       // // check for overlapp with other component
@@ -346,6 +351,9 @@ class Tree extends React.Component {
       }
     }
 
+    this.renderLeft = renderLeft
+    this.renderBottom = renderBottom
+
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
         onMouseUp={ readOnly == true ? null : this.onMouseUp }
@@ -357,7 +365,7 @@ class Tree extends React.Component {
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
         onDragEnter={ readOnly == true ? null : this.onDragEnter }>
- 
+
         <g className="hitable" data-hittest={`${renderLeft},${renderBottom},${width+renderLeft},${renderBottom-height}`}
           data-uuid={ uuid }>
           <rect stroke="darkblue" strokeWidth="1" fill="blue"
@@ -371,9 +379,7 @@ class Tree extends React.Component {
             item.parentLeft = renderLeft
             item.parentBottom = renderBottom
             item.parentWidth = width
-            item.parentHeight = height
-             item.left = renderLeft
-             item.bottom =  renderBottom
+            item.parentHeight = height 
             return getComponent( item )
           })
         }
