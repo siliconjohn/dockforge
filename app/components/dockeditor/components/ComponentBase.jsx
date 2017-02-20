@@ -308,7 +308,11 @@ class ComponentBase extends React.Component {
       type } = this.props
 
     // spacing between children and parents, will use later
-    var pixelOffset = 0//this.props.root == "true" ? 0 : 2
+    var pixelOffset = 0
+
+    //////////////////////////////////////////
+    // calculate where to render
+    //////////////////////////////////////////
 
     let renderLeft = 0
     let renderBottom = 0
@@ -351,7 +355,7 @@ class ComponentBase extends React.Component {
     this.renderLeft = renderLeft
     this.renderBottom = renderBottom
 
-    // the props used for the stateless component below
+    // set the props used for the stateless component used below
     let statelessCompProps = {
       type: type,
       left: renderLeft,
@@ -360,6 +364,8 @@ class ComponentBase extends React.Component {
       height: height,
       uuid: uuid
     }
+
+    //////////////////////////////////////////
 
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
