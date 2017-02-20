@@ -10,21 +10,12 @@ export var initialState = {
           svgShowDistances: true,
           readOnly: false,
           components:[
-            { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1",  connectParent:'root', children:[
+            { type: "Square", left:0, bottom:0, width: 120, height: 120, uuid:"test1", connectParent:'root', children:[]},
+            { type: "Rectangle", left:0, bottom:-250, width: 240, height: 120, uuid:"test2",connectParent:'root', children:[
               { type: "Square", width: 120, height: 120, uuid:"child1", connectParent:'top',children:[
                 { type: "Square", width: 120, height: 120, uuid:"child3", connectParent:'left',children:[
                     { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'left', children:[
-                          { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'bottom', children:[]}
-                    ]}
-                ] }
-              ] }
-
-            ]},
-            { type: "Rectangle", left:0, bottom:-250, width: 240, height: 120, uuid:"test2", connectParent:'root', children:[
-              { type: "Square", width: 120, height: 120, uuid:"child1", connectParent:'top',children:[
-                { type: "Square", width: 120, height: 120, uuid:"child3", connectParent:'left',children:[
-                    { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'left', children:[
-                          { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'bottom', children:[]}
+                          { type: "Square", width: 120, height: 120, uuid:"child5", connectParent:'bottom', children:[]}
                     ]}
                 ] }
               ] }
