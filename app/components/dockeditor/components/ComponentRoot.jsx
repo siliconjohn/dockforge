@@ -1,12 +1,12 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import { getComponent } from 'editor'
+import { getRootComponent, getStatelessComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveDockComponent } from 'actions'
 
 // this is the root class for all components that need
-// to be part of a tree of components
-class Tree extends React.Component {
+// to be part of a ComponentRoot of components
+class ComponentRoot extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -302,14 +302,10 @@ class Tree extends React.Component {
 
   ////////////////////////////////////////////////////////
 
-  // this is overrode in decendant classes
-  getRenderedComponent( props ) {
-    return null
-  }
-
   render() {
     let { left, bottom, width, height, parentLeft, parentBottom,
-      parentWidth, parentHeight, connectParent, uuid, readOnly } = this.props
+      parentWidth, parentHeight, connectParent, uuid, readOnly,
+      type } = this.props
 
     // spacing between children and parents, will use later
     var pixelOffset = 0//this.props.root == "true" ? 0 : 2
@@ -351,8 +347,19 @@ class Tree extends React.Component {
       }
     }
 
+    // remember it's position, used from dragging
     this.renderLeft = renderLeft
     this.renderBottom = renderBottom
+
+    // the props used for the stateless component below
+    let statelessCompProps = {
+      type: type,
+      left: renderLeft,
+      bottom: renderBottom,
+      width: width,
+      height: height,
+      uuid: uuid
+    }
 
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
@@ -364,23 +371,16 @@ class Tree extends React.Component {
         onDrop={ readOnly == true ? null : this.onDrop }
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
-        onDragEnter={ readOnly == true ? null : this.onDragEnter }>
-
-        <g className="hitable" data-hittest={`${renderLeft},${renderBottom},${width+renderLeft},${renderBottom-height}`}
-          data-uuid={ uuid }>
-          <rect stroke="darkblue" strokeWidth="1" fill="blue"
-            x={ renderLeft } y={ renderBottom - height / 2 } width={ width } height= { height / 2 }/>
-          <rect stroke="darkblue" strokeWidth="1" fill="green"
-            x={ renderLeft } y={ renderBottom - height  } width={ width } height= { height / 2 }/>
-        </g>
-
+        onDragEnter={ readOnly == true ? null : this.onDragEnter }
+        data-uuid={ uuid }>
+        { getStatelessComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {
             item.parentLeft = renderLeft
             item.parentBottom = renderBottom
             item.parentWidth = width
-            item.parentHeight = height 
-            return getComponent( item )
+            item.parentHeight = height
+            return getRootComponent( item )
           })
         }
       }
@@ -389,7 +389,7 @@ class Tree extends React.Component {
   }
 }
 
-Tree.propTypes = {
+ComponentRoot.propTypes = {
   dock: React.PropTypes.object,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
@@ -404,7 +404,7 @@ Tree.propTypes = {
   children: React.PropTypes.array.isRequired
 }
 
-Tree.contextTypes = {
+ComponentRoot.contextTypes = {
   svgRotation: React.PropTypes.number
 }
 
@@ -414,4 +414,4 @@ export default connect (( state ) => {
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
   }
-})( Tree )
+})( ComponentRoot )

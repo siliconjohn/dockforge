@@ -1,6 +1,7 @@
 import React from 'react'
 import Square from 'Square'
 import Rectangle from 'Rectangle'
+import ComponentRoot from 'ComponentRoot'
 
 // When you add a new component it needs to be added
 // to this object to be available to the app
@@ -9,10 +10,17 @@ const components = {
   Rectangle: Rectangle
 }
 
-// returns the proper component giving the attr.type
-module.exports.getComponent = ( attr ) => {
+// returns the proper component for rendering giving the attr.type
+// this should be a stateless component used only to render onscreen
+module.exports.getStatelessComponent = ( attr ) => {
   let SpecificComponent = components[ attr.type ]
   return <SpecificComponent { ...attr } key={ attr.uuid } />
+}
+
+// returns the proper root component for an element, this is meant
+// to be used later when there are different root components
+module.exports.getRootComponent = ( attr ) => {
+  return <ComponentRoot { ...attr } key={ attr.uuid } />
 }
 
 // hit test for mouseover
