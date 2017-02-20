@@ -5,8 +5,8 @@ import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveDockComponent } from 'actions'
 
 // this is the root class for all components that need
-// to be part of a ComponentRoot of components
-class ComponentRoot extends React.Component {
+// to be part of a ComponentBase of components
+class ComponentBase extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -389,7 +389,7 @@ class ComponentRoot extends React.Component {
   }
 }
 
-ComponentRoot.propTypes = {
+ComponentBase.propTypes = {
   dock: React.PropTypes.object,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
@@ -404,7 +404,7 @@ ComponentRoot.propTypes = {
   children: React.PropTypes.array.isRequired
 }
 
-ComponentRoot.contextTypes = {
+ComponentBase.contextTypes = {
   svgRotation: React.PropTypes.number
 }
 
@@ -414,4 +414,4 @@ export default connect (( state ) => {
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
   }
-})( ComponentRoot )
+})( ComponentBase )

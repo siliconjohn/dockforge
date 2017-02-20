@@ -1,7 +1,7 @@
 import React from 'react'
 import Square from 'Square'
 import Rectangle from 'Rectangle'
-import ComponentRoot from 'ComponentRoot'
+import ComponentBase from 'ComponentBase'
 
 // When you add a new component it needs to be added
 // to this object to be available to the app
@@ -20,7 +20,7 @@ module.exports.getStatelessComponent = ( attr ) => {
 // returns the proper root component for an element, this is meant
 // to be used later when there are different root components
 module.exports.getRootComponent = ( attr ) => {
-  return <ComponentRoot { ...attr } key={ attr.uuid } />
+  return <ComponentBase { ...attr } key={ attr.uuid } />
 }
 
 // hit test for mouseover
@@ -48,10 +48,10 @@ module.exports.getComponentsAt = ( options ) => {
     itemRect.top = temp[3]
 
     //compare rects
-    if((( options.rect.bottom >= itemRect.top && options.rect.bottom <= itemRect.bottom ) ||
-       ( options.rect.top <= itemRect.bottom && options.rect.top >= itemRect.top )) &&
-       (( itemRect.left >= options.rect.left && itemRect.left <= options.rect.right) ||
-       ( itemRect.right >= options.rect.left && itemRect.right <= options.rect.right ))) {
+    if(((options.rect.right >= itemRect.left && options.rect.right <= itemRect.right) ||
+        (options.rect.left >= itemRect.left && options.rect.left <= itemRect.right)) &&
+       (( options.rect.bottom >= itemRect.top && options.rect.bottom <= itemRect.bottom ) ||
+        ( options.rect.top <= itemRect.bottom && options.rect.top >= itemRect.top ))) {
       return item
     } else {
       return null
