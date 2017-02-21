@@ -294,7 +294,7 @@ class ComponentBase extends React.Component {
     let { left, bottom, width, height, parentLeft, parentBottom,
       parentWidth, parentHeight, connectParent, uuid, readOnly,
       type } = this.props
-
+      
     // spacing between children and parents, will use later
     var pixelOffset = 0
 
@@ -366,7 +366,7 @@ class ComponentBase extends React.Component {
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
         onDragEnter={ readOnly == true ? null : this.onDragEnter }
-        data-uuid={ uuid }>
+        data-uuid={ uuid } >
         { getStatelessComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {

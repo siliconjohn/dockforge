@@ -15,27 +15,31 @@ $text-color: #777;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
+  
   .background {
 
     .water {
       stroke-width: 0;
       fill: $water-color;
+      pointer-events: none;
     }
 
     .shoreline {
       stroke-width: 0;
       fill:$shoreline-color;
+      pointer-events: none;
     }
 
     .center-line {
       stroke-width: 1;
       stroke: $cross-color;
+      pointer-events: none;
     }
 
     .grid {
       stroke-width: 1;
       stroke: $grid-color;
+      pointer-events: none;
 
       .highlight {
         stroke: $grid-color-highlight;
