@@ -59,7 +59,6 @@ class ComponentBase extends React.Component {
       this.state.isDragging == true) {
       if( nextProps.mouseDraggingElement == false) {
         // turn off and reset drag to original position
-        console.log('e');
 
         this.setState({
           isDragging:false,
@@ -180,7 +179,8 @@ class ComponentBase extends React.Component {
   }
 
   onMouseUp( event ) {
-     let { left, bottom, uuid } = this.props
+    let { draggingStartX, draggingStartY } = this.state
+    let { left, bottom, width, height, uuid } = this.props
 
     // turn off isDragging
     if( this.state.isDragging == true ) {
@@ -194,14 +194,13 @@ class ComponentBase extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = this.renderLeft + this.lastMouseDragXDistance
+      options.left = this.renderLeft  + this.lastMouseDragXDistance
       options.bottom = this.renderBottom + this.lastMouseDragYDistance
       this.props.dispatch( moveComponent( options ))
 
       // reset values
       this.lastMouseDragXDistance = 0
       this.lastMouseDragYDistance = 0
-
       event.stopPropagation()
     } else {
       this.props.dispatch( setMouseDraggingElement( false ))
@@ -293,8 +292,9 @@ class ComponentBase extends React.Component {
   render() {
     let { left, bottom, width, height, parentLeft, parentBottom,
       parentWidth, parentHeight, connectParent, uuid, readOnly,
-      type } = this.props
-      
+      type, mouseDraggingElement } = this.props
+    let { isDragging } = this.state
+
     // spacing between children and parents, will use later
     var pixelOffset = 0
 
@@ -355,6 +355,11 @@ class ComponentBase extends React.Component {
 
     //////////////////////////////////////////
 
+    let classes = "pointer-painted"
+    if( isDragging == false && mouseDraggingElement == true ) {
+      classes = "pointer-none"
+    }
+
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
         onMouseUp={ readOnly == true ? null : this.onMouseUp }
@@ -366,7 +371,7 @@ class ComponentBase extends React.Component {
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
         onDragEnter={ readOnly == true ? null : this.onDragEnter }
-        data-uuid={ uuid } >
+        data-uuid={ uuid } className={ classes }>
         { getStatelessComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {

@@ -15,7 +15,14 @@ $text-color: #777;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  
+
+  .pointer-none {
+    pointer-events: none;
+  }
+  .pointer-painted {
+    pointer-events: painted !important;
+  }
+
   .background {
 
     .water {
