@@ -55,9 +55,12 @@ class ComponentBase extends React.Component {
   componentWillReceiveProps ( nextProps, nextState ) {
     // if mouseDraggingElement changed, turn off drag in this.state, and
     // update element's transform attr
-    if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement ) {
+    if( this.props.mouseDraggingElement !== nextProps.mouseDraggingElement &&
+      this.state.isDragging == true) {
       if( nextProps.mouseDraggingElement == false) {
         // turn off and reset drag to original position
+        console.log('e');
+
         this.setState({
           isDragging:false,
           draggingStartX: 0,
@@ -177,8 +180,7 @@ class ComponentBase extends React.Component {
   }
 
   onMouseUp( event ) {
-    let { draggingStartX, draggingStartY } = this.state
-    let { left, bottom, width, height, uuid } = this.props
+     let { left, bottom, uuid } = this.props
 
     // turn off isDragging
     if( this.state.isDragging == true ) {
@@ -192,23 +194,9 @@ class ComponentBase extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = this.renderLeft  + this.lastMouseDragXDistance
+      options.left = this.renderLeft + this.lastMouseDragXDistance
       options.bottom = this.renderBottom + this.lastMouseDragYDistance
       this.props.dispatch( moveComponent( options ))
-
-      // // check for overlapp with other component
-      // let rect = {}
-      // rect.left = left + this.lastMouseDragXDistance
-      // rect.bottom = bottom + this.lastMouseDragYDistance
-      // rect.right = rect.left + width
-      // rect.top = rect.bottom - height
-      //
-      // let hits = getComponentsAt({ rect: rect, exclude:uuid })
-      // if( hits.length == 0 ) {
-      //   this.props.dispatch( moveComponentToRoot( options ))
-      // }
-
-      ////////////////////////////////////////////////////////
 
       // reset values
       this.lastMouseDragXDistance = 0
