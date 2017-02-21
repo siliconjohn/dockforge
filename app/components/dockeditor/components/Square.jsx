@@ -1,11 +1,11 @@
 import React from 'react'
 
 var Square = ( props ) => {
-  
+
   let { left, bottom, width, height, uuid } = props
 
   return (
-    <g className="hitable" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
+    <g className="hitable square" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
       data-uuid={ uuid }>
       <rect stroke="darkblue" strokeWidth="1" fill="blue"
         x={ left } y={ bottom - height / 2 } width={ width } height= { height / 2 }/>

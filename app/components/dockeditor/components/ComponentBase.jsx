@@ -355,9 +355,10 @@ class ComponentBase extends React.Component {
 
     //////////////////////////////////////////
 
-    let classes = "pointer-painted"
+    // setup classes
+    let classes = "component pointer-painted"
     if( isDragging == false && mouseDraggingElement == true ) {
-      classes = "pointer-none"
+      classes = "component pointer-none"
     }
 
     return (

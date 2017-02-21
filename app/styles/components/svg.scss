@@ -1,10 +1,5 @@
-/////////////////////////////////
-// Dock SVG
-/////////////////////////////////
-
 $water-color: #d5f5ff;
 $shoreline-color: #d8ffda;
-$dock-component-color: #c0c0c0;
 $cross-color: #333;
 $grid-color: #c2e2ec;
 $grid-color-highlight: #aaa;
@@ -16,13 +11,6 @@ $text-color: #777;
   -ms-user-select: none;
   user-select: none;
 
-  .pointer-none {
-    pointer-events: none;
-  }
-  .pointer-painted {
-    pointer-events: painted !important;
-  }
-
   .background {
 
     .water {
@@ -33,7 +21,7 @@ $text-color: #777;
 
     .shoreline {
       stroke-width: 0;
-      fill:$shoreline-color;
+      fill: $shoreline-color;
       pointer-events: none;
     }
 
@@ -54,17 +42,21 @@ $text-color: #777;
 
       .text {
         stroke-width: 0;
-        font-size:12px;
+        font-size: 12px;
         fill: $text-color;
       }
     }
   }
 
-  .dock-component {
+  .component {
     position: absolute;
   }
 
-  .red {
-    background-color: #ff0
+  .component.pointer-none {
+    pointer-events: none;
+  }
+
+  .component.pointer-painted {
+    pointer-events: painted !important;
   }
 }

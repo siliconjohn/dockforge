@@ -5,7 +5,7 @@ var Rectangle = ( props ) => {
   let { left, bottom, width, height, uuid } = props
 
   return (
-    <g className="hitable" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
+    <g className="hitable rectangle" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
       data-uuid={ uuid }>
       <rect stroke="darkblue" strokeWidth="1" fill="red"
         x={ left } y={ bottom - height / 2 } width={ width } height= { height / 2 }/>
