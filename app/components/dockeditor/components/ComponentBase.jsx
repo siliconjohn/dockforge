@@ -372,7 +372,7 @@ class ComponentBase extends React.Component {
         onDragOver={ readOnly == true ? null : this.onDragOver }
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
         onDragEnter={ readOnly == true ? null : this.onDragEnter }
-        data-uuid={ uuid } className={ classes }>
+        data-uuid={ uuid } className={ classes } key={ uuid }>
         { getCustomComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {
