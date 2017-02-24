@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 import * as UUID from 'uuid-js'
-import { moveObjectToRootOfArray } from 'editor'
+import { moveObjectToRootOfArray, addComponentAsChild } from 'editor'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -31,7 +31,7 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   // all actions below this statement will not functions
-  // when the dock is in readOnly mode.
+  // when the dock is not in readOnly mode.
   if( state.readOnly == true ) {
     return state
   }
@@ -69,6 +69,18 @@ export var updateDockComponent = ( state = {}, action ) => {
       return newState
     } else {
       return state
+    }
+  }
+
+  // moves one component to become child of another
+  if ( action.type == actions.ADD_CHILD_COMPONENT ) {
+    let updatedComponents = addComponentAsChild( action.value.sourceUUID, action.value.targetUUID,
+         action.value.targetPosition, Object.assign([], state.components ))
+
+    if( updatedComponents != undefined ) {
+      return Object.assign({}, state, { components: updatedComponents })
+    } else {
+      return newState
     }
   }
 
