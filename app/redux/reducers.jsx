@@ -80,7 +80,7 @@ export var updateDockComponent = ( state = {}, action ) => {
     if( updatedComponents != undefined ) {
       return Object.assign({}, state, { components: updatedComponents })
     } else {
-      return newState
+      return state
     }
   }
 
