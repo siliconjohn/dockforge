@@ -140,7 +140,7 @@ class DockSVG extends React.Component {
     let components = this.props.components
 
     if( components != undefined ) {
-      return components.map(( item, index ) => {
+      return components.map(( item, index ) => { 
         return getRootComponent( item )
       })
     } else {
@@ -233,6 +233,7 @@ DockSVG.propTypes = {
   readOnly: React.PropTypes.bool.isRequired,
   mouseDraggingElement: React.PropTypes.bool,
   draggingComponent: React.PropTypes.object,
+  components: React.PropTypes.array.isRequired
 }
 
 DockSVG.childContextTypes = {
