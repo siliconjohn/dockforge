@@ -149,6 +149,15 @@ export var moveComponent = ( value ) => {
   }
 }
 
+export const ADD_CHILD_COMPONENT = 'ADD_CHILD_COMPONENT'
+
+export var addChildComponent = ( value ) => {
+  return {
+    type: ADD_CHILD_COMPONENT,
+    value
+  }
+}
+
 export const OPEN_DOCK = 'OPEN_DOCK'
 
 export var openDock = ( value ) => {
