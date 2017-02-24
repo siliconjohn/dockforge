@@ -74,8 +74,9 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   // moves one component to become child of another
   if ( action.type == actions.ADD_CHILD_COMPONENT ) {
-    let updatedComponents = addComponentAsChild( action.value.sourceUUID, action.value.targetUUID,
-         action.value.targetPosition, Object.assign([], state.components ))
+    let updatedComponents = addComponentAsChild( action.value.sourceUUID,
+      action.value.targetUUID, action.value.targetPosition,
+      Object.assign([], state.components ))
 
     if( updatedComponents != undefined ) {
       return Object.assign({}, state, { components: updatedComponents })
