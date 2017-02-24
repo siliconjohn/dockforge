@@ -12,7 +12,7 @@ const components = {
 
 // returns the proper component for rendering giving the attr.type
 // this should be a stateless component used only to render onscreen
-module.exports.getStatelessComponent = ( attr ) => {
+module.exports.getCustomComponent = ( attr ) => {
   let SpecificComponent = components[ attr.type ]
   return <SpecificComponent { ...attr } key={ attr.uuid } />
 }

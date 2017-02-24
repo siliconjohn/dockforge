@@ -1,6 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import { getRootComponent, getStatelessComponent } from 'editor'
+import { getRootComponent, getCustomComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
 import { setMouseDraggingElement, moveComponent } from 'actions'
 
@@ -373,7 +373,7 @@ class ComponentBase extends React.Component {
         onDragLeave={ readOnly == true ? null : this.onDragLeave }
         onDragEnter={ readOnly == true ? null : this.onDragEnter }
         data-uuid={ uuid } className={ classes }>
-        { getStatelessComponent( statelessCompProps )}
+        { getCustomComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {
             item.parentLeft = renderLeft
