@@ -413,5 +413,6 @@ export default connect (( state ) => {
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
+    components: state.dock.components
   }
 })( ComponentBase )
