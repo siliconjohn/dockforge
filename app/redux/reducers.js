@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 import * as UUID from 'uuid-js'
-import { moveObjectToRootOfArray, addComponentAsChild } from 'editor'
+import { moveObjectToRootOfArray, moveComponentToParent } from 'editor'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -73,13 +73,14 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   // moves one component to become child of another
-  if ( action.type == actions.ADD_CHILD_COMPONENT ) {
-    let updatedComponents = addComponentAsChild( action.value.sourceUUID,
+  if ( action.type == actions.MOVE_COMPONENT_TO_PARENT ) {
+    let newState = JSON.parse( JSON.stringify( state ))
+    let updatedComponents = moveComponentToParent( action.value.sourceUUID,
       action.value.targetUUID, action.value.targetPosition,
-      Object.assign([], state.components ))
+      newState.components )
 
-    if( updatedComponents != undefined ) {
-      return Object.assign({}, state, { components: updatedComponents })
+    if( updatedComponents !== undefined ) {
+      return Object.assign({}, newState, { components: updatedComponents })
     } else {
       return state
     }

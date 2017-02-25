@@ -149,11 +149,11 @@ export var moveComponent = ( value ) => {
   }
 }
 
-export const ADD_CHILD_COMPONENT = 'ADD_CHILD_COMPONENT'
+export const MOVE_COMPONENT_TO_PARENT = 'MOVE_COMPONENT_TO_PARENT'
 
-export var addChildComponent = ( value ) => {
+export var moveComponentToParent = ( value ) => {
   return {
-    type: ADD_CHILD_COMPONENT,
+    type: MOVE_COMPONENT_TO_PARENT,
     value
   }
 }
