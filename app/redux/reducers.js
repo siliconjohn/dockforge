@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
 import * as UUID from 'uuid-js'
-import { moveObjectToRootOfArray, moveComponentToParent } from 'editor'
+import { moveComponentToRoot, moveComponentToParent } from 'editor'
 
 // consts used in the reducers below
 // changed them to anything you want
@@ -47,29 +47,32 @@ export var updateDockComponent = ( state = {}, action ) => {
   // moves a component by setting it's left and bottom props and moves
   // it to the root level of the array of components
   if ( action.type == actions.MOVE_COMPONENT ) {
-    var newState = Object.assign( {}, state )
+    var newState = JSON.parse( JSON.stringify( state ))
 
-    // find the component at root level of components array
+    // look for the component at root level of components array
     var component = newState.components.find(( c ) => c.uuid === action.value.uuid )
 
     // if component not found at root level, find and move to root
     if( component == undefined ) {
-      let comp = moveObjectToRootOfArray( action.value.uuid, newState.components )
+      let newComponents = moveComponentToRoot( action.value.uuid, newState.components )
 
-      if( comp != undefined ) {
-        newState.components = comp
+      if( newComponents != undefined ) {
+        newState.components = newComponents
+
+        // find the component and move it
         component = newState.components.find(( c ) => c.uuid === action.value.uuid )
+        component.left = action.value.left
+        component.bottom = action.value.bottom
+        return newState
       }
-    }
-
-    // if there is a component, move it
-    if( component !== undefined ) {
+    } else {
+      // if the component was found at the root level just move it
       component.left = action.value.left
       component.bottom = action.value.bottom
       return newState
-    } else {
-      return state
     }
+
+    return state
   }
 
   // moves one component to become child of another

@@ -23,44 +23,41 @@ module.exports.getRootComponent = ( attr ) => {
   return <ComponentBase { ...attr } key={ attr.uuid } />
 }
 
-// this is used to move an object in an components array to the
-// root level of the array of objects
-module.exports.moveObjectToRootOfArray = ( uuid, array ) => {
-  var foundObject
+// this is used to move a component to the
+// root level of the array of components
+module.exports.moveComponentToRoot = ( targetUUID, targetArray ) => {
+  let foundObject = removeObject( targetArray, targetUUID )
+  if( foundObject === undefined ) return undefined
 
-  let findInTree = ( array ) => {
-    for( let i = 0; i < array.length; i++ ) {
-      if( foundObject != undefined )break;
-      let item = array[i]
-      if( array[i].uuid == uuid ) {
-        foundObject = array.splice( i, 1 )[0]
-        break
-      }
-      findInTree( array[i] .children )
-    }
-  }
+  foundObject.connectParent="root"
+  targetArray.push( foundObject )
 
-  findInTree( array )
-
-  if( foundObject != undefined ) {
-    foundObject.connectParent="root"
-    array.push( foundObject )
-  } else {
-    return undefined
-  }
-
-  return array
+  return targetArray
 }
 
+module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition, targetArray ) => {
+  // stupid check
+  if( sourceUUID == targetUUID ) return undefined
 
+  // find the source object, if not found return undefined
+  let sourceObject = findObject( targetArray, sourceUUID )
+  if( sourceObject === undefined ) return undefined
 
+  // see if target object is a child of sourceObject
+  // if it is return undefined
+  let isChild = isChildOf( sourceObject.children, targetUUID )
+  if( isChild == true ) return undefined
 
+  // remove the sourceObject and add it to the targetObject and
+  // return the modified targetArray
+  let removedSourceObject = removeObject( targetArray, sourceUUID )
+  removedSourceObject.connectParent = targetPosition
+  if( addObject( targetArray, targetUUID, removedSourceObject ) == true ) {
+    return targetArray
+  }
 
-
-
-
-
-
+  return undefined
+}
 
 // finds an object recursivly in an array by uuid, executes
 // the callback when found, returns undefined if not found
@@ -111,30 +108,22 @@ const addObject = ( array, uuid, sourceObject ) => {
   return false
 }
 
-module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition, targetArray ) => {
 
-  // stupid check
-  if( sourceUUID == targetUUID ) return undefined
 
-  // find the source object, if not found return undefined
-  let sourceObject = findObject( targetArray, sourceUUID )
-  if( sourceObject === undefined ) return undefined
 
-  // see if target object is a child of sourceObject
-  // if it is return undefined
-  let isChild = isChildOf( sourceObject.children, targetUUID )
-  if( isChild == true ) return undefined
 
-  // remove the sourceObject and add it to the targetObject and
-  // return the modified targetArray
-  let removedSourceObject = removeObject( targetArray, sourceUUID )
-  removedSourceObject.connectParent = targetPosition
-  if( addObject( targetArray, targetUUID, removedSourceObject ) == true ) {
-    return targetArray
-  }
 
-  return undefined
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 // hit test for mouseover
