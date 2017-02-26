@@ -6,16 +6,13 @@ import * as helpers from 'reducerHelpers'
 export var updateDockComponent = ( state = {}, action ) => {
 
   if( action.type == actions.TOGGLE_READ_ONLY ) {
-    let newState = Object.assign( {}, state )
-    newState.readOnly = !newState.readOnly
-    return newState
+    return Object.assign( {}, state, { readOnly: !state.readOnly })
   }
 
   if( action.type == actions.OPEN_DOCK ) {
     // stringify the value just to make sure we are working with
     // a new copy of the dock object
-    let newState = JSON.parse( JSON.stringify( action.value ))
-    return newState
+    return JSON.parse( JSON.stringify( action.value ))
   }
 
   // all actions below this statement will not functions
@@ -79,9 +76,8 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if( action.type == actions.INCREMENT_SVG_WIDTH ) {
     if( state.svgWidth + consts.SVG_WIDTH_INCREMENT < consts.MAX_SVG_WIDTH ) {
-      let newState = Object.assign( {}, state )
-      newState.svgWidth = state.svgWidth + consts.SVG_WIDTH_INCREMENT
-      return newState
+      return Object.assign( {}, state, {
+        svgWidth: state.svgWidth + consts.SVG_WIDTH_INCREMENT })
     } else {
       return state
     }
@@ -89,9 +85,8 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if( action.type == actions.DECREMENT_SVG_WIDTH ) {
     if( state.svgWidth - consts.SVG_WIDTH_INCREMENT > consts.MIN_SVG_WIDTH ) {
-      let newState = Object.assign( {}, state )
-      newState.svgWidth = state.svgWidth - consts.SVG_WIDTH_INCREMENT
-      return newState
+      return Object.assign( {}, state, {
+        svgWidth: state.svgWidth - consts.SVG_WIDTH_INCREMENT })
     } else {
       return state
     }
@@ -99,9 +94,8 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if( action.type == actions.INCREMENT_SVG_HEIGHT ) {
     if( state.svgHeight + consts.SVG_HEIGHT_INCREMENT < consts.MAX_SVG_HEIGHT ) {
-      let newState = Object.assign( {}, state )
-      newState.svgHeight = state.svgHeight + consts.SVG_HEIGHT_INCREMENT
-      return newState
+      return Object.assign( {}, state, {
+        svgHeight: state.svgHeight + consts.SVG_HEIGHT_INCREMENT })
     } else {
       return state
     }
@@ -109,71 +103,54 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if( action.type == actions.DECREMENT_SVG_HEIGHT ) {
     if( state.svgHeight - consts.SVG_HEIGHT_INCREMENT > consts.MIN_SVG_HEIGHT ) {
-      let newState = Object.assign( {}, state )
-      newState.svgHeight = state.svgHeight - consts.SVG_HEIGHT_INCREMENT
-      return newState
+      return Object.assign( {}, state, {
+        svgHeight: state.svgHeight - consts.SVG_HEIGHT_INCREMENT })
     } else {
       return state
     }
   }
 
   if ( action.type == actions.CHANGE_SVG_ROTATION ) {
-    let newState = Object.assign( {}, state )
-    let newRotation = newState.svgRotation + 90
-    if( newRotation > 270 ) {
-      newRotation = 0
-    }
-    newState.svgRotation = newRotation
-    return newState
+    let newRotation = state.svgRotation + 90
+    if( newRotation > 270 ) newRotation = 0
+    return Object.assign( {}, state, {
+      svgRotation: newRotation })
   }
 
   if ( action.type == actions.INCREMENT_SVG_SCALE ) {
-    let newState = Object.assign( {}, state )
-    let temp = newState.svgScale + consts.SVG_SCALE_INCREMENT
-
+    let temp = state.svgScale + consts.SVG_SCALE_INCREMENT
     if( temp < consts.SVG_SCALE_MAX ) {
-      newState.svgScale = temp
-      return newState
+      return Object.assign( {}, state, { svgScale: temp })
     } else {
       return state
     }
   }
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let newState = Object.assign( {}, state )
     let temp = newState.svgScale - consts.SVG_SCALE_INCREMENT
-
     if( temp > consts.SVG_SCALE_MIN ) {
-      newState.svgScale = temp
-      return newState
+      return Object.assign( {}, state, { svgScale: temp })
     } else {
       return state
     }
   }
 
   if( action.type == actions.TOGGLE_SHOW_GRID ) {
-    let newState = Object.assign( {}, state )
-    newState.svgShowGrid = !newState.svgShowGrid
-    return newState
+    return Object.assign( {}, state, { svgShowGrid: !state.svgShowGrid })
   }
 
   if( action.type == actions.TOGGLE_SHOW_CENTER_LINE ) {
-    let newState = Object.assign( {}, state )
-    newState.svgShowCenterLine = !newState.svgShowCenterLine
-    return newState
+    return Object.assign( {}, state, { svgShowCenterLine: !state.svgShowCenterLine })
   }
 
   if( action.type == actions.TOGGLE_SHOW_DISTANCES ) {
-    let newState = Object.assign( {}, state )
-    newState.svgShowDistances = !newState.svgShowDistances
-    return newState
+    return Object.assign( {}, state, { svgShowDistances: !state.svgShowDistances })
   }
 
   return state
 }
 
 export var setDraggingComponent = ( state = null, action ) => {
-
   if ( action.type == actions.SET_DRAG_COMPONENT ) {
     return action.component
   } else {
@@ -182,7 +159,6 @@ export var setDraggingComponent = ( state = null, action ) => {
 }
 
 export var setMouseMoveXY = ( state = [0,0], action ) => {
-
   if ( action.type == actions.SET_MOUSE_MOVE_XY ) {
     return action.value
   } else {
@@ -191,7 +167,6 @@ export var setMouseMoveXY = ( state = [0,0], action ) => {
 }
 
 export var setMouseDraggingElement = ( state = false, action ) => {
-
   if ( action.type == actions.SET_MOUSE_DRAGGING_ELEMENT ) {
     return action.value
   } else {
@@ -200,7 +175,6 @@ export var setMouseDraggingElement = ( state = false, action ) => {
 }
 
 export var setTouchMoveXY = ( state = [0,0], action ) => {
-
   if ( action.type == actions.SET_TOUCH_MOVE_XY ) {
     return action.value
   } else {
@@ -209,7 +183,6 @@ export var setTouchMoveXY = ( state = [0,0], action ) => {
 }
 
 export var setTouchDraggingElement = ( state = false, action ) => {
-
   if ( action.type == actions.SET_TOUCH_DRAGGING_ELEMENT ) {
     return action.value
   } else {
