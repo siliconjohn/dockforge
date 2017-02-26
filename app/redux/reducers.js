@@ -1,19 +1,7 @@
 import { combineReducers } from 'redux'
 import * as actions from 'actions'
-import * as UUID from 'uuid-js'
-import { moveComponentToRoot, moveComponentToParent } from 'editor'
-
-// consts used in the reducers below
-// changed them to anything you want
-const SVG_SCALE_INCREMENT = 0.1
-const SVG_SCALE_MIN = 0.5
-const SVG_SCALE_MAX = 200
-const MIN_SVG_WIDTH = 400
-const MAX_SVG_WIDTH = 4000
-const MIN_SVG_HEIGHT = 400
-const MAX_SVG_HEIGHT = 6000
-const SVG_WIDTH_INCREMENT = 120
-const SVG_HEIGHT_INCREMENT = 120
+import * as consts from 'reducerConsts'
+import * as helpers from 'reducerHelpers'
 
 export var updateDockComponent = ( state = {}, action ) => {
 
@@ -26,7 +14,7 @@ export var updateDockComponent = ( state = {}, action ) => {
   if( action.type == actions.OPEN_DOCK ) {
     // stringify the value just to make sure we are working with
     // a new copy of the dock object
-    let newState = JSON.parse(JSON.stringify( action.value ))
+    let newState = JSON.parse( JSON.stringify( action.value ))
     return newState
   }
 
@@ -54,7 +42,7 @@ export var updateDockComponent = ( state = {}, action ) => {
 
     // if component not found at root level, find and move to root
     if( component == undefined ) {
-      let newComponents = moveComponentToRoot( action.value.uuid, newState.components )
+      let newComponents = helpers.moveComponentToRoot( action.value.uuid, newState.components )
 
       if( newComponents != undefined ) {
         newState.components = newComponents
@@ -78,7 +66,7 @@ export var updateDockComponent = ( state = {}, action ) => {
   // moves one component to become child of another
   if ( action.type == actions.MOVE_COMPONENT_TO_PARENT ) {
     let newState = JSON.parse( JSON.stringify( state ))
-    let updatedComponents = moveComponentToParent( action.value.sourceUUID,
+    let updatedComponents = helpers.moveComponentToParent( action.value.sourceUUID,
       action.value.targetUUID, action.value.targetPosition,
       newState.components )
 
@@ -90,9 +78,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if( action.type == actions.INCREMENT_SVG_WIDTH ) {
-    if( state.svgWidth + SVG_WIDTH_INCREMENT < MAX_SVG_WIDTH ) {
+    if( state.svgWidth + consts.SVG_WIDTH_INCREMENT < consts.MAX_SVG_WIDTH ) {
       let newState = Object.assign( {}, state )
-      newState.svgWidth = state.svgWidth + SVG_WIDTH_INCREMENT
+      newState.svgWidth = state.svgWidth + consts.SVG_WIDTH_INCREMENT
       return newState
     } else {
       return state
@@ -100,9 +88,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if( action.type == actions.DECREMENT_SVG_WIDTH ) {
-    if( state.svgWidth - SVG_WIDTH_INCREMENT > MIN_SVG_WIDTH ) {
+    if( state.svgWidth - consts.SVG_WIDTH_INCREMENT > consts.MIN_SVG_WIDTH ) {
       let newState = Object.assign( {}, state )
-      newState.svgWidth = state.svgWidth - SVG_WIDTH_INCREMENT
+      newState.svgWidth = state.svgWidth - consts.SVG_WIDTH_INCREMENT
       return newState
     } else {
       return state
@@ -110,9 +98,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if( action.type == actions.INCREMENT_SVG_HEIGHT ) {
-    if( state.svgHeight + SVG_HEIGHT_INCREMENT < MAX_SVG_HEIGHT ) {
+    if( state.svgHeight + consts.SVG_HEIGHT_INCREMENT < consts.MAX_SVG_HEIGHT ) {
       let newState = Object.assign( {}, state )
-      newState.svgHeight = state.svgHeight + SVG_HEIGHT_INCREMENT
+      newState.svgHeight = state.svgHeight + consts.SVG_HEIGHT_INCREMENT
       return newState
     } else {
       return state
@@ -120,9 +108,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if( action.type == actions.DECREMENT_SVG_HEIGHT ) {
-    if( state.svgHeight - SVG_HEIGHT_INCREMENT > MIN_SVG_HEIGHT ) {
+    if( state.svgHeight - consts.SVG_HEIGHT_INCREMENT > consts.MIN_SVG_HEIGHT ) {
       let newState = Object.assign( {}, state )
-      newState.svgHeight = state.svgHeight - SVG_HEIGHT_INCREMENT
+      newState.svgHeight = state.svgHeight - consts.SVG_HEIGHT_INCREMENT
       return newState
     } else {
       return state
@@ -141,9 +129,9 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if ( action.type == actions.INCREMENT_SVG_SCALE ) {
     let newState = Object.assign( {}, state )
-    let temp = newState.svgScale + SVG_SCALE_INCREMENT
+    let temp = newState.svgScale + consts.SVG_SCALE_INCREMENT
 
-    if( temp < SVG_SCALE_MAX ) {
+    if( temp < consts.SVG_SCALE_MAX ) {
       newState.svgScale = temp
       return newState
     } else {
@@ -153,9 +141,9 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
     let newState = Object.assign( {}, state )
-    let temp = newState.svgScale - SVG_SCALE_INCREMENT
+    let temp = newState.svgScale - consts.SVG_SCALE_INCREMENT
 
-    if( temp > SVG_SCALE_MIN ) {
+    if( temp > consts.SVG_SCALE_MIN ) {
       newState.svgScale = temp
       return newState
     } else {
