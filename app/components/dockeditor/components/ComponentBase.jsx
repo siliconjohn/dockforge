@@ -410,6 +410,7 @@ ComponentBase.contextTypes = {
 
 export default connect (( state ) => {
   return {
+    readOnly: state.dock.readOnly,
     draggingComponent: state.draggingComponent,
     mouseDraggingElement: state.mouseDraggingElement,
     mouseMoveXY: state.mouseMoveXY,
