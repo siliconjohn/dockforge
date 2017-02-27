@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack'); 
+const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = function (env) {
@@ -54,7 +54,7 @@ module.exports = function (env) {
     module: {
       rules: [
         {
-          test: /\.jsx$/,
+          test: /\.(js|jsx)$/,
           use: [
             'babel-loader',
             {
