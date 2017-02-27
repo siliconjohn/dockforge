@@ -87,7 +87,7 @@ const addObject = ( array, uuid, sourceObject ) => {
   return false
 }
 
-// these exports are only here to facilite testing these functions
+// these exports are only here to facilitate testing these functions
 module.exports.findObject = findObject
 module.exports.removeObject = removeObject
 module.exports.isChildOf = isChildOf
