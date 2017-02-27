@@ -1,7 +1,10 @@
 // this is used to move a component to the
 // root level of the array of components
 module.exports.moveComponentToRoot = ( targetUUID, targetArray ) => {
-  let foundObject = removeObject( targetArray, targetUUID )
+  let foundObject = targetArray.find(( item ) => item.uuid === targetUUID )
+  if( foundObject !== undefined ) return undefined
+
+  foundObject = removeObject( targetArray, targetUUID )
   if( foundObject === undefined ) return undefined
 
   foundObject.connectParent="root"
