@@ -127,7 +127,7 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if ( action.type == actions.DECREMENT_SVG_SCALE ) {
-    let temp = newState.svgScale - consts.SVG_SCALE_INCREMENT
+    let temp = state.svgScale - consts.SVG_SCALE_INCREMENT
     if( temp > consts.SVG_SCALE_MIN ) {
       return Object.assign( {}, state, { svgScale: temp })
     } else {
