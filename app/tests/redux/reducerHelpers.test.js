@@ -47,22 +47,28 @@ describe( "Reducer Helpers", () => {
 
   describe( "Test findObject()", () => {
 
-    it( "Should find uuid:child4 ", () => {
+    it( "Should find uuid:child4", () => {
       let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.findObject( initialState, "child4")
-      expect( modifiedState.uuid ).toEqual( "child4" )
+      let foundObject = helpers.findObject( initialState, "child4")
+      expect( foundObject.uuid ).toEqual( "child4" )
     })
 
-    it( "Should find uuid:child1 ", () => {
+    it( "Should find uuid:child1", () => {
       let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.findObject( initialState, "child1")
-      expect( modifiedState.uuid ).toEqual( "child1" )
+      let foundObject = helpers.findObject( initialState, "child1")
+      expect( foundObject.uuid ).toEqual( "child1" )
     })
 
-    it( "Should return undefined ", () => {
+    it( "Should not modify the array when an object it found", () => {
       let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.findObject( initialState, "child1111")
-      expect( modifiedState ).toEqual( undefined )
+      let foundObject = helpers.findObject( initialState, "child4")
+      expect( JSON.stringify( initialState )).toEqual( JSON.stringify( testState ) )
+    })
+
+    it( "Should return undefined", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let foundObject = helpers.findObject( initialState, "child1111")
+      expect( foundObject ).toEqual( undefined )
     })
   })
 })
