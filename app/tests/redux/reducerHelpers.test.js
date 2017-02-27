@@ -44,4 +44,25 @@ describe( "Reducer Helpers", () => {
       expect( modifiedState ).toEqual( undefined )
     })
   })
+
+  describe( "Test findObject()", () => {
+
+    it( "Should find uuid:child4 ", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.findObject( initialState, "child4")
+      expect( modifiedState.uuid ).toEqual( "child4" )
+    })
+
+    it( "Should find uuid:child1 ", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.findObject( initialState, "child1")
+      expect( modifiedState.uuid ).toEqual( "child1" )
+    })
+
+    it( "Should return undefined ", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.findObject( initialState, "child1111")
+      expect( modifiedState ).toEqual( undefined )
+    })
+  })
 })
