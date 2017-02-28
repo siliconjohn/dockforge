@@ -1,4 +1,3 @@
-import * as React from 'react'
 import * as expect from 'expect'
 import * as helpers from '../../redux/reducerHelpers'
 
@@ -71,4 +70,45 @@ describe( "Reducer Helpers", () => {
       expect( foundObject ).toEqual( undefined )
     })
   })
+
+  describe( "Test removeObject()", () => {
+
+    it( "Should return uuid:child4", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let foundObject = helpers.removeObject( initialState, "child4")
+      expect( foundObject.uuid ).toEqual( "child4" )
+    })
+
+    it( "Should remove uuid:child4", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      helpers.removeObject( initialState, "child4")
+      let foundObject = helpers.findObject( initialState, "child4")
+      expect( foundObject ).toEqual( undefined )
+    })
+
+    it( "Should return undefined", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let foundObject = helpers.removeObject( initialState, "child1111")
+      expect( foundObject ).toEqual( undefined )
+    })
+
+    it( "Should not modify the array when an object is not found", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      helpers.removeObject( initialState, "child1111")
+      expect( JSON.stringify( initialState )).toEqual( JSON.stringify( testState ) )
+    })
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
