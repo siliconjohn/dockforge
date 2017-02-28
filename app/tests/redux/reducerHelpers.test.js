@@ -1,5 +1,5 @@
-import * as expect from 'expect'
-import * as helpers from '../../redux/reducerHelpers'
+var expect = require( 'expect' )
+var helpers = require( 'reducerHelpers' )
 
 const testState = [
   { type: "Square", uuid:"child1", connectParent:'root', children:[]},
@@ -145,7 +145,7 @@ describe( "Reducer Helpers", () => {
       expect( modifiedState ).toEqual( undefined )
     })
   })
- 
+
   describe( "Test moveComponentToParent()", () => {
 
     it( "Should move uuid:child7 to be the child of child1", () => {
