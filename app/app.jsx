@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'store'
 import AppContainer from 'AppContainer'
 
-require('applicationStyles')
+require('style!css!sass!applicationStyles')
 
 export const store = createStore( initialState )
 
