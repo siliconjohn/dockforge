@@ -1,5 +1,4 @@
-import * as React from 'react'
-import * as expect from 'expect' 
+var expect = require( 'expect' )
 
 describe('App', () => {
 

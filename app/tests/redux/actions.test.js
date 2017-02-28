@@ -1,6 +1,5 @@
-import * as React from 'react'
-import * as expect from 'expect'
-import * as actions from '../../redux/actions'
+var expect = require( 'expect' )
+var actions = require( 'actions' )
 
 describe( "Redux Actions", () => {
 

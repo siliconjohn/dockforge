@@ -12,7 +12,7 @@ module.exports = function (config) {
       'app/tests/**/*.test.js'
     ],
     preprocessors: {
-      'app/tests/**/*.test.js': ['webpack', 'sourcemap']
+      'app/tests/**/*.test.js': [ 'webpack']
     },
     client: {
       captureConsole: true,
