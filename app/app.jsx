@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { initialState } from 'initialState'
+import { initialState } from './initialState'
 import { Route, Router, hashHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { createStore } from 'store'
 import AppContainer from 'AppContainer'
 
-require('applicationStyles')
+require('style!css!sass!applicationStyles')
 
 export const store = createStore( initialState )
 
