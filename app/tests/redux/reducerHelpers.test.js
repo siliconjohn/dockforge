@@ -99,13 +99,52 @@ describe( "Reducer Helpers", () => {
     })
   })
 
+  describe( "Test isChildOf()", () => {
 
+    it( "Should return true if uuid:child3 is child", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let result = helpers.isChildOf( initialState[1].children, "child3")
+      expect( result ).toEqual( true )
+    })
 
+    it( "Should return false if uuid:child33 isnt child", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let result = helpers.isChildOf( initialState[1].children, "child33")
+      expect( result ).toEqual( false )
+    })
+  })
 
+  describe( "Test addObject()", () => {
 
+    it( "Should add object to child1", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let newObject = { name: "test", uuid: "testuuid" }
+      let result = helpers.addObject( initialState, "child1", newObject)
+      expect( result ).toEqual( true )
+    })
 
+    it( "Should not add object to non existant object", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let newObject = { name: "test", uuid: "testuuid" }
+      let result = helpers.addObject( initialState, "child11", newObject)
+      expect( result ).toEqual( false )
+    })
 
+    it( "Added object in the proper position", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let newObject = { name: "test", uuid: "testuuid" }
+      let result = helpers.addObject( initialState, "child1", newObject)
+      expect( initialState[0].children[0].uuid ).toEqual( "testuuid" )
+    })
 
+    it( "Added deeply nested object in the proper position", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let newObject = { name: "test", uuid: "testuuid" }
+      let result = helpers.addObject( initialState, "child6", newObject)
+      let foundParent = helpers.findObject( initialState, "child6")
+      expect( foundParent.children[0].uuid ).toEqual( "testuuid" )
+    })
+  })
 
 
 
