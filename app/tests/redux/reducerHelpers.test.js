@@ -17,33 +17,6 @@ const testState = [
 
 describe( "Reducer Helpers", () => {
 
-  describe( "Test moveComponentToRoot()", () => {
-
-    it( "Should move uuid:child4 to the object root", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.moveComponentToRoot( "child4", initialState )
-      expect( modifiedState[3].uuid ).toEqual( "child4" )
-    })
-
-    it( "Should move uuid:child6 to the object root", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.moveComponentToRoot( "child6", initialState )
-      expect( modifiedState[3].uuid ).toEqual( "child6" )
-    })
-
-    it( "Should return undefined when the UUID doesn't exist", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.moveComponentToRoot( "child-no-existant", initialState )
-      expect( modifiedState ).toEqual( undefined )
-    })
-
-    it( "Should return undefined when the UUID is already at root", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.moveComponentToRoot( "child1", initialState )
-      expect( modifiedState ).toEqual( undefined )
-    })
-  })
-
   describe( "Test findObject()", () => {
 
     it( "Should find uuid:child4", () => {
@@ -146,6 +119,32 @@ describe( "Reducer Helpers", () => {
     })
   })
 
+  describe( "Test moveComponentToRoot()", () => {
+
+    it( "Should move uuid:child4 to the object root", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToRoot( "child4", initialState )
+      expect( modifiedState[3].uuid ).toEqual( "child4" )
+    })
+
+    it( "Should move uuid:child6 to the object root", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToRoot( "child6", initialState )
+      expect( modifiedState[3].uuid ).toEqual( "child6" )
+    })
+
+    it( "Should return undefined when the UUID doesn't exist", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToRoot( "child-no-existant", initialState )
+      expect( modifiedState ).toEqual( undefined )
+    })
+
+    it( "Should return undefined when the UUID is already at root", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToRoot( "child1", initialState )
+      expect( modifiedState ).toEqual( undefined )
+    })
+  })
 
 
 
