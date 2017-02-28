@@ -145,8 +145,43 @@ describe( "Reducer Helpers", () => {
       expect( modifiedState ).toEqual( undefined )
     })
   })
+ 
+  describe( "Test moveComponentToParent()", () => {
 
+    it( "Should move uuid:child7 to be the child of child1", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child7", "child1", "top", initialState )
+      expect( modifiedState[0].children[0].uuid ).toEqual( "child7" )
+    })
 
+    it( "Should return undefined if sourceUUID is the same as targetUUID", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child1", "child1", "top", initialState )
+      expect( modifiedState ).toEqual( undefined )
+    })
 
+    it( "Should return undefined if targetUUID is not found", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child7", "child11", "top", initialState )
+      expect( modifiedState ).toEqual( undefined )
+    })
 
+    it( "Should return undefined if sourceUUID is not found", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child11", "child1", "top", initialState )
+      expect( modifiedState ).toEqual( undefined )
+    })
+
+    it( "Should move uuid:child7 to be the child of child1, not copy", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child7", "child1", "top", initialState )
+      expect( modifiedState.length ).toEqual( 2 )
+    })
+
+    it( "Should move uuid:child7 and set connectParent to proper value", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.moveComponentToParent( "child7", "child1", "testtop", initialState )
+      expect( modifiedState[0].children[0].connectParent ).toEqual( "testtop" )
+    })
+  })
 })
