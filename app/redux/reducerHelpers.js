@@ -71,9 +71,8 @@ const removeObject = ( array, uuid ) => {
 // is a child of an object in the array returns true
 // or undefined if it's not found
 const isChildOf = ( array, uuid ) => {
-  return findObject( array, uuid,( index, array ) => {
-    return true
-  })
+  let result = findObject( array, uuid, ( index, array ) => { return true })
+  return result == true ? true : false
 }
 
 // removes an object from the array and returns it
