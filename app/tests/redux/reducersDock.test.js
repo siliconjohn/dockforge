@@ -1,5 +1,5 @@
 var expect = require('expect')
-var reducers = require('reducers')
+var reducers = require('reducersDock')
 var actions = require('actions')
 var helpers = require( 'reducerHelpers' )
 var deepFreeze = require('deep-freeze-strict')
