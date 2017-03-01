@@ -29,7 +29,7 @@ const testState = {
     ]
   }
 
-describe( 'Redux Reducers', () => {
+describe( 'Redux Dock Reducers', () => {
 
   it( 'Should toggle readOnly', () => {
     let action = {
