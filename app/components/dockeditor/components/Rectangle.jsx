@@ -5,11 +5,10 @@ var Rectangle = ( props ) => {
   let { left, bottom, width, height, uuid } = props
 
   return (
-    <g className="hitable rectangle" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
-      data-uuid={ uuid }>
-      <rect stroke="darkblue" strokeWidth="1" fill="red"
+    <g className="rectangle" data-uuid={ uuid } >
+      <rect stroke="darkblue" strokeWidth="1" fill="red" data-uuid={ uuid }
         x={ left } y={ bottom - height / 2 } width={ width } height= { height / 2 }/>
-      <rect stroke="darkblue" strokeWidth="1" fill="yellow"
+      <rect stroke="darkblue" strokeWidth="1" fill="yellow" data-uuid={ uuid }
         x={ left } y={ bottom - height  } width={ width } height= { height / 2 }/>
     </g>
   )

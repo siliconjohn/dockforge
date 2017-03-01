@@ -2,7 +2,7 @@ import React from 'react'
 
 var Grid = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid, svgRotation } = props
- 
+
   if( svgShowGrid == false ) return null
 
   // setup size vars
@@ -12,25 +12,25 @@ var Grid = ( props ) => {
   // build array of row positions
   let h = -height
   let rows = []
-  for( var y = 0; y > h; y -= 12 ) rows.push( y )
+  for( var y = 0; y > h; y -= 10 ) rows.push( y )
 
   // build array of column positions
   let cols = []
-  for( var x =  -halfWidth + ( halfWidth % 12 ); x < halfWidth; x += 12 ) cols.push( x )
+  for( var x =  -halfWidth + ( halfWidth % 10 ); x < halfWidth; x += 10 ) cols.push( x )
 
   return (
     <g className="grid">
       {
         // draw non highlighted rows
         rows.map(( item, index ) => {
-          if (item % 120 == 0 ) return
+          if (item % 100 == 0 ) return
           return <line key={ `row-${index}` } x1={ halfWidth } y1={ item } x2={ -halfWidth } y2={ item }/>
         })
       }
       {
         // draw non highlighted cols
         cols.map(( item, index ) => {
-          if (item % 120 == 0 ) return
+          if (item % 100 == 0 ) return
           return <line key={ `col-${index}` } x1={ item } y1={ 0  } x2={ item } y2={ -height  }/>
         })
       }
@@ -38,7 +38,7 @@ var Grid = ( props ) => {
         //draw highlighted rows ( every 10' )
         rows.map(( item, index ) => {
 
-          if (item % 120 != 0 ) return
+          if (item % 100 != 0 ) return
           return <line key={ `row-${index}` } className="highlight"
             x1={ halfWidth } y1={ item } x2={ -halfWidth } y2={ item }/>
         })
@@ -46,7 +46,7 @@ var Grid = ( props ) => {
       {
         //draw highlighted columns ( every 10' )
         cols.map(( item, index ) => {
-          if (item % 120 != 0 )  return
+          if (item % 100 != 0 )  return
           return <line key={ `col-${index}` } className="highlight" x1={ item } y1={ 0  }
             x2={ item } y2={ -height  }/>
         })
@@ -54,7 +54,7 @@ var Grid = ( props ) => {
       {
         // draw text ( every 10' )
         rows.map(( item, index ) => {
-          if (item % 120 != 0 ) return
+          if (item % 100 != 0 ) return
 
           // setup rotation
           let r = svgRotation == 0 ? 0 : 360 - svgRotation

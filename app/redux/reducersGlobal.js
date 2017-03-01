@@ -39,3 +39,11 @@ export var setTouchDraggingElement = ( state = false, action ) => {
     return state
   }
 }
+
+export var setDraggingOverElements = ( state = [], action ) => {
+  if ( action.type == actions.SET_DRAGGING_OVER_ELEMENTS ) {
+    return action.value
+  } else {
+    return state
+  }
+}

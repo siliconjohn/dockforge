@@ -2,15 +2,26 @@ import React from 'react'
 
 var Square = ( props ) => {
 
-  let { left, bottom, width, height, uuid } = props
+  let { left, bottom, width, height, uuid, draggingOver } = props
+
+  const getHightlight = () => {
+    if( draggingOver == true ) console.log("Dragging over " + uuid);
+    if( draggingOver ) {
+      return (
+        <rect stroke="red" strokeWidth="2" fill="none"
+          x={ left } y={ bottom - height } width={ width } height= { height }/>
+      )
+    } else {
+      return null
+    }
+  }
 
   return (
-    <g className="hitable square" data-hittest={`${left},${bottom},${width+left},${bottom-height}`}
-      data-uuid={ uuid }>
-      <rect stroke="darkblue" strokeWidth="1" fill="blue"
-        x={ left } y={ bottom - height / 2 } width={ width } height= { height / 2 }/>
-      <rect stroke="darkblue" strokeWidth="1" fill="green"
-        x={ left } y={ bottom - height  } width={ width } height= { height / 2 }/>
+    <g className="square" data-uuid={ uuid }>
+
+      <rect stroke="darkblue" strokeWidth="1" fill="blue" data-uuid={ uuid }
+        x={ left } y={ bottom - height } width={ width } height= { height }/>
+        {  getHightlight() }
     </g>
   )
 }

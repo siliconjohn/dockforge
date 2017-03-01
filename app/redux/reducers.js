@@ -9,6 +9,7 @@ export const appReducers = combineReducers({
   mouseDraggingElement: reducersGlobal.setMouseDraggingElement,
   touchMoveXY: reducersGlobal.setTouchMoveXY,
   touchDraggingElement: reducersGlobal.setTouchDraggingElement,
+  draggingOverElements: reducersGlobal.setDraggingOverElements,
   newDock: ( state = {} ) => state,
   svgShowDistances: (state = {}) => state,
   svgShorelineHeight: (state = {}) => state,

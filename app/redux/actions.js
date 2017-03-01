@@ -166,3 +166,12 @@ export var openDock = ( value ) => {
     value
   }
 }
+
+export const SET_DRAGGING_OVER_ELEMENTS = 'SET_DRAGGING_OVER_ELEMENTS'
+
+export var setDraggingOverElements = ( value ) => {
+  return {
+    type: SET_DRAGGING_OVER_ELEMENTS,
+    value
+  }
+}
