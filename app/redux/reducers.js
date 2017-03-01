@@ -22,10 +22,11 @@ export var updateDockComponent = ( state = {}, action ) => {
   }
 
   if ( action.type == actions.ADD_DOCK_COMPONENT ) {
-    let newState = Object.assign( {}, state )
-    action.component.children = []
-    action.component.connectParent = "root"
-    newState.components.push( action.component )
+    let newState = JSON.parse( JSON.stringify( state ))
+    let newComp = JSON.parse( JSON.stringify( action.component ))
+    if( newComp.children == undefined ) newComp.children = []
+    newComp.connectParent = "root"
+    newState.components.push( newComp )
     return newState
   }
 
@@ -64,7 +65,7 @@ export var updateDockComponent = ( state = {}, action ) => {
   if ( action.type == actions.MOVE_COMPONENT_TO_PARENT ) {
     let newState = JSON.parse( JSON.stringify( state ))
     let updatedComponents = helpers.moveComponentToParent( action.value.sourceUUID,
-      action.value.targetUUID, action.value.targetPosition,
+        action.value.targetUUID, action.value.targetPosition,
       newState.components )
 
     if( updatedComponents !== undefined ) {
