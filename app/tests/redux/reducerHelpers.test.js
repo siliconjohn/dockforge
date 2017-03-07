@@ -3,11 +3,11 @@ var helpers = require( 'reducerHelpers' )
 
 const testState = [
   { type: "Square", uuid:"child1", connectParent:'root', children:[]},
-  { type: "Rectangle", uuid:"child2",connectParent:'root', children:[
+  { type: "Rectangle", uuid:"child2",connectParent:'root', draggingOver: true, children:[
     { type: "Square", uuid:"child3", connectParent:'top',children:[
       { type: "Square", uuid:"child4", connectParent:'left',children:[
         { type: "Square", uuid:"child5", connectParent:'left', children:[
-          { type: "Square",  uuid:"child6", connectParent:'bottom', children:[]}
+          { type: "Square",  uuid:"child6", connectParent:'bottom', draggingOver: true, children:[]}
         ]}
       ]}
     ]}
@@ -182,6 +182,21 @@ describe( "Reducer Helpers", () => {
       let initialState = JSON.parse( JSON.stringify( testState ))
       let modifiedState = helpers.moveComponentToParent( "child7", "child1", "testtop", initialState )
       expect( modifiedState[0].children[0].connectParent ).toEqual( "testtop" )
+    })
+  })
+
+  describe( "Test setDraggingOver()", () => {
+
+    it( "Should change uuid:child1 to draggingOver: true", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.setDraggingOver( initialState, ["child1"] )
+      expect( modifiedState[0].draggingOver ).toEqual( true )
+    })
+
+    it( "Should change draggingOver uuid:child2 to false", () => {
+      let initialState = JSON.parse( JSON.stringify( testState ))
+      let modifiedState = helpers.setDraggingOver( initialState, [] )
+      expect( modifiedState[1].draggingOver ).toEqual( false )
     })
   })
 })

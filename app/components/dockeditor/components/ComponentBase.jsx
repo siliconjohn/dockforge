@@ -2,7 +2,8 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { getRootComponent, getCustomComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
-import { setMouseDraggingElement, moveComponent, setDraggingOverElements } from 'actions'
+import { setMouseDraggingElement, moveComponent, setDraggingOverElements }
+  from 'actions'
 
 // this is the root class for all components that need
 // to be part of a ComponentBase of components
@@ -50,7 +51,7 @@ class ComponentBase extends React.Component {
       }
       return false
     }
- 
+
     return true
   }
 
@@ -79,7 +80,8 @@ class ComponentBase extends React.Component {
   // when dragging, do hit test w other componenets
   performHitTest() {
     let { svgScale, left, bottom, svgRotation, svgHeight, svgWidth,
-      width, height, svgShorelineHeight, uuid, draggingOverElements } = this.props
+      width, height, svgShorelineHeight, uuid, draggingOver,
+      draggingOverElements } = this.props
 
     let svg = document.getElementById( "svg-el" )
     let thisPosition = findDOMNode( this ).firstChild.getBoundingClientRect()
@@ -90,17 +92,15 @@ class ComponentBase extends React.Component {
     targetRect.y = thisPosition.top - svgPosition.top
     targetRect.height = thisPosition.height
     targetRect.width = thisPosition.width
-
+    
     let hits = svg.getIntersectionList( targetRect, null )
 
     var resultList = []
 
     for(var i = 0; i < hits.length; i++ ) {
       let item = hits[i]
-
       var str = `data-uuid="(.*?)"`
       let elementUUID = item.outerHTML.match( new RegExp( str ))
-
       if( elementUUID == null ) continue
 
       if( findDOMNode( this ).contains( item ) == false ){
@@ -111,43 +111,13 @@ class ComponentBase extends React.Component {
         }
       }
     }
-    resultList.sort(function(a,b) {
-    return a.id-b.id;})
+
+    // see if anything chaned and dispatch action if it did
+    resultList.sort()
     if( draggingOverElements.toString() !== resultList.toString()){
       this.props.dispatch( setDraggingOverElements( resultList ))
-      console.log('ACTION ' + resultList.toString());
     }
-
-    // if( resultList.length > 0 ) {
-    //   console.log(resultString);
-    //   this.props.dispatch( setDraggingOverElement( resultList ))
-    // } else {
-    //   this.props.dispatch( setDraggingOverElement( null ))
-    // }
-
-
-  // decide which hits matter
-  // toggle something to show on ui which element it hitting
-    // draw it
-
-  // on mouse up, or touch up, create action to make child
-
-
-  // return list of hits
-
-
-  // highlight if can attach, can attach rules
-  // add object with redux
-  // get top bottom or mid of object
-  // attach to correct position
-  // fix mouse release problem
-
   }
-
-
-
-
-
 
   ////////////////////////////////////////////////////////
   // these are for the html 5 drag and drop functionality
@@ -367,7 +337,7 @@ class ComponentBase extends React.Component {
   render() {
     let { left, bottom, width, height, parentLeft, parentBottom,
       parentWidth, parentHeight, connectParent, uuid, readOnly,
-      type, mouseDraggingElement, draggingOverElements } = this.props
+      type, mouseDraggingElement, draggingOver } = this.props
     let { isDragging } = this.state
 
     // spacing between children and parents, will use later
@@ -428,11 +398,7 @@ class ComponentBase extends React.Component {
       width: width,
       height: height,
       uuid: uuid,
-      draggingOver: false
-    }
-
-    if( draggingOverElements.indexOf( uuid ) > -1 ) {
-      statelessCompProps.draggingOver = true
+      draggingOver: draggingOver
     }
 
     // setup classes
@@ -481,6 +447,7 @@ ComponentBase.propTypes = {
   parentHeight: React.PropTypes.number,
   uuid: React.PropTypes.string.isRequired,
   draggingComponent: React.PropTypes.object,
+  draggingOver: React.PropTypes.bool,
   draggingOverElements: React.PropTypes.array.isRequired,
   children: React.PropTypes.array.isRequired
 }

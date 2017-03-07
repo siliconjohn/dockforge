@@ -2,10 +2,20 @@ import React from 'react'
 
 var Rectangle = ( props ) => {
 
-  let { left, bottom, width, height, uuid } = props
+  let { left, bottom, width, height, uuid, draggingOver } = props
+
+  const getHightlight = () => {
+    if( draggingOver == true ) {
+      return (
+        <rect stroke="red" strokeWidth="4" fill="none"
+          x={ left } y={ bottom - height } width={ width } height= { height }/>
+      )
+    } 
+  }
 
   return (
     <g className="rectangle" data-uuid={ uuid } >
+      {  getHightlight() }
       <rect stroke="darkblue" strokeWidth="1" fill="red" data-uuid={ uuid }
         x={ left } y={ bottom - height / 2 } width={ width } height= { height / 2 }/>
       <rect stroke="darkblue" strokeWidth="1" fill="yellow" data-uuid={ uuid }
@@ -20,6 +30,7 @@ Rectangle.propTypes = {
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
   uuid: React.PropTypes.string.isRequired,
+  draggingOver: React.PropTypes.bool,
 }
 
 module.exports = Rectangle

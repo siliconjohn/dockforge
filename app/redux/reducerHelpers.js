@@ -38,6 +38,26 @@ module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition,
   return undefined
 }
 
+module.exports.setDraggingOver = ( objectsArray, draggingOverArray ) => {
+
+  const setValue = ( _objectsArray, _draggingOverArray ) => {
+
+    for( let i = 0; i < _objectsArray.length; i++ ) {
+      if( _draggingOverArray.indexOf( _objectsArray[i].uuid ) > -1 ) {
+        _objectsArray[i].draggingOver = true
+      } else {
+        _objectsArray[i].draggingOver = false
+      }
+
+      setValue( _objectsArray[i].children, _draggingOverArray )
+    }
+  }
+
+  setValue( objectsArray, draggingOverArray )
+
+  return objectsArray
+}
+
 // finds an object recursivly in an array by uuid, executes
 // the callback when found, returns undefined if not found
 const findObject = ( array, uuid, callback ) => {

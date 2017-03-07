@@ -16,7 +16,7 @@ const testState = {
     readOnly: false,
     components:[
       { type: "Square", uuid:"child1", connectParent:'root', children:[]},
-      { type: "Rectangle", uuid:"child2",connectParent:'root', children:[
+      { type: "Rectangle", uuid:"child2",connectParent:'root', draggingOver:true, children:[
         { type: "Square", uuid:"child3", connectParent:'top',children:[
           { type: "Square", uuid:"child4", connectParent:'left',children:[
             { type: "Square", uuid:"child5", connectParent:'left', children:[
@@ -180,6 +180,28 @@ describe( 'Redux Dock Reducers', () => {
     expect( response.components[0].bottom ).toEqual( 222 )
   })
 
+  it( 'Should set draggingOver to true', () => {
+    let initialState = JSON.parse( JSON.stringify( testState ))
+    let action = {
+      type: actions.SET_DRAGGING_OVER_ELEMENTS,
+      value: [ "child1" ]
+    }
+    let response = reducers.updateDockComponent( deepFreeze( initialState ),
+      deepFreeze( action ))
+    expect( response.components[0].draggingOver ).toEqual( true )
+  })
+
+  it( 'Should set draggingOver to false', () => {
+    let initialState = JSON.parse( JSON.stringify( testState ))
+    let action = {
+      type: actions.SET_DRAGGING_OVER_ELEMENTS,
+      value: [ "child1" ]
+    }
+    let response = reducers.updateDockComponent( deepFreeze( initialState ),
+      deepFreeze( action ))
+    expect( response.components[1].draggingOver ).toEqual( false )
+  })
+ 
   it( 'Should move component, and put at root of array', () => {
     let initialState = JSON.parse( JSON.stringify( testState ))
     let action = {

@@ -9,8 +9,10 @@ const testState = {
   mouseDraggingElement: false,
   touchMoveXY: [0,0],
   touchDraggingElement: false,
-  newDock: { svgWidth: 1000, svgHeight: 600, svgScale: 0.8, svgRotation: 0, svgShorelineHeight: 75, svgShowGrid: false,
-     svgShowCenterLine: false, svgShowDistances: true, readOnly: false, components:[ ]}
+  draggingOverElements: [],
+  newDock: { svgWidth: 1000, svgHeight: 600, svgScale: 0.8, svgRotation: 0,
+     svgShorelineHeight: 75, svgShowGrid: false, svgShowCenterLine: false,
+     svgShowDistances: true, readOnly: false, components:[ ]}
 }
 
 describe( 'Redux Global Reducers', () => {
@@ -32,7 +34,8 @@ describe( 'Redux Global Reducers', () => {
       value: testArray
     }
     let initialState = JSON.parse( JSON.stringify( testState ))
-    let response = reducers.setMouseMoveXY( deepFreeze( initialState.mouseMoveXY ), deepFreeze( action ))
+    let response = reducers.setMouseMoveXY( deepFreeze( initialState.mouseMoveXY ),
+      deepFreeze( action ))
     expect(  JSON.stringify( response[0] )).toEqual( 11 )
     expect(  JSON.stringify( response[1] )).toEqual( 12 )
   })
@@ -43,7 +46,8 @@ describe( 'Redux Global Reducers', () => {
       value: true
     }
     let initialState = JSON.parse( JSON.stringify( testState ))
-    let response = reducers.setMouseDraggingElement( deepFreeze( initialState.mouseDraggingElement ), deepFreeze( action ))
+    let response = reducers.setMouseDraggingElement(
+      deepFreeze( initialState.mouseDraggingElement ), deepFreeze( action ))
     expect( response ).toEqual( true )
   })
 
@@ -54,7 +58,8 @@ describe( 'Redux Global Reducers', () => {
       value: testArray
     }
     let initialState = JSON.parse( JSON.stringify( testState ))
-    let response = reducers.setTouchMoveXY( deepFreeze( initialState.mouseMoveXY ), deepFreeze( action ))
+    let response = reducers.setTouchMoveXY( deepFreeze( initialState.mouseMoveXY ),
+      deepFreeze( action ))
     expect(  JSON.stringify( response[0] )).toEqual( 11 )
     expect(  JSON.stringify( response[1] )).toEqual( 12 )
   })
@@ -65,7 +70,19 @@ describe( 'Redux Global Reducers', () => {
       value: true
     }
     let initialState = JSON.parse( JSON.stringify( testState ))
-    let response = reducers.setTouchDraggingElement( deepFreeze( initialState.mouseDraggingElement ), deepFreeze( action ))
+    let response = reducers.setTouchDraggingElement(
+       deepFreeze( initialState.mouseDraggingElement ), deepFreeze( action ))
     expect( response ).toEqual( true )
+  })
+
+  it( 'Set dragging over elements', () => {
+    let action = {
+      type: actions.SET_DRAGGING_OVER_ELEMENTS,
+      value: ["test1"]
+    }
+    let initialState = JSON.parse( JSON.stringify( testState ))
+    let response = reducers.setDraggingOverElements(
+      deepFreeze( initialState.draggingOverElements ), deepFreeze( action ))
+    expect( response ).toEqual( ["test1"] )
   })
 })

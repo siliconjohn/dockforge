@@ -148,5 +148,16 @@ export var updateDockComponent = ( state = {}, action ) => {
     return Object.assign( {}, state, { svgShowDistances: !state.svgShowDistances })
   }
 
+  if( action.type == actions.SET_DRAGGING_OVER_ELEMENTS ) {
+    let updatedComponents = JSON.parse( JSON.stringify( state.components ))
+    updatedComponents = helpers.setDraggingOver( updatedComponents, action.value )
+
+    if( updatedComponents !== undefined ) {
+      return Object.assign({}, state, { components: updatedComponents })
+    } else {
+      return state
+    }
+  }
+
   return state
 }
