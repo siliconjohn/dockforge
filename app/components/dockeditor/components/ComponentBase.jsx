@@ -23,11 +23,6 @@ class ComponentBase extends React.Component {
     this.lastMouseDragXDistance = 0
     this.lastMouseDragYDistance = 0
 
-    // the onscreen position of last render
-    // this is  needed for drag
-    this.renderLeft = 0
-    this.renderBottom = 0
-
     // bind functions so props can be accessed
     this.onDrop = this.onDrop.bind( this )
     this.onDragOver = this.onDragOver.bind( this )
@@ -92,7 +87,7 @@ class ComponentBase extends React.Component {
     targetRect.y = thisPosition.top - svgPosition.top
     targetRect.height = thisPosition.height
     targetRect.width = thisPosition.width
-    
+
     let hits = svg.getIntersectionList( targetRect, null )
 
     var resultList = []
@@ -239,8 +234,8 @@ class ComponentBase extends React.Component {
       // move the component
       let options = {}
       options.uuid = uuid
-      options.left = this.renderLeft  + this.lastMouseDragXDistance
-      options.bottom = this.renderBottom + this.lastMouseDragYDistance
+      options.left = left + this.lastMouseDragXDistance
+      options.bottom = bottom + this.lastMouseDragYDistance
       this.props.dispatch( moveComponent( options ))
 
       // reset values
@@ -335,66 +330,15 @@ class ComponentBase extends React.Component {
   ////////////////////////////////////////////////////////
 
   render() {
-    let { left, bottom, width, height, parentLeft, parentBottom,
-      parentWidth, parentHeight, connectParent, uuid, readOnly,
+    let { left, bottom, width, height, uuid, readOnly,
       type, mouseDraggingElement, draggingOver } = this.props
     let { isDragging } = this.state
 
-    // spacing between children and parents, will use later
-    var pixelOffset = 0
-
-    //////////////////////////////////////////
-    // calculate where to render
-    //////////////////////////////////////////
-
-    let renderLeft = 0
-    let renderBottom = 0
-
-    // if it has the left and bottom properties assume it is a root element
-    // and render it there
-    if( left != undefined && bottom != undefined && connectParent == 'root') {
-      renderLeft = left
-      renderBottom = bottom
-    } else {
-      // set render positions relative to the parent
-      if( parentLeft != undefined && parentBottom != undefined ) {
-        renderLeft = parentLeft
-        renderBottom = parentBottom - parentHeight
-
-        switch ( connectParent ) {
-          case 'top':
-            renderLeft = parentLeft
-            renderBottom = parentBottom - parentHeight - pixelOffset
-            break
-          case 'right':
-            renderLeft = parentLeft + parentWidth + pixelOffset
-            renderBottom = parentBottom
-            break
-          case 'left':
-            renderLeft = parentLeft - width - pixelOffset
-            renderBottom = parentBottom
-            break
-          case 'bottom':
-            renderLeft = parentLeft
-            renderBottom = parentBottom + height + pixelOffset
-            break
-        }
-      } else {
-        throw "Can't render, no left, bottom, parentLeft or parentBottom properties"
-      }
-    }
-
-    // remember it's position, used from dragging
-    this.renderLeft = renderLeft
-    this.renderBottom = renderBottom
-
-    //////////////////////////////////////////
-
-    // set the props used for the stateless component used below
+    // set the props used for the stateless component below
     let statelessCompProps = {
       type: type,
-      left: renderLeft,
-      bottom: renderBottom,
+      left: left,
+      bottom: bottom,
       width: width,
       height: height,
       uuid: uuid,
@@ -422,10 +366,6 @@ class ComponentBase extends React.Component {
         { getCustomComponent( statelessCompProps )}
         {
           this.props.children.map(( item, index) => {
-            item.parentLeft = renderLeft
-            item.parentBottom = renderBottom
-            item.parentWidth = width
-            item.parentHeight = height
             return getRootComponent( item )
           })
         }
@@ -439,12 +379,8 @@ ComponentBase.propTypes = {
   dock: React.PropTypes.object,
   width: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
-  left: React.PropTypes.number,
+  left: React.PropTypes.number.isRequired,
   bottom: React.PropTypes.number,
-  parentLeft: React.PropTypes.number,
-  parentBottom: React.PropTypes.number,
-  parentWidth: React.PropTypes.number,
-  parentHeight: React.PropTypes.number,
   uuid: React.PropTypes.string.isRequired,
   draggingComponent: React.PropTypes.object,
   draggingOver: React.PropTypes.bool,

@@ -7,6 +7,11 @@ import { store } from '../../app.jsx'
 
 class ToolbarButtons extends React.Component {
 
+  componentDidMount() {
+    // opens the dock for testing TODO: update this or remove it
+    store.dispatch( openDock( this.props.newDock ))
+  }
+
   render() {
     return (
       <div className="toolbar-btns">

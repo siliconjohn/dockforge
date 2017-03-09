@@ -12,7 +12,9 @@ export var updateDockComponent = ( state = {}, action ) => {
   if( action.type == actions.OPEN_DOCK ) {
     // stringify the value just to make sure we are working with
     // a new copy of the dock object
-    return JSON.parse( JSON.stringify( action.value ))
+    let newState =  JSON.parse( JSON.stringify( action.value ))
+    let updatedComponents = helpers.updateComponentPositions( newState.components )
+    return Object.assign({}, newState, { components: updatedComponents })
   }
 
   // all actions below this statement will not functions
@@ -27,7 +29,8 @@ export var updateDockComponent = ( state = {}, action ) => {
     if( newComp.children == undefined ) newComp.children = []
     newComp.connectParent = "root"
     newState.components.push( newComp )
-    return newState
+    let updatedComponents = helpers.updateComponentPositions( newState.components )
+    return Object.assign({}, newState, { components: updatedComponents })
   }
 
   // moves a component by setting it's left and bottom props and moves
@@ -49,13 +52,15 @@ export var updateDockComponent = ( state = {}, action ) => {
         component = newState.components.find(( c ) => c.uuid === action.value.uuid )
         component.left = action.value.left
         component.bottom = action.value.bottom
-        return newState
+        let updatedComponents = helpers.updateComponentPositions( newState.components )
+        return Object.assign({}, newState, { components: updatedComponents })
       }
     } else {
       // if the component was found at the root level just move it
       component.left = action.value.left
       component.bottom = action.value.bottom
-      return newState
+      let updatedComponents = helpers.updateComponentPositions( newState.components )
+      return Object.assign({}, newState, { components: updatedComponents })
     }
 
     return state
@@ -67,8 +72,8 @@ export var updateDockComponent = ( state = {}, action ) => {
     let updatedComponents = helpers.moveComponentToParent( action.value.sourceUUID,
         action.value.targetUUID, action.value.targetPosition,
       newState.components )
-
     if( updatedComponents !== undefined ) {
+      updatedComponents = helpers.updateComponentPositions( updatedComponents )
       return Object.assign({}, newState, { components: updatedComponents })
     } else {
       return state

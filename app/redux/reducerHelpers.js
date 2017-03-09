@@ -58,6 +58,56 @@ module.exports.setDraggingOver = ( objectsArray, draggingOverArray ) => {
   return objectsArray
 }
 
+// updates or adds the left: and bottom: props of each component
+module.exports.updateComponentPositions = ( targetArray ) => {
+
+  const updateComponentPosition = ( component, parentPosition ) => {
+
+    if( parentPosition === null ) parentPosition = {}
+
+    if( component.connectParent != 'root' ) {
+      let tempLeft = parentPosition.left
+      let tempBottom = parentPosition.bottom - parentPosition.height
+
+      switch( component.connectParent ) {
+        case 'top':
+          tempLeft = parentPosition.left
+          tempBottom = parentPosition.bottom - parentPosition.height
+          break
+        case 'right':
+          tempLeft = parentPosition.left + parentPosition.width
+          tempBottom = parentPosition.bottom
+          break
+        case 'left':
+          tempLeft = parentPosition.left - parentPosition.width
+          tempBottom = parentPosition.bottom
+          break
+        case 'bottom':
+          tempLeft = parentPosition.left
+          tempBottom = parentPosition.bottom + height
+          break
+      }
+      component.left = tempLeft
+      component.bottom = tempBottom
+    }
+
+    parentPosition.left = component.left
+    parentPosition.bottom = component.bottom
+    parentPosition.width = component.width
+    parentPosition.height = component.height
+
+    component.children.forEach(( item ) => {
+      updateComponentPosition( item, Object.assign( {}, parentPosition ))
+    })
+  }
+
+  targetArray.forEach(( item ) => {
+    updateComponentPosition( item, null )
+  })
+  
+  return targetArray
+}
+
 // finds an object recursivly in an array by uuid, executes
 // the callback when found, returns undefined if not found
 const findObject = ( array, uuid, callback ) => {
