@@ -30,7 +30,7 @@ export var updateDockComponent = ( state = {}, action ) => {
     newComp.connectParent = "root"
     newState.components.push( newComp )
     let updatedComponents = helpers.updateComponentPositions( newState.components )
-    return Object.assign({}, newState, { components: updatedComponents })
+    return Object.assign({}, state, { components: updatedComponents })
   }
 
   // moves a component by setting it's left and bottom props and moves
@@ -52,15 +52,15 @@ export var updateDockComponent = ( state = {}, action ) => {
         component = newState.components.find(( c ) => c.uuid === action.value.uuid )
         component.left = action.value.left
         component.bottom = action.value.bottom
-        let updatedComponents = helpers.updateComponentPositions( newState.components )
-        return Object.assign({}, newState, { components: updatedComponents })
+        newState.components = helpers.updateComponentPositions( newState.components )
+        return newState
       }
     } else {
       // if the component was found at the root level just move it
       component.left = action.value.left
       component.bottom = action.value.bottom
       let updatedComponents = helpers.updateComponentPositions( newState.components )
-      return Object.assign({}, newState, { components: updatedComponents })
+      return Object.assign({}, state, { components: updatedComponents })
     }
 
     return state
@@ -70,11 +70,10 @@ export var updateDockComponent = ( state = {}, action ) => {
   if ( action.type == actions.MOVE_COMPONENT_TO_PARENT ) {
     let newState = JSON.parse( JSON.stringify( state ))
     let updatedComponents = helpers.moveComponentToParent( action.value.sourceUUID,
-        action.value.targetUUID, action.value.targetPosition,
-      newState.components )
+        action.value.targetUUID, action.value.targetPosition, newState.components )
     if( updatedComponents !== undefined ) {
       updatedComponents = helpers.updateComponentPositions( updatedComponents )
-      return Object.assign({}, newState, { components: updatedComponents })
+      return Object.assign({}, state, { components: updatedComponents })
     } else {
       return state
     }

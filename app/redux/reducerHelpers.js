@@ -65,7 +65,7 @@ module.exports.updateComponentPositions = ( targetArray ) => {
 
     if( parentPosition === null ) parentPosition = {}
 
-    if( component.connectParent != 'root' ) {
+    if( component.connectParent !== 'root' ) {
       let tempLeft = parentPosition.left
       let tempBottom = parentPosition.bottom - parentPosition.height
 
@@ -84,7 +84,7 @@ module.exports.updateComponentPositions = ( targetArray ) => {
           break
         case 'bottom':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom + height
+          tempBottom = parentPosition.bottom + parentPosition.height
           break
       }
       component.left = tempLeft
@@ -104,7 +104,7 @@ module.exports.updateComponentPositions = ( targetArray ) => {
   targetArray.forEach(( item ) => {
     updateComponentPosition( item, null )
   })
-  
+
   return targetArray
 }
 
