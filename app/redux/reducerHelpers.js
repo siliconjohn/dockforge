@@ -41,16 +41,14 @@ module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition,
 module.exports.setDraggingOver = ( objectsArray, draggingOverArray ) => {
 
   const setValue = ( _objectsArray, _draggingOverArray ) => {
-
-    for( let i = 0; i < _objectsArray.length; i++ ) {
-      if( _draggingOverArray.indexOf( _objectsArray[i].uuid ) > -1 ) {
-        _objectsArray[i].draggingOver = true
+    _objectsArray.forEach(( object ) => {
+      if( _draggingOverArray.indexOf( object.uuid ) > -1 ) {
+        object.draggingOver = true
       } else {
-        _objectsArray[i].draggingOver = false
+        object.draggingOver = false
       }
-
-      setValue( _objectsArray[i].children, _draggingOverArray )
-    }
+      setValue( object.children, _draggingOverArray )
+    })
   }
 
   setValue( objectsArray, draggingOverArray )
