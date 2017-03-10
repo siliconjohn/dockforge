@@ -155,18 +155,18 @@ describe( 'Redux Dock Reducers', () => {
     expect( response.svgWidth ).toBeLessThan( initialState.svgWidth )
   })
 
-  // it( 'Should move component to parent', () => {
-  //   let initialState = JSON.parse( JSON.stringify( testState ))
-  //   let action = {
-  //     type: actions.MOVE_COMPONENT_TO_PARENT,
-  //     value: { sourceUUID: "child1", targetUUID: "child2",
-  //       targetPosition: "bottom", components: initialState.components }
-  //   }
-  //   let response = reducers.updateDockComponent( deepFreeze( initialState ),
-  //     deepFreeze( action ))
-  //   let result = helpers.isChildOf( response.components[0].children, "child1")
-  //   expect( result ).toEqual( true )
-  // })
+  it( 'Should move component to parent', () => {
+    let initialState = JSON.parse( JSON.stringify( testState ))
+    let action = {
+      type: actions.MOVE_COMPONENT_TO_PARENT,
+      value: { sourceUUID: "child1", targetUUID: "child2",
+        targetPosition: "bottom", components: initialState.components }
+    }
+    let response = reducers.updateDockComponent( deepFreeze( initialState ),
+      deepFreeze( action ))
+    let result = helpers.isChildOf( response.components[0].children, "child1")
+    expect( result ).toEqual( true )
+  })
 
   it( 'Should move component', () => {
     let initialState = JSON.parse( JSON.stringify( testState ))
