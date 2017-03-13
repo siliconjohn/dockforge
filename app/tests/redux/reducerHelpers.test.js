@@ -189,22 +189,7 @@ describe( "Reducer Helpers", () => {
       expect( modifiedState[0].children[0].connectParent ).toEqual( "testtop" )
     })
   })
-
-  describe( "Test setDraggingOver()", () => {
-
-    it( "Should change uuid:child1 to draggingOver: true", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.setDraggingOver( initialState, ["child1"] )
-      expect( modifiedState[0].draggingOver ).toEqual( true )
-    })
-
-    it( "Should change draggingOver uuid:child2 to false", () => {
-      let initialState = JSON.parse( JSON.stringify( testState ))
-      let modifiedState = helpers.setDraggingOver( initialState, [] )
-      expect( modifiedState[1].draggingOver ).toEqual( false )
-    })
-  })
-
+  
   describe( "Test updateComponentPositions()", () => {
 
     it( "Should move component to top of parent", () => {
@@ -233,6 +218,100 @@ describe( "Reducer Helpers", () => {
       let modifiedState = helpers.updateComponentPositions( initialState )
       expect( modifiedState[2].children[3].bottom ).toEqual( 0 )
       expect( modifiedState[2].children[3].left ).toEqual( -100 )
+    })
+  })
+
+  describe( "Test rectsIntersect()", () => {
+
+    it( "Rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-150, bottom:50 }
+      let rect2 = { left:0, right:100, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Rects should not intersect", () => {
+      let rect1 = { left:0, right:100, top:-200, bottom:-100 }
+      let rect2 = { left:0, right:100, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Enclosed rect should intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:10, right:90, top:-90, bottom:10 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Reversed enclosed rect should intersect", () => {
+      let rect2 = { left:0, right:100, top:-100, bottom:0 }
+      let rect1 = { left:10, right:90, top:-90, bottom:10 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Bottom of rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-10, bottom:-50 }
+      let rect2 = { left:0, right:100, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Right of rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:-99, right:0, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Right of rects should not intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:-98, right:-1, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( false )
+    })
+
+    it( "Left of rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:100, right:200, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Left of rects should not intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:101, right:201, top:-100, bottom:0 }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( false )
+    })
+
+    it( "Bottom of rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:0, right:100, top:-200, bottom:-100  }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Bottom of rects should not intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:0, right:100, top:-200, bottom:-101  }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( false )
+    })
+
+    it( "Top of rects should intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:0, right:100, top:0, bottom:100  }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( true )
+    })
+
+    it( "Top of rects should not intersect", () => {
+      let rect1 = { left:0, right:100, top:-100, bottom:0 }
+      let rect2 = { left:0, right:100, top:1, bottom:101  }
+      let result = helpers.rectsIntersect( rect1, rect2 )
+      expect( result ).toEqual( false )
     })
   })
 })

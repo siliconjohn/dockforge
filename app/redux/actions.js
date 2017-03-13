@@ -167,11 +167,12 @@ export var openDock = ( value ) => {
   }
 }
 
-export const SET_DRAGGING_OVER_ELEMENTS = 'SET_DRAGGING_OVER_ELEMENTS'
+export const UPDATE_DRAGGING_OVER_COMPONENTS = 'UPDATE_DRAGGING_OVER_COMPONENTS'
 
-export var setDraggingOverElements = ( value ) => {
+export var updateDraggingOverComponents = ( hitRect, sourceUUID ) => {
   return {
-    type: SET_DRAGGING_OVER_ELEMENTS,
-    value
+    type: UPDATE_DRAGGING_OVER_COMPONENTS,
+    hitRect,
+    sourceUUID
   }
 }

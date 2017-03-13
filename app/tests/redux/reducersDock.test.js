@@ -181,28 +181,6 @@ describe( 'Redux Dock Reducers', () => {
     expect( response.components[0].bottom ).toEqual( 222 )
   })
 
-  it( 'Should set draggingOver to true', () => {
-    let initialState = JSON.parse( JSON.stringify( testState ))
-    let action = {
-      type: actions.SET_DRAGGING_OVER_ELEMENTS,
-      value: [ "child1" ]
-    }
-    let response = reducers.updateDockComponent( deepFreeze( initialState ),
-      deepFreeze( action ))
-    expect( response.components[0].draggingOver ).toEqual( true )
-  })
-
-  it( 'Should set draggingOver to false', () => {
-    let initialState = JSON.parse( JSON.stringify( testState ))
-    let action = {
-      type: actions.SET_DRAGGING_OVER_ELEMENTS,
-      value: [ "child1" ]
-    }
-    let response = reducers.updateDockComponent( deepFreeze( initialState ),
-      deepFreeze( action ))
-    expect( response.components[1].draggingOver ).toEqual( false )
-  })
-
   it( 'Should move component, and put at root of array', () => {
     let initialState = JSON.parse( JSON.stringify( testState ))
     let action = {

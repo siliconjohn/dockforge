@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { getRootComponent, getCustomComponent } from 'editor'
 import { connect, dispatch } from 'react-redux'
-import { setMouseDraggingElement, moveComponent, setDraggingOverElements }
+import { setMouseDraggingElement, moveComponent, updateDraggingOverComponents }
   from 'actions'
 
 // this is the root class for all components that need
@@ -74,44 +74,15 @@ class ComponentBase extends React.Component {
 
   // when dragging, do hit test w other componenets
   performHitTest() {
-    let { svgScale, left, bottom, svgRotation, svgHeight, svgWidth,
-      width, height, svgShorelineHeight, uuid, draggingOver,
-      draggingOverElements } = this.props
+    let { uuid, left, bottom, width, height } = this.props
 
-    let svg = document.getElementById( "svg-el" )
-    let thisPosition = findDOMNode( this ).firstChild.getBoundingClientRect()
-    let svgPosition = findDOMNode( svg ).getBoundingClientRect()
+    var dragRect = {}
+    dragRect.left = Math.round(left + this.lastMouseDragXDistance)
+    dragRect.bottom = Math.round(bottom + this.lastMouseDragYDistance)
+    dragRect.right = dragRect.left + width
+    dragRect.top = dragRect.bottom - height
 
-    let targetRect = svg.createSVGRect()
-    targetRect.x = thisPosition.left - svgPosition.left
-    targetRect.y = thisPosition.top - svgPosition.top
-    targetRect.height = thisPosition.height
-    targetRect.width = thisPosition.width
-
-    let hits = svg.getIntersectionList( targetRect, null )
-
-    var resultList = []
-
-    for(var i = 0; i < hits.length; i++ ) {
-      let item = hits[i]
-      var str = `data-uuid="(.*?)"`
-      let elementUUID = item.outerHTML.match( new RegExp( str ))
-      if( elementUUID == null ) continue
-
-      if( findDOMNode( this ).contains( item ) == false ){
-        if( elementUUID[1] != uuid) {
-          if( resultList.indexOf( elementUUID[1] ) == -1) {
-            resultList.push( elementUUID[1] )
-          }
-        }
-      }
-    }
-
-    // see if anything chaned and dispatch action if it did
-    resultList.sort()
-    if( draggingOverElements.toString() !== resultList.toString()){
-      this.props.dispatch( setDraggingOverElements( resultList ))
-    }
+    this.props.dispatch( updateDraggingOverComponents( dragRect, uuid ))
   }
 
   ////////////////////////////////////////////////////////

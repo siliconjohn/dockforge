@@ -152,9 +152,10 @@ export var updateDockComponent = ( state = {}, action ) => {
     return Object.assign( {}, state, { svgShowDistances: !state.svgShowDistances })
   }
 
-  if( action.type == actions.SET_DRAGGING_OVER_ELEMENTS ) {
+  if( action.type == actions.UPDATE_DRAGGING_OVER_COMPONENTS ) {
     let updatedComponents = JSON.parse( JSON.stringify( state.components ))
-    updatedComponents = helpers.setDraggingOver( updatedComponents, action.value )
+    updatedComponents = helpers.setDraggingOver( updatedComponents, action.sourceUUID,
+       action.hitRect )
 
     if( updatedComponents !== undefined ) {
       return Object.assign({}, state, { components: updatedComponents })
@@ -163,5 +164,17 @@ export var updateDockComponent = ( state = {}, action ) => {
     }
   }
 
+  if ( action.type == actions.SET_MOUSE_DRAGGING_ELEMENT ) {
+    if( action.value == false ) {
+      let updatedComponents = JSON.parse( JSON.stringify( state.components ))
+      updatedComponents = helpers.resetDraggingOver( updatedComponents )
+
+      if( updatedComponents !== undefined ) {
+        return Object.assign({}, state, { components: updatedComponents })
+      } else {
+        return state
+      }
+    }
+  }
   return state
 }

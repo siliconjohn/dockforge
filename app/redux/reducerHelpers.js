@@ -38,22 +38,48 @@ module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition,
   return undefined
 }
 
-module.exports.setDraggingOver = ( objectsArray, draggingOverArray ) => {
+module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
 
-  const setValue = ( _objectsArray, _draggingOverArray ) => {
-    _objectsArray.forEach(( object ) => {
-      if( _draggingOverArray.indexOf( object.uuid ) > -1 ) {
-        object.draggingOver = true
-      } else {
-        object.draggingOver = false
-      }
-      setValue( object.children, _draggingOverArray )
+  const setDraggingOverFalse = ( components ) => {
+    components.forEach(( comp ) => {
+      comp.draggingOver = false
+      setDraggingOverFalse( comp.children )
     })
   }
 
-  setValue( objectsArray, draggingOverArray )
+  const setDraggingOverForArray = ( components ) => {
+    components.forEach(( comp ) => {
+      if( comp.uuid == sourceUUID ) {
+        setDraggingOverFalse( comp.children )
+      } else {
+        if( rectsIntersect( hitRect, { left: comp.left, bottom: comp.bottom,
+            right: comp.left + comp.width, top:comp.bottom - comp.height }) == true ) {
+          comp.draggingOver = true
+        } else {
+          comp.draggingOver = false
+        }
+        setDraggingOverForArray( comp.children )
+      }
+    })
+  }
 
-  return objectsArray
+  setDraggingOverForArray( components )
+
+  return components
+}
+
+module.exports.resetDraggingOver = ( components ) => {
+
+  const setValue = ( components ) => {
+    components.forEach(( object ) => {
+      object.draggingOver = false
+      setValue( object.children )
+    })
+  }
+
+  setValue( components )
+
+  return components
 }
 
 // updates or adds the left: and bottom: props of each component
@@ -154,8 +180,26 @@ const addObject = ( array, uuid, sourceObject ) => {
   return false
 }
 
+// test if two rects intersect, rects should look like this:
+// var rect = { left:101, right:201, top:-100, bottom:0 }
+const rectsIntersect = ( rect1, rect2 ) => {
+  let result = false
+
+  const insterescts = ( rect1, rect2 ) => {
+    return (rect1.left <= rect2.right &&
+            rect2.left <= rect1.right &&
+            rect1.top <= rect2.bottom &&
+            rect2.top <= rect1.bottom)
+  }
+
+  result = insterescts( rect1, rect2 )
+  if( result == false ) result = insterescts( rect2, rect1)
+  return result
+}
+
 // these exports are only here to facilitate testing these functions
 module.exports.findObject = findObject
 module.exports.removeObject = removeObject
 module.exports.isChildOf = isChildOf
 module.exports.addObject = addObject
+module.exports.rectsIntersect = rectsIntersect

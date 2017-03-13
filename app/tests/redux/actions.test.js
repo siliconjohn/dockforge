@@ -171,13 +171,5 @@ describe( "Redux Actions", () => {
     let generatedAction = actions.openDock( "custom" )
     expect( action ).toEqual( generatedAction )
   })
-
-  it( "Should create SET_DRAGGING_OVER_ELEMENTS action", () => {
-    let action = {
-      type: actions.SET_DRAGGING_OVER_ELEMENTS,
-      value: ["test1"]
-    }
-    let generatedAction = actions.setDraggingOverElements( ["test1"] )
-    expect( action ).toEqual( generatedAction )
-  })
+ 
 })
