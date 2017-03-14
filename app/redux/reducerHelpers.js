@@ -40,6 +40,10 @@ module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition,
 
 module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
 
+  var hitRectCenter = {}
+  hitRectCenter.centerX = hitRect.left + ( hitRect.right - hitRect.left ) / 2
+  hitRectCenter.centerY = hitRect.top + ( hitRect.bottom - hitRect.top ) / 2
+
   const setDraggingOverFalse = ( components ) => {
     components.forEach(( comp ) => {
       comp.draggingOver = false
@@ -52,11 +56,50 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
       if( comp.uuid == sourceUUID ) {
         setDraggingOverFalse( comp.children )
       } else {
-        if( rectsIntersect( hitRect, { left: comp.left, bottom: comp.bottom,
-            right: comp.left + comp.width, top:comp.bottom - comp.height }) == true ) {
+        let compHitRect = { left: comp.left, bottom: comp.bottom,
+            right: comp.left + comp.width, top:comp.bottom - comp.height }
+
+        if( rectsIntersect( hitRect, compHitRect ) == true ) {
           comp.draggingOver = true
+
+          var compHitRectCenter = {}
+          compHitRectCenter.centerX = compHitRect.left + ( compHitRect.right - compHitRect.left ) / 2
+          compHitRectCenter.centerY = compHitRect.top + ( compHitRect.bottom - compHitRect.top ) / 2
+          let horzCenterOffset = hitRectCenter.centerX - compHitRectCenter.centerX
+          let vertCenterOffset = hitRectCenter.centerY - compHitRectCenter.centerY
+
+          //////////////////////////////////
+          let vertSide
+          let vertSideOffset = 0
+          if( vertCenterOffset >= 0 ) {
+            vertSide = "bottom"
+            vertSideOffset = vertCenterOffset
+          } else {
+            vertSide = "top"
+            vertSideOffset = vertCenterOffset * -1
+          }
+          //////////////////////////////////
+          let horzSide
+          let horzSideOffset = 0
+          if( horzCenterOffset >= 0 ) {
+            horzSide = "right"
+            horzSideOffset = horzCenterOffset
+          } else {
+            horzSide = "left"
+            horzSideOffset = horzCenterOffset * -1
+          }
+
+          let finalPosition = ""
+
+          if( horzSideOffset >= vertSideOffset ) {
+            finalPosition = horzSide
+          } else {
+            finalPosition = vertSide
+          }
+          comp.draggingOverSide = finalPosition
         } else {
           comp.draggingOver = false
+          comp.draggingOverSide = ""
         }
         setDraggingOverForArray( comp.children )
       }

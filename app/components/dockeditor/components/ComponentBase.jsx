@@ -302,7 +302,7 @@ class ComponentBase extends React.Component {
 
   render() {
     let { left, bottom, width, height, uuid, readOnly,
-      type, mouseDraggingElement, draggingOver } = this.props
+      type, mouseDraggingElement, draggingOver, draggingOverSide } = this.props
     let { isDragging } = this.state
 
     // set the props used for the stateless component below
@@ -313,7 +313,8 @@ class ComponentBase extends React.Component {
       width: width,
       height: height,
       uuid: uuid,
-      draggingOver: draggingOver
+      draggingOver: draggingOver,
+      draggingOverSide: draggingOverSide
     }
 
     // setup classes
