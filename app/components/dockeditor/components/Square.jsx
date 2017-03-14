@@ -1,11 +1,12 @@
 import React from 'react'
+import Highlight from 'Highlight'
 
 var Square = ( props ) => {
 
   let { left, bottom, width, height, uuid, draggingOver, draggingOverSide } = props
 
   const getHightlight = () => {
-    
+
     if( draggingOver == true) {
       let highlightHeight = 4
 
@@ -43,10 +44,9 @@ var Square = ( props ) => {
 
   return (
     <g className="square" data-uuid={ uuid }>
-
       <rect stroke="darkblue" strokeWidth="1" fill="blue" data-uuid={ uuid }
         x={ left } y={ bottom - height } width={ width } height= { height }/>
-        { getHightlight() }
+      <Highlight { ...props }/>
     </g>
   )
 }

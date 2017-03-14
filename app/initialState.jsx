@@ -35,16 +35,16 @@ export var initialState = {
           components:[
             //{ type: "Square", left:0, bottom:0, width: 100, height: 100, uuid:"test1", connectParent:'root', children:[]},
              { type: "Square", left:0, bottom:0, width: 100, height: 100, uuid:"test2",connectParent:'root', children:[
-                // { type: "Square", width: 100, height: 100, uuid:"child1", connectParent:'top',children:[
-                //   { type: "Square", width: 100, height: 100, uuid:"child33", connectParent:'right',children:[]},
-                //   { type: "Square", width: 100, height: 100, uuid:"child3", connectParent:'left',children:[
-                // //         { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'left', children:[
-                // //               { type: "Square", width: 120, height: 120, uuid:"child5", connectParent:'bottom', children:[]}
-                // //         ]}
-                //    ] }
-                //    ] }
+                { type: "Square", width: 100, height: 100, uuid:"child1", connectParent:'top',children:[
+                  { type: "Square", width: 100, height: 100, uuid:"child33", connectParent:'right',children:[]},
+                  { type: "Square", width: 100, height: 100, uuid:"child3", connectParent:'left',children:[
+                //         { type: "Square", width: 120, height: 120, uuid:"child4", connectParent:'left', children:[
+                //               { type: "Square", width: 120, height: 120, uuid:"child5", connectParent:'bottom', children:[]}
+                //         ]}
+                   ] }
+                   ] }
                 //
              ]},
-            { type: "Square", left:0, bottom:-300, width: 100, height: 100, uuid:"test7", connectParent:'root', children:[]}
+            { type: "Square", left:0, bottom:-400, width: 100, height: 100, uuid:"test7", connectParent:'root', children:[]}
           ]}
 }

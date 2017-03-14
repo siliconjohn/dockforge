@@ -59,4 +59,15 @@ $text-color: #777;
   .component.pointer-painted {
     pointer-events: painted !important;
   }
+
+  .hightlight {
+    stroke: red;
+    stroke-width: 1;
+    fill: red;
+  }
+
+  .hightlight.outline {
+    fill: none !important;
+    stroke-width: 4 !important;
+  }
 }
