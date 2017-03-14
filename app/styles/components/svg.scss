@@ -53,6 +53,7 @@ $text-color: #777;
   }
 
   .component.pointer-none {
+    pointer-events: none;
   }
 
   .component.pointer-painted {
