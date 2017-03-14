@@ -319,9 +319,8 @@ class ComponentBase extends React.Component {
 
     // setup classes
     let classes = "component pointer-painted"
-    if( isDragging == false && mouseDraggingElement == true ) {
-      classes = "component pointer-none"
-    }
+    if( isDragging == false && mouseDraggingElement == true ) classes = "component pointer-none"
+    if( isDragging ) classes += " dragging"
 
     return (
       <g onMouseDown={ readOnly == true ? null : this.onMouseDown }
