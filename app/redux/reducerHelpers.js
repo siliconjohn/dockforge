@@ -40,10 +40,8 @@ module.exports.moveComponentToParent = ( sourceUUID, targetUUID, targetPosition,
 
 module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
 
-  var hitRectCenter = {}
-  hitRectCenter.centerX = hitRect.left + ( hitRect.right - hitRect.left ) / 2
-  hitRectCenter.centerY = hitRect.top + ( hitRect.bottom - hitRect.top ) / 2
-
+  // set draggingOver = false for comp and all it's children, this is to make
+  // sure draggingOver is never is true for sourceUUID's and it's children
   const setDraggingOverFalse = ( components ) => {
     components.forEach(( comp ) => {
       comp.draggingOver = false
@@ -51,7 +49,10 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
     })
   }
 
-  const setDraggingOverForArray = ( components ) => {
+  // checks to see if hitRect overlapps each component, calcs overlapping
+  // side, updates comp props
+  const setDraggingOverForComponents = ( components ) => {
+
     components.forEach(( comp ) => {
       if( comp.uuid == sourceUUID ) {
         setDraggingOverFalse( comp.children )
@@ -62,13 +63,14 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
         if( rectsIntersect( hitRect, compHitRect ) == true ) {
           comp.draggingOver = true
 
+          // calculates the intersecting side
           var compHitRectCenter = {}
           compHitRectCenter.centerX = compHitRect.left + ( compHitRect.right - compHitRect.left ) / 2
           compHitRectCenter.centerY = compHitRect.top + ( compHitRect.bottom - compHitRect.top ) / 2
           let horzCenterOffset = hitRectCenter.centerX - compHitRectCenter.centerX
           let vertCenterOffset = hitRectCenter.centerY - compHitRectCenter.centerY
 
-          //////////////////////////////////
+          // find vert side
           let vertSide
           let vertSideOffset = 0
           if( vertCenterOffset >= 0 ) {
@@ -78,7 +80,8 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
             vertSide = "top"
             vertSideOffset = vertCenterOffset * -1
           }
-          //////////////////////////////////
+
+          // find horz side
           let horzSide
           let horzSideOffset = 0
           if( horzCenterOffset >= 0 ) {
@@ -89,24 +92,55 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
             horzSideOffset = horzCenterOffset * -1
           }
 
-          let finalPosition = ""
-
+          // decide which side to use
+          let finalSide = ""
           if( horzSideOffset >= vertSideOffset ) {
-            finalPosition = horzSide
+            finalSide = horzSide
           } else {
-            finalPosition = vertSide
+            finalSide = vertSide
           }
-          comp.draggingOverSide = finalPosition
+          comp.draggingOverSide = finalSide
+
+          // distance between centers
+          comp.draggingDistance = Math.hypot( horzCenterOffset, vertCenterOffset )
+
+          componentHits.push( comp )
         } else {
           comp.draggingOver = false
-          comp.draggingOverSide = ""
+          comp.draggingOverSide = undefined
+          comp.draggingDistance = undefined
         }
-        setDraggingOverForArray( comp.children )
+
+        setDraggingOverForComponents( comp.children )
       }
     })
   }
+ 
+  var componentHits = []
 
-  setDraggingOverForArray( components )
+  // find center of hitrect
+  var hitRectCenter = {}
+  hitRectCenter.centerX = hitRect.left + ( hitRect.right - hitRect.left ) / 2
+  hitRectCenter.centerY = hitRect.top + ( hitRect.bottom - hitRect.top ) / 2
+
+  // find all comps that hitRect is over and set each to dragginOver = true
+  setDraggingOverForComponents( components )
+
+  // sort by distance from center of each component
+  componentHits.sort(( a, b ) => {
+    if( a.draggingDistance > b.draggingDistance ) return 1
+    if( a.draggingDistance < b.draggingDistance ) return -1
+    return 0
+  })
+
+  // set all but the first ( closest ) comp to draggingOver = false
+  // we only want one comp to have draggingOver = true
+  componentHits.forEach(( comp, index ) => {
+    if( index == 0 ) return
+    comp.draggingOver = false
+    comp.draggingOverSide = undefined
+    comp.draggingDistance = undefined
+  })
 
   return components
 }
