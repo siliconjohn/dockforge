@@ -160,59 +160,9 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
   return components
 }
 
-
-
-
-
-
-
-
-
-
 module.exports.findObjectByDraggingOverAttribute = ( components, value ) => {
  return findObjectByAttribute( components, "draggingOver", value )
 }
-
-
-const findObjectByAttribute = ( array, attribute, value ) => {
-  var result
-
-  for(let i = 0; i < array.length; i++ ) {
-    if( array[i][attribute] === true ) {
-      result = array[i]
-      break
-    }
-
-    result = findObjectByAttribute( array[i].children, attribute, value )
-    if( result !== undefined ) break
-  }
-
-  return result
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports.resetDraggingOver = ( components ) => {
 
@@ -348,6 +298,22 @@ const getOppositeSide = ( side ) => {
   if( side == 'right' ) return 'left'
   if( side == 'top' ) return 'bottom'
   if( side == 'bottom' ) return 'top'
+}
+
+const findObjectByAttribute = ( array, attribute, value ) => {
+  var result
+
+  for(let i = 0; i < array.length; i++ ) {
+    if( array[i][attribute] === true ) {
+      result = array[i]
+      break
+    }
+
+    result = findObjectByAttribute( array[i].children, attribute, value )
+    if( result !== undefined ) break
+  }
+
+  return result
 }
 
 // these exports are only here to facilitate testing these functions
