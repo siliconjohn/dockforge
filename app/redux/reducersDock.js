@@ -23,7 +23,7 @@ export var updateDockComponent = ( state = {}, action ) => {
     return state
   }
 
-  if ( action.type == actions.ADD_DOCK_COMPONENT ) {
+  if( action.type == actions.ADD_DOCK_COMPONENT ) {
     let newState = JSON.parse( JSON.stringify( state ))
     let newComp = JSON.parse( JSON.stringify( action.component ))
     if( newComp.children == undefined ) newComp.children = []
@@ -35,7 +35,23 @@ export var updateDockComponent = ( state = {}, action ) => {
 
   // moves a component by setting it's left and bottom props and moves
   // it to the root level of the array of components
-  if ( action.type == actions.MOVE_COMPONENT ) {
+  if( action.type == actions.MOVE_COMPONENT ) {
+
+    // if dragging over is true
+    let draggingOverComponent = helpers.findObjectByDraggingOverAttribute( state.components, true )
+
+    if( draggingOverComponent != undefined ) {
+      let newState = JSON.parse( JSON.stringify( state ))
+      let updatedComponents = helpers.moveComponentToParent( action.value.uuid,
+        draggingOverComponent.uuid, draggingOverComponent.draggingOverSide, newState.components )
+      if( updatedComponents !== undefined ) {
+        updatedComponents = helpers.updateComponentPositions( updatedComponents )
+        return Object.assign({}, state, { components: updatedComponents })
+      } else {
+        return state
+      }
+    }
+
     var newState = JSON.parse( JSON.stringify( state ))
 
     // look for the component at root level of components array

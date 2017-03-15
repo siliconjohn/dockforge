@@ -200,7 +200,6 @@ class ComponentBase extends React.Component {
         draggingStartX: 0,
         draggingStartY: 0,
       })
-      this.props.dispatch( setMouseDraggingElement( false ))
 
       // move the component
       let options = {}
@@ -213,6 +212,8 @@ class ComponentBase extends React.Component {
       this.lastMouseDragXDistance = 0
       this.lastMouseDragYDistance = 0
       event.stopPropagation()
+      this.props.dispatch( setMouseDraggingElement( false ))
+
     } else {
       this.props.dispatch( setMouseDraggingElement( false ))
     }

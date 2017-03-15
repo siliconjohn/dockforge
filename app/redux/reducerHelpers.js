@@ -160,6 +160,60 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
   return components
 }
 
+
+
+
+
+
+
+
+
+
+module.exports.findObjectByDraggingOverAttribute = ( components, value ) => {
+ return findObjectByAttribute( components, "draggingOver", value )
+}
+
+
+const findObjectByAttribute = ( array, attribute, value ) => {
+  var result
+
+  for(let i = 0; i < array.length; i++ ) {
+    if( array[i][attribute] === true ) {
+      result = array[i]
+      break
+    }
+
+    result = findObjectByAttribute( array[i].children, attribute, value )
+    if( result !== undefined ) break
+  }
+
+  return result
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports.resetDraggingOver = ( components ) => {
 
   const setValue = ( components ) => {
@@ -303,3 +357,4 @@ module.exports.isChildOf = isChildOf
 module.exports.addObject = addObject
 module.exports.rectsIntersect = rectsIntersect
 module.exports.getOppositeSide = getOppositeSide
+module.exports.findObjectByAttribute = findObjectByAttribute
