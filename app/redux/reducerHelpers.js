@@ -49,6 +49,13 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
     })
   }
 
+  const canConnectToSide = ( component, side ) => {
+    if( component.connectParent == getOppositeSide( side )) return false
+    for(var i=0; i < component.children.length; i++ ) {
+      if( component.children[i].connectParent == side ) return false
+    }
+  }
+
   // checks to see if hitRect overlapps each component, calcs overlapping
   // side, updates comp props
   const setDraggingOverForComponents = ( components ) => {
@@ -62,7 +69,6 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
 
         if( rectsIntersect( hitRect, compHitRect ) == true ) {
           comp.draggingOver = true
-
           // calculates the intersecting side
           var compHitRectCenter = {}
           compHitRectCenter.centerX = compHitRect.left + ( compHitRect.right - compHitRect.left ) / 2
@@ -104,7 +110,14 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
           // distance between centers
           comp.draggingDistance = Math.hypot( horzCenterOffset, vertCenterOffset )
 
-          componentHits.push( comp )
+          // check to see if it can connect to this side
+          if( canConnectToSide( comp, comp.draggingOverSide ) == false ) {
+            comp.draggingOver = false
+            comp.draggingOverSide = undefined
+            comp.draggingDistance = undefined
+          } else {
+            componentHits.push( comp )
+          }
         } else {
           comp.draggingOver = false
           comp.draggingOverSide = undefined
@@ -115,7 +128,7 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
       }
     })
   }
- 
+
   var componentHits = []
 
   // find center of hitrect
@@ -274,9 +287,17 @@ const rectsIntersect = ( rect1, rect2 ) => {
   return result
 }
 
+const getOppositeSide = ( side ) => {
+  if( side == 'left' ) return 'right'
+  if( side == 'right' ) return 'left'
+  if( side == 'top' ) return 'bottom'
+  if( side == 'bottom' ) return 'top'
+}
+
 // these exports are only here to facilitate testing these functions
 module.exports.findObject = findObject
 module.exports.removeObject = removeObject
 module.exports.isChildOf = isChildOf
 module.exports.addObject = addObject
 module.exports.rectsIntersect = rectsIntersect
+module.exports.getOppositeSide = getOppositeSide
