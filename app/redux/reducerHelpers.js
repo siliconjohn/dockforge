@@ -49,11 +49,13 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
     })
   }
 
-  const canConnectToSide = ( component, side ) => {
+  const canConnectToSide = ( component, side, canInsert ) => {
     if( component.connectParent == getOppositeSide( side )) return false
+    if( canInsert == false ) {
     for(var i=0; i < component.children.length; i++ ) {
       if( component.children[i].connectParent == side ) return false
-    }
+    }}
+    return true
   }
 
   // checks to see if hitRect overlapps each component, calcs overlapping
@@ -111,7 +113,7 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
           comp.draggingDistance = Math.hypot( horzCenterOffset, vertCenterOffset )
 
           // check to see if it can connect to this side
-          if( canConnectToSide( comp, comp.draggingOverSide ) == false ) {
+          if( canConnectToSide( comp, comp.draggingOverSide, false ) == false ) {
             comp.draggingOver = false
             comp.draggingOverSide = undefined
             comp.draggingDistance = undefined
