@@ -45,6 +45,6 @@ export var initialState = {
                    ] }
                 //
              ]},
-            { type: "Square", left:0, bottom:-400, width: 100, height: 100, uuid:"test7", connectParent:'root', children:[]}
+            { type: "Square", left:0, bottom:-200, width: 100, height: 200, uuid:"test7", connectParent:'root', children:[]}
           ]}
 }

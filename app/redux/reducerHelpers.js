@@ -204,7 +204,7 @@ module.exports.updateComponentPositions = ( targetArray ) => {
           break
         case 'bottom':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom + parentPosition.height
+          tempBottom = parentPosition.bottom + component.height
           break
       }
       component.left = tempLeft
