@@ -19,6 +19,8 @@ class ComponentBase extends React.Component {
       draggingStartY: 0,
     }
 
+    this.onlyDragRoot = false
+
     // used in drag
     this.lastMouseDragXDistance = 0
     this.lastMouseDragYDistance = 0
@@ -190,11 +192,11 @@ class ComponentBase extends React.Component {
   }
 
   onMouseUp( event ) {
-    let { draggingStartX, draggingStartY } = this.state
-    let { left, bottom, width, height, uuid } = this.props
-
     // turn off isDragging
     if( this.state.isDragging == true ) {
+      let { draggingStartX, draggingStartY } = this.state
+      let { left, bottom, width, height, uuid } = this.props
+
       this.setState({
         isDragging: false,
         draggingStartX: 0,
@@ -213,13 +215,16 @@ class ComponentBase extends React.Component {
       this.lastMouseDragYDistance = 0
       event.stopPropagation()
       this.props.dispatch( setMouseDraggingElement( false ))
-
-    } else {
-      this.props.dispatch( setMouseDraggingElement( false ))
     }
+    // else {
+    //   this.props.dispatch( setMouseDraggingElement( false ))
+    // }
   }
 
   onMouseDown( event ) {
+    if( this.onlyDragRoot == true && this.props.connectParent != 'root' &&
+      event.shiftKey == false ) return
+
     // turn on isDragging
     if( this.state.isDragging == false ) {
       let svg = document.getElementById( "svg-el" )
@@ -320,7 +325,8 @@ class ComponentBase extends React.Component {
 
     // setup classes
     let classes = "component pointer-painted"
-    if( isDragging == false && mouseDraggingElement == true ) classes = "component pointer-none"
+    if( this.onlyDragRoot == true && isDragging == false &&
+      mouseDraggingElement == true ) classes = "component pointer-none"
     if( isDragging ) classes += " dragging"
 
     return (
