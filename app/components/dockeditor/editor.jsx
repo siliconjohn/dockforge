@@ -1,12 +1,12 @@
 import React from 'react'
-import Square from 'Square'
+import DeckSectionVertical from 'DeckSectionVertical'
 import Rectangle from 'Rectangle'
 import ComponentBase from 'ComponentBase'
 
 // When you add a new component it needs to be added
 // to this object to be available to the app
 const components = {
-  Square: Square,
+  DeckSectionVertical: DeckSectionVertical,
   Rectangle: Rectangle
 }
 

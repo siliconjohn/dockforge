@@ -15,17 +15,17 @@ const testState = {
     svgShowDistances: true,
     readOnly: false,
     components:[
-      { type: "Square", left:0, bottom:0, width: 100, height: 100, uuid:"child1", connectParent:'root', children:[]},
+      { type: "DeckSectionVertical", left:0, bottom:0, width: 100, height: 100, uuid:"child1", connectParent:'root', children:[]},
       { type: "Rectangle", left:0, bottom:0, width: 100, height: 100, uuid:"child2",connectParent:'root', draggingOver:true, children:[
-        { type: "Square",  width: 100, height: 100,uuid:"child3", connectParent:'top',children:[
-          { type: "Square",  width: 100, height: 100,uuid:"child4", connectParent:'left',children:[
-            { type: "Square",  width: 100, height: 100,uuid:"child5", connectParent:'left', children:[
-              { type: "Square", width: 100, height: 100,   uuid:"child6", connectParent:'bottom', children:[]}
+        { type: "DeckSectionVertical",  width: 100, height: 100,uuid:"child3", connectParent:'top',children:[
+          { type: "DeckSectionVertical",  width: 100, height: 100,uuid:"child4", connectParent:'left',children:[
+            { type: "DeckSectionVertical",  width: 100, height: 100,uuid:"child5", connectParent:'left', children:[
+              { type: "DeckSectionVertical", width: 100, height: 100,   uuid:"child6", connectParent:'bottom', children:[]}
             ]}
           ]}
         ]}
       ]},
-      { type: "Square", left:0, bottom:0, width: 100, height: 100, uuid:"child7", connectParent:'root', children:[]}
+      { type: "DeckSectionVertical", left:0, bottom:0, width: 100, height: 100, uuid:"child7", connectParent:'root', children:[]}
     ]
   }
 
@@ -43,7 +43,7 @@ describe( 'Redux Dock Reducers', () => {
 
   it( 'Should open dock', () => {
     let openDock = Object.assign( {}, { components:
-      [{ type: "Square", uuid:"childNew", connectParent:'root', children:[]}]})
+      [{ type: "DeckSectionVertical", uuid:"childNew", connectParent:'root', children:[]}]})
 
     let action = {
       type: actions.OPEN_DOCK,

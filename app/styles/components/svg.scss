@@ -50,6 +50,22 @@ $text-color: #777;
 
   .component {
     position: absolute;
+
+    .component-outline {
+      stroke: black;
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .panel-vertical {
+      stroke: none;
+      fill: #C0C0C0;
+    }
+
+    .panel-horizontal {
+      stroke: none;
+      fill: #C0C0C0;
+    }
   }
 
   .component.pointer-none {
