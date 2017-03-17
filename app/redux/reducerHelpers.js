@@ -192,19 +192,19 @@ module.exports.updateComponentPositions = ( targetArray ) => {
       switch( component.connectParent ) {
         case 'top':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom - parentPosition.height
+          tempBottom = parentPosition.bottom - parentPosition.height - 1
           break
         case 'right':
-          tempLeft = parentPosition.left + parentPosition.width
+          tempLeft = parentPosition.left + parentPosition.width + 1
           tempBottom = parentPosition.bottom
           break
         case 'left':
-          tempLeft = parentPosition.left - component.width
+          tempLeft = parentPosition.left - component.width - 1
           tempBottom = parentPosition.bottom
           break
         case 'bottom':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom + component.height
+          tempBottom = parentPosition.bottom + component.height + 1
           break
       }
       component.left = tempLeft
