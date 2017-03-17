@@ -4,6 +4,7 @@ $cross-color: #333;
 $grid-color: #c2e2ec;
 $grid-color-highlight: #aaa;
 $text-color: #777;
+$panel-fill: #C0C0C0;
 
 .dock-svg {
   -webkit-user-select: none;
@@ -59,12 +60,12 @@ $text-color: #777;
 
     .panel-vertical {
       stroke: none;
-      fill: #C0C0C0;
+      fill: $panel-fill;
     }
 
     .panel-horizontal {
       stroke: none;
-      fill: #C0C0C0;
+      fill: $panel-fill;
     }
   }
 

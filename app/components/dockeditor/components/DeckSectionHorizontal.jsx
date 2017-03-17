@@ -1,17 +1,17 @@
 import React from 'react'
 import Highlight from 'Highlight'
-import { PanelVertical, panelHeight } from 'PanelVertical'
+import { PanelHorizontal, panelWidth } from 'PanelHorizontal'
 
-const DeckSectionVertical = ( props ) => {
+const DeckSectionHorizontal = ( props ) => {
   let { left, bottom, width, height, uuid, draggingOver, draggingOverSide } = props
 
   const getPanels = () => {
-    let panelCount = Math.round( height / panelHeight )
+    let panelCount = Math.round( width / panelWidth )
 
     return Array.from( new Array( panelCount ), ( item, index ) => {
       return (
-        <PanelVertical left={ left } top={ 0.5 + bottom - height +  index * panelHeight }
-         width={ width } height= { panelHeight - 1 } key={ index }/>
+        <PanelHorizontal left={ 0.5 + left + index * panelWidth } top={ bottom - height }
+         width={ panelWidth } height= { height } key={ index }/>
       )
     })
   }
@@ -26,7 +26,7 @@ const DeckSectionVertical = ( props ) => {
   )
 }
 
-DeckSectionVertical.propTypes = {
+DeckSectionHorizontal.propTypes = {
   left: React.PropTypes.number.isRequired,
   bottom: React.PropTypes.number.isRequired,
   width: React.PropTypes.number.isRequired,
@@ -36,4 +36,4 @@ DeckSectionVertical.propTypes = {
   draggingOverSide: React.PropTypes.string,
 }
 
-module.exports = DeckSectionVertical
+module.exports = DeckSectionHorizontal
