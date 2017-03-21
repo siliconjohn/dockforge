@@ -195,18 +195,24 @@ module.exports.updateComponentPositions = ( targetArray ) => {
       switch( component.connectParent ) {
         case 'top':
           tempLeft = parentPosition.left
+          // connect to right of parent if the parent is right of 0
+          if( parentPosition.left > 0 ) tempLeft = parentPosition.left +  parentPosition.width - component.width
+
           tempBottom = parentPosition.bottom - parentPosition.height - componentOffset
           break
         case 'right':
           tempLeft = parentPosition.left + parentPosition.width + componentOffset
-          tempBottom = parentPosition.bottom
+          tempBottom = parentPosition.bottom - parentPosition.height + component.height
           break
         case 'left':
           tempLeft = parentPosition.left - component.width - componentOffset
-          tempBottom = parentPosition.bottom
+          tempBottom = parentPosition.bottom - parentPosition.height + component.height
           break
         case 'bottom':
           tempLeft = parentPosition.left
+          // connect to right of parent if the parent is right of 0
+          if( parentPosition.left > 0 ) tempLeft = parentPosition.left +  parentPosition.width - component.width
+
           tempBottom = parentPosition.bottom + component.height + componentOffset
           break
       }
