@@ -12,11 +12,17 @@ class ComponentBase extends React.Component {
   constructor( props ) {
     super( props )
 
+    // setup drag constraints
+    let _canDrag = true
+    if( props.drag == "none" ) _canDrag = false
+
+    // set initial state
     this.state = {
       isDraggingOver: false,
       isDragging: false,
       draggingStartX: 0,
       draggingStartY: 0,
+      canDrag: _canDrag
     }
 
     this.onlyDragRoot = false
@@ -188,10 +194,12 @@ class ComponentBase extends React.Component {
 
     this.lastMouseDragXDistance = x
     this.lastMouseDragYDistance = y
+
     findDOMNode( this ).setAttribute( 'transform',`translate(${x},${y})` )
   }
 
   onMouseUp( event ) {
+
     // turn off isDragging
     if( this.state.isDragging == true ) {
       let { draggingStartX, draggingStartY } = this.state
@@ -216,14 +224,14 @@ class ComponentBase extends React.Component {
       event.stopPropagation()
       this.props.dispatch( setMouseDraggingElement( false ))
     }
-    // else {
-    //   this.props.dispatch( setMouseDraggingElement( false ))
-    // }
+    else {
+      this.props.dispatch( setMouseDraggingElement( false ))
+    }
   }
 
   onMouseDown( event ) {
     if( this.onlyDragRoot == true && this.props.connectParent != 'root' &&
-      event.shiftKey == false ) return
+      event.shiftKey == false || this.state.canDrag == false ) return
 
     // turn on isDragging
     if( this.state.isDragging == false ) {
@@ -249,6 +257,8 @@ class ComponentBase extends React.Component {
   }
 
   onTouchStart( event ){
+    if( this.state.canDrag == false ) return
+
     let svg = document.getElementById( "svg-el" )
     let point = svg.createSVGPoint()
     let touch = event.touches[0]
@@ -278,6 +288,8 @@ class ComponentBase extends React.Component {
   }
 
   onTouchEnd() {
+    if( this.state.canDrag == false ) return
+
     let { draggingStartX, draggingStartY } = this.state
     let { left, bottom, uuid } = this.props
 

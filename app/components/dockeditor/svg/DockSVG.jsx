@@ -140,7 +140,7 @@ class DockSVG extends React.Component {
     let components = this.props.components
 
     if( components != undefined ) {
-      return components.map(( item, index ) => { 
+      return components.map(( item, index ) => {
         return getRootComponent( item )
       })
     } else {
