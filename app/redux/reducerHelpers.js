@@ -50,7 +50,7 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
   }
 
   const canConnectToSide = ( component, side, canInsert ) => {
-    // TODO: this is commented out and needs to be re-added or modifed 
+    // TODO: this is commented out and needs to be re-added or modifed
     // when I add the rules for connections
     // if( component.connectParent == getOppositeSide( side )) return false
     // if( canInsert == false ) {
@@ -186,19 +186,43 @@ module.exports.updateComponentPositions = ( targetArray ) => {
   // but this looks a little funny so we use 0 for now
   const componentOffset = 0
 
-  const updateComponentPosition = ( component, parentPosition ) => {
+  const updateComponentPosition = ( component, parentPosition, parent ) => {
 
     if( parentPosition === null ) parentPosition = {}
 
     if( component.connectParent !== 'root' ) {
       let tempLeft = parentPosition.left
       let tempBottom = parentPosition.bottom - parentPosition.height
+      let _snapLeft
+      let _snapRight
 
       switch( component.connectParent ) {
         case 'top':
-          tempLeft = parentPosition.left
-          // connect to right of parent if the parent is right of 0
-          if( parentPosition.left > 0 ) tempLeft = parentPosition.left +  parentPosition.width - component.width
+          // determine which side of parent to snap to, right or left
+          _snapLeft = parentPosition.left
+          _snapRight = parentPosition.left +  parentPosition.width - component.width
+
+          if( parent != undefined ) {
+            if( parent.connectParent == "right") {
+              tempLeft = _snapRight
+            } else {
+              if( parent.connectParent == "left") {
+                tempLeft = _snapLeft
+              } else {
+                if( parentPosition.left > 0 ) {
+                  tempLeft = _snapRight
+                } else {
+                  tempLeft = _snapLeft
+                }
+              }
+            }
+          } else {
+            if( parentPosition.left > 0 ) {
+              tempLeft = _snapRight
+            } else {
+              tempLeft = _snapLeft
+            }
+          }
 
           tempBottom = parentPosition.bottom - parentPosition.height - componentOffset
           break
@@ -212,8 +236,31 @@ module.exports.updateComponentPositions = ( targetArray ) => {
           break
         case 'bottom':
           tempLeft = parentPosition.left
-          // connect to right of parent if the parent is right of 0
-          if( parentPosition.left > 0 ) tempLeft = parentPosition.left +  parentPosition.width - component.width
+          _snapLeft = parentPosition.left
+          _snapRight = parentPosition.left +  parentPosition.width - component.width
+
+          // determine which side of parent to snap to, right or left
+          if( parent != undefined ) {
+            if( parent.connectParent == "right") {
+              tempLeft = _snapRight
+            } else {
+              if( parent.connectParent == "left") {
+                tempLeft = _snapLeft
+              } else {
+                if( parentPosition.left > 0 ) {
+                  tempLeft = _snapRight
+                } else {
+                  tempLeft = _snapLeft
+                }
+              }
+            }
+          } else {
+            if( parentPosition.left > 0 ) {
+              tempLeft = _snapRight
+            } else {
+              tempLeft = _snapLeft
+            }
+          }
 
           tempBottom = parentPosition.bottom + component.height + componentOffset
           break
@@ -228,7 +275,7 @@ module.exports.updateComponentPositions = ( targetArray ) => {
     parentPosition.height = component.height
 
     component.children.forEach(( item ) => {
-      updateComponentPosition( item, Object.assign( {}, parentPosition ))
+      updateComponentPosition( item, Object.assign( {}, parentPosition ), component)
     })
   }
 
