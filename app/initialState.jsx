@@ -23,18 +23,18 @@ export var initialState = {
     touchMoveXY: [0,0],
     touchDraggingElement: false,
     draggingOverElements: [],
-    newDock: { svgWidth: 600,
-          svgHeight: 300,
-          svgScale: 2,
+    newDock: { svgWidth: 720,
+          svgHeight: 551,
+          svgScale: 1,
           svgRotation: 0,
           svgShorelineHeight: 50,
-          svgShowGrid: false,
+          svgShowGrid: true,
           svgShowCenterLine: false,
           svgShowDistances: true,
           readOnly: false,
           components:[
             //{ type: "DeckSectionVertical", left:0, bottom:0, width: 100, height: 100, uuid:"test1", connectParent:'root', children:[]},
-             { type: "DeckSectionVertical", left:-200, bottom:0, width: 42, height: 96, uuid:"test2",connectParent:'root', children:[
+             { type: "DeckSectionVertical", left:-21, bottom:0, width: 42, height: 96, uuid:"test2",connectParent:'root', children:[
                 { type: "DeckSectionVertical", width: 42, height: 96, uuid:"child1", connectParent:'top',children:[
                  { type: "DeckSectionHorizontal", width: 96, height: 42, uuid:"child33", connectParent:'right',children:[]},
                   { type: "DeckSectionHorizontal", width: 96, height: 42, uuid:"child3", connectParent:'left',children:[
