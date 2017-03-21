@@ -17,14 +17,16 @@ export var initialState = {
         description:"42\" x 8'", type:"DeckSectionVertical", width: 42, height: 96},
       { name:"Small Horizontal Deck", svg:"docksectionhorizontal.svg",
         description:"8' x 42\"", type:"DeckSectionHorizontal",  width: 96, height: 42},
+
       { name:"Medium Vertical Deck", svg:"dockplatformmediumvertical.svg",
-        description:"52\" x 8'", type:"DeckSectionVertical", width: 52, height: 96},
+        description:"52\" x 8'", type:"DeckPlatformVertical", width: 52, height: 96},
       { name:"Medium Horizontal Deck", svg:"dockplatformmediumhorizontal.svg",
-        description:"8' x 52\"", type:"DeckSectionHorizontal",  width: 96, height: 52},
+        description:"8' x 52\"", type:"DeckPlatformHorizontal",  width: 96, height: 52},
+
       { name:"Large Vertical Deck", svg:"docksundeckmediumvertical.svg",
-        description:"84\" x 8'", type:"DeckSectionVertical", width: 84, height: 96},
+        description:"84\" x 8'", type:"DeckSundeckVertical", width: 84, height: 96},
       { name:"Large Horizontal Deck", svg:"docksundeckmediumhorizontal.svg",
-        description:"8' x 84\"", type:"DeckSectionHorizontal",  width: 96, height: 84},
+        description:"8' x 84\"", type:"DeckSundeckHorizontal",  width: 96, height: 84},
     ],
 
     draggingComponent: null,

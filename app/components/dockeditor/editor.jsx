@@ -1,13 +1,22 @@
 import React from 'react'
+import ComponentBase from 'ComponentBase'
 import DeckSectionVertical from 'DeckSectionVertical'
 import DeckSectionHorizontal from 'DeckSectionHorizontal'
-import ComponentBase from 'ComponentBase'
+import DeckPlatformVertical from 'DeckPlatformVertical'
+import DeckPlatformHorizontal from 'DeckPlatformHorizontal'
+import DeckSundeckVertical from 'DeckSundeckVertical'
+import DeckSundeckHorizontal from 'DeckSundeckHorizontal'
+
 
 // When you add a new component it needs to be added
 // to this object to be available to the app
 const components = {
   DeckSectionVertical: DeckSectionVertical,
-  DeckSectionHorizontal: DeckSectionHorizontal
+  DeckSectionHorizontal: DeckSectionHorizontal,
+  DeckPlatformVertical: DeckPlatformVertical,
+  DeckPlatformHorizontal: DeckPlatformHorizontal,
+  DeckSundeckVertical: DeckSundeckVertical,
+  DeckSundeckHorizontal: DeckSundeckHorizontal,
 }
 
 // returns the proper component for rendering giving the attr.type
