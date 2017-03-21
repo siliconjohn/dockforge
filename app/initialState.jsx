@@ -13,8 +13,11 @@ export var initialState = {
       },
 
     components: [
-      { name:"DeckSectionVertical", description:"A DeckSectionVertical", type:"DeckSectionVertical", width: 42, height: 96,},
-      { name:"DeckSectionHorizontal",description:"A rectangle", type:"DeckSectionHorizontal",  width: 96, height: 42,}
+      { name:"Small Vertical Deck", svg:"docksectionvertical.svg",
+        description:"8' x 42\"", type:"DeckSectionVertical", width: 42, height: 96},
+
+      { name:"Small Horizontal Deck", svg:"docksectionhorizontal.svg",
+        description:"42\" x 8'", type:"DeckSectionHorizontal",  width: 96, height: 42}
     ],
 
     draggingComponent: null,
