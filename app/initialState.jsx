@@ -34,7 +34,7 @@ export var initialState = {
           readOnly: false,
           components:[
             //{ type: "DeckSectionVertical", left:0, bottom:0, width: 100, height: 100, uuid:"test1", connectParent:'root', children:[]},
-             { type: "DeckSectionVertical", left:-21, bottom:0, width: 42, height: 96, uuid:"test2",connectParent:'root', children:[
+             { type: "DeckSectionVertical", left:-21, bottom:24, width: 42, height: 96, uuid:"test2",connectParent:'root', children:[
                 { type: "DeckSectionVertical", width: 42, height: 96, uuid:"child1", connectParent:'top',children:[
                  { type: "DeckSectionHorizontal", width: 96, height: 42, uuid:"child33", connectParent:'right',children:[]},
                   { type: "DeckSectionHorizontal", width: 96, height: 42, uuid:"child3", connectParent:'left',children:[
