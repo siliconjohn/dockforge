@@ -180,6 +180,9 @@ module.exports.resetDraggingOver = ( components ) => {
 
 // updates or adds the left: and bottom: props of each component
 module.exports.updateComponentPositions = ( targetArray ) => {
+  // the distance between connecting components, 1 = no distance,
+  // but this looks a little funny so we use 0 for now
+  const componentOffset = 0
 
   const updateComponentPosition = ( component, parentPosition ) => {
 
@@ -192,19 +195,19 @@ module.exports.updateComponentPositions = ( targetArray ) => {
       switch( component.connectParent ) {
         case 'top':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom - parentPosition.height - 1
+          tempBottom = parentPosition.bottom - parentPosition.height - componentOffset
           break
         case 'right':
-          tempLeft = parentPosition.left + parentPosition.width + 1
+          tempLeft = parentPosition.left + parentPosition.width + componentOffset
           tempBottom = parentPosition.bottom
           break
         case 'left':
-          tempLeft = parentPosition.left - component.width - 1
+          tempLeft = parentPosition.left - component.width - componentOffset
           tempBottom = parentPosition.bottom
           break
         case 'bottom':
           tempLeft = parentPosition.left
-          tempBottom = parentPosition.bottom + component.height + 1
+          tempBottom = parentPosition.bottom + component.height + componentOffset
           break
       }
       component.left = tempLeft
