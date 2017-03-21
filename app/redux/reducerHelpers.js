@@ -50,12 +50,14 @@ module.exports.setDraggingOver = ( components, sourceUUID, hitRect ) => {
   }
 
   const canConnectToSide = ( component, side, canInsert ) => {
-    if( component.connectParent == getOppositeSide( side )) return false
-    if( canInsert == false ) {
-    for(var i=0; i < component.children.length; i++ ) {
-      if( component.children[i].connectParent == side ) return false
-    }}
-    return true
+    // TODO: this is commented out and needs to be re-added or modifed 
+    // when I add the rules for connections
+    // if( component.connectParent == getOppositeSide( side )) return false
+    // if( canInsert == false ) {
+    // for(var i=0; i < component.children.length; i++ ) {
+    // //  if( component.children[i].connectParent == side ) return false
+    // }}
+    // return true
   }
 
   // checks to see if hitRect overlapps each component, calcs overlapping
