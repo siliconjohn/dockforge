@@ -37,3 +37,11 @@ body {
 .toolbar-btns {
   display: inline-block;
 }
+
+.btn-wide {
+  width: 8em;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
