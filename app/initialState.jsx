@@ -23,9 +23,9 @@ export var initialState = {
       { name:"Medium Horizontal Deck", svg:"dockplatformmediumhorizontal.svg",
         description:"8' x 52\"", type:"DeckPlatformHorizontal",  width: 96, height: 52},
 
-      { name:"Large Vertical Deck", svg:"docksundeckmediumvertical.svg",
+      { name:"Large Vertical Deck", svg:"docksundeckvertical.svg",
         description:"84\" x 8'", type:"DeckSundeckVertical", width: 84, height: 96},
-      { name:"Large Horizontal Deck", svg:"docksundeckmediumhorizontal.svg",
+      { name:"Large Horizontal Deck", svg:"docksundeckhorizontal.svg",
         description:"8' x 84\"", type:"DeckSundeckHorizontal",  width: 96, height: 84},
     ],
 
