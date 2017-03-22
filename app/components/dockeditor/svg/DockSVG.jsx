@@ -210,7 +210,7 @@ class DockSVG extends React.Component {
         <defs>
           <pattern id="waterpattern" patternUnits="userSpaceOnUse" x="0" y="0"
             width="150" height="150">
-          <image width="150" height="150" xlinkHref="/images/water.jpg"/>
+          <image width="150" height="150" xlinkHref="/images/water3.jpg"/>
           </pattern>
         </defs>
         <g transform={ transform }>

@@ -1,5 +1,4 @@
-$water-color: #d5f5ff;
-$shoreline-color: #d8ffda;
+$shoreline-color: #d3ffd7;
 $cross-color: #333;
 $grid-color: #c2e2ec;
 $grid-color-highlight: #aaa;
@@ -15,7 +14,7 @@ $panel-fill: #C0C0C0;
   .background {
 
     .water {
-      stroke-width: 0; 
+      stroke-width: 0;
       pointer-events: none;
     }
 
