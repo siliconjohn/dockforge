@@ -207,6 +207,12 @@ class DockSVG extends React.Component {
         onMouseMove={ readOnly == true ? null : this.onMouseMove }
         onTouchMove={ readOnly == true ? null : this.onTouchMove }
         onMouseLeave={ readOnly == true ? null : this.onMouseOut }>
+        <defs>
+          <pattern id="waterpattern" patternUnits="userSpaceOnUse" x="0" y="0"
+            width="150" height="150">
+          <image width="150" height="150" xlinkHref="/images/water.jpg"/>
+          </pattern>
+        </defs>
         <g transform={ transform }>
           <g className="background">
             <Water { ...this.props } />

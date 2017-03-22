@@ -40,9 +40,9 @@ export var initialState = {
           svgScale: 1,
           svgRotation: 0,
           svgShorelineHeight: 50,
-          svgShowGrid: true,
+          svgShowGrid: false,
           svgShowCenterLine: false,
-          svgShowDistances: true,
+          svgShowDistances: false,
           readOnly: false,
           components:[
             //{ type: "DeckSectionVertical", left:0, bottom:0, width: 100, height: 100, uuid:"test1", connectParent:'root', children:[]},

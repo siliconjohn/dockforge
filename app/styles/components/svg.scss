@@ -15,8 +15,7 @@ $panel-fill: #C0C0C0;
   .background {
 
     .water {
-      stroke-width: 0;
-      fill: $water-color;
+      stroke-width: 0; 
       pointer-events: none;
     }
 

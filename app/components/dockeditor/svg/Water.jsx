@@ -4,8 +4,8 @@ var Water = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight }  =  props
 
   return (
-    <rect className="water" x={ -svgWidth  / 2 } y={ -svgHeight + svgShorelineHeight }
-         width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
+    <rect className="water" fill="url(#waterpattern)" x={ -svgWidth / 2 }
+     y={ -svgHeight + svgShorelineHeight } width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
   )
 }
 
