@@ -38,21 +38,6 @@ class ToolbarButtons extends React.Component {
           <span className="glyphicon glyphicon-repeat"></span> Rotate
         </button>
         <span> </span>
-        <div className="btn-group" role="group" aria-label="Show grid or cross">
-          <button type="button" className="btn btn-xs btn-warning navbar-btn btn-wide"
-            onClick={ ()=> {
-              store.dispatch( toggleShowGrid())
-            }}>
-            <span className="glyphicon glyphicon-th"></span> Grid
-          </button>
-          <button type="button" className="btn btn-xs btn-warning navbar-btn btn-wide"
-            onClick={ ()=> {
-              store.dispatch( toggleShowCenterLine())
-            }}>
-            <span className="glyphicon glyphicon-th-large"></span> Center
-          </button>
-        </div>
-        <span> </span>
         <div className="btn-group" role="group" aria-label="Expand or contract width">
           <button type="button" className="btn btn-xs btn-primary navbar-btn"
             onClick={ ()=> {
@@ -82,6 +67,21 @@ class ToolbarButtons extends React.Component {
               store.dispatch( incrementSvgHeight())
             }}>
             <span className="glyphicon glyphicon-plus"></span>
+          </button>
+        </div>
+        <span> </span>
+        <div className="btn-group" role="group" aria-label="Show grid or cross">
+          <button type="button" className="btn btn-xs btn-warning navbar-btn btn-wide"
+            onClick={ ()=> {
+              store.dispatch( toggleShowGrid())
+            }}>
+            <span className="glyphicon glyphicon-th"></span> Grid
+          </button>
+          <button type="button" className="btn btn-xs btn-warning navbar-btn btn-wide"
+            onClick={ ()=> {
+              store.dispatch( toggleShowCenterLine())
+            }}>
+            <span className="glyphicon glyphicon-th-large"></span> Center
           </button>
         </div>
       </div>
