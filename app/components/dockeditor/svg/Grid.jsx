@@ -76,7 +76,7 @@ var Grid = ( props ) => {
 
           return (
             <g transform={`translate(${  -halfWidth + 10  },${ item + 10 })`} key={ index }>
-              <rect transform={`rotate(${ r })`} stroke="bbb" fill="#eee" y={ y - 8 } x={ x - 14 }
+              <rect transform={`rotate(${ r })`} className="text-bubble" y={ y - 8 } x={ x - 14 }
                 width="30" height="15" rx="4" ry="4"></rect>
               <text x={ x + 2 } y={ y }
                 className="text"
