@@ -58,11 +58,26 @@ var Grid = ( props ) => {
 
           // setup rotation
           let r = svgRotation == 0 ? 0 : 360 - svgRotation
+          let y = -10
+          let x = 2
+          if( svgRotation == 90 ){
+            y = -2
+            x = 9
+          } else
+            if( svgRotation == 180 ){
+              y = 10
+              x = -4
+            } else
+             if( svgRotation == 270 ) {
+               y = 2
+               x = -10
+             }
 
           return (
             <g transform={`translate(${  -halfWidth + 10  },${ item + 10 })`} key={ index }>
-              <rect stroke="bbb" fill="#eee" y="-8" x="-14" width="30" height="15" rx="4" ry="4"></rect>
-              <text x="2" y="0"
+              <rect transform={`rotate(${ r })`} stroke="bbb" fill="#eee" y={ y - 8 } x={ x - 14 }
+                width="30" height="15" rx="4" ry="4"></rect>
+              <text x={ x + 2 } y={ y }
                 className="text"
                 textAnchor="middle"
                 dominantBaseline="central"
