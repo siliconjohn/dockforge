@@ -3,15 +3,16 @@ import React from 'react'
 var Water = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid }  =  props
 
-  let classNames = "water"
+  // set class name and fill based on if svgShowGrid == true
+  let className = "water"
   let fill = "url(#waterpattern)"
   if( svgShowGrid == true ) {
     fill = ""
-    classNames = "water-colored"
+    className = "water-colored"
   }
 
   return (
-    <rect className={ classNames } fill={ fill } x={ -svgWidth / 2 }
+    <rect className={ className } fill={ fill } x={ -svgWidth / 2 }
      y={ -svgHeight + svgShorelineHeight } width={ svgWidth } height={ svgHeight - svgShorelineHeight }/>
   )
 }
