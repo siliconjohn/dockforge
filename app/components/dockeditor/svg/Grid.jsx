@@ -56,6 +56,7 @@ var Grid = ( props ) => {
         rows.map(( item, index ) => {
           if (item % 100 != 0 ) return
 
+          //TODO: this and the return() needs to be refractored cause it's a little messy
           // setup rotation
           let r = svgRotation == 0 ? 0 : 360 - svgRotation
           let y = -10
