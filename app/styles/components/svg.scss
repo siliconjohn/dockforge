@@ -4,6 +4,7 @@ $grid-color: #558fa2;
 $grid-color-highlight: #4f4f4f;
 $text-color: #222;
 $panel-fill: #C0C0C0;
+$water-color: #5fb3d1;
 
 .dock-svg {
   -webkit-user-select: none;
@@ -14,6 +15,12 @@ $panel-fill: #C0C0C0;
   .background {
 
     .water {
+      stroke-width: 0;
+      pointer-events: none;
+    }
+
+    .water-colored {
+      fill: $water-color;
       stroke-width: 0;
       pointer-events: none;
     }

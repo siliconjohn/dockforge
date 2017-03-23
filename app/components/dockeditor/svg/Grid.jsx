@@ -61,7 +61,8 @@ var Grid = ( props ) => {
 
           return (
             <g transform={`translate(${  -halfWidth + 10  },${ item + 10 })`} key={ index }>
-              <text x="0" y="0"
+              <rect stroke="bbb" fill="#eee" y="-8" x="-14" width="30" height="15" rx="4" ry="4"></rect>
+              <text x="2" y="0"
                 className="text"
                 textAnchor="middle"
                 dominantBaseline="central"
