@@ -62,11 +62,11 @@ var Grid = ( props ) => {
           let x = 2
           if( svgRotation == 90 ){
             y = -2
-            x = 9
+            x = 10
           } else
             if( svgRotation == 180 ){
               y = 10
-              x = -4
+              x = -3
             } else
              if( svgRotation == 270 ) {
                y = 2
