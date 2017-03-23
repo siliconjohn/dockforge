@@ -2,7 +2,7 @@ $shoreline-color: #d3ffd7;
 $cross-color: #333;
 $grid-color: rgba(188, 188, 188, 0.50);
 $grid-color-highlight: #dfdfdf;
-$water-color: #5fb3d1; // or b3ebff 
+$water-color: #5fb3d1; // or b3ebff
 $text-color: #222;
 $text-bubble-color: #eee;
 $text-bubble-border: #aaa;
@@ -32,6 +32,14 @@ $hightlight-color: #0F0;
       stroke-width: 0;
       fill: $shoreline-color;
       pointer-events: none;
+    }
+
+    .shoreline-text {
+      font-size: 32px;
+      font-family: "Century Gothic", "Helvetica", sans-serif;
+      font-weight: bold;
+      fill: #bdedc2;
+      text-shadow: 0px 1px 0px rgba(255,255,255,.4), 0px -0.5px 0px rgba(0,0,0,.4)
     }
 
     .center-line {

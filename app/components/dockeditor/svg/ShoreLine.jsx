@@ -4,8 +4,15 @@ var ShoreLine = ( props ) => {
   let { svgWidth, svgShorelineHeight }  = props
 
   return (
-    <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
-     width={ svgWidth } height={ svgShorelineHeight }/>
+    <g>
+      <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
+       width={ svgWidth } height={ svgShorelineHeight }/>
+     <text x={ 0 } y={ (svgShorelineHeight / 2 ) + 3 }
+       className="shoreline-text"
+       textAnchor="middle"
+       dominantBaseline="central">SHORELINE
+      </text>
+    </g>
   )
 }
 
