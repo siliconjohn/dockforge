@@ -5,6 +5,7 @@ import ShoreLine from 'ShoreLine'
 import Water from 'Water'
 import CenterLine from 'CenterLine'
 import Grid from 'Grid'
+import LakeText from 'LakeText'
 import { addDockComponent, setMouseMoveXY, setMouseDraggingElement } from 'actions'
 import * as UUID from 'uuid-js'
 import { getRootComponent } from 'editor'
@@ -225,8 +226,10 @@ class DockSVG extends React.Component {
           <g className="background">
             <Water { ...this.props } />
             <ShoreLine { ...this.props } />
+
             <Grid { ...this.props } />
             <CenterLine { ...this.props } />
+            <LakeText { ...this.props } />
           </g>
           <g className="components">
           { this.getComponents() }
