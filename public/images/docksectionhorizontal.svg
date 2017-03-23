@@ -1,15 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="96" height="42">
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="1" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="9" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="17" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="25" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="33" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="41" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="49" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="57" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="65" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="73" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="81" width="7" height="40"></rect>
-  <rect stroke-width="0" stroke="black" fill="gray" y="1" x="89" width="7" height="40"></rect>
-  <rect stroke-width="2" stroke="black" fill="none" x="0" y="0" width="96" height="42"></rect>
+<svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="96" height="42" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <defs>
+    <linearGradient id="deckGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="100%" stop-color="#C0C0C0"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="1" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="9" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="17" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="25" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="33" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="41" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="49" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="57" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="65" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="73" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="81" width="7" height="40"></rect>
+    <rect stroke-width="0" stroke="black" fill="url(#deckGradient)" y="1" x="89" width="7" height="40"></rect>
+    <rect stroke-width="2" stroke="#666" fill="none" x="0" y="0" width="96" height="42"></rect>
+  </g>
 </svg>
