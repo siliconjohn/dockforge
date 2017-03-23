@@ -6,7 +6,7 @@ const PanelHorizontal = ( props ) => {
   let { left, top, height } = props
 
   return (
-    <rect className="panel-horizontal" x={ left } y={ top }
+    <rect className="panel-horizontal" fill="url(#deckGradientHorizontal)" x={ left } y={ top }
      width={ panelWidth - 1 } height={ height }/>
   )
 }

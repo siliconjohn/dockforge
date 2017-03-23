@@ -210,8 +210,16 @@ class DockSVG extends React.Component {
         <defs>
           <pattern id="waterpattern" patternUnits="userSpaceOnUse" x="0" y="0"
             width="150" height="150">
-          <image width="150" height="150" xlinkHref="/images/water3.jpg"/>
+            <image width="150" height="150" xlinkHref="/images/water.jpg"/>
           </pattern>
+          <linearGradient id="deckGradientVertical" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#E0E0E0"/>
+            <stop offset="100%" stopColor="#C0C0C0"/>
+          </linearGradient>
+          <linearGradient id="deckGradientHorizontal" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#E0E0E0"/>
+            <stop offset="100%" stopColor="#C0C0C0"/>
+          </linearGradient>
         </defs>
         <g transform={ transform }>
           <g className="background">

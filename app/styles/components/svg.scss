@@ -2,12 +2,12 @@ $shoreline-color: #d3ffd7;
 $cross-color: #333;
 $grid-color: rgba(188, 188, 188, 0.50);
 $grid-color-highlight: #dfdfdf;
-$panel-fill: #C0C0C0;
 $water-color: #5fb3d1;
 $text-color: #222;
 $text-bubble-color: #eee;
 $text-bubble-border: #aaa;
-
+$component-outline: #666;
+$hightlight-color: #0F0;
 
 .dock-svg {
   -webkit-user-select: none;
@@ -47,7 +47,7 @@ $text-bubble-border: #aaa;
 
       .highlight {
         stroke: $grid-color-highlight;
-      } 
+      }
 
       .text {
         stroke-width: 0;
@@ -67,19 +67,17 @@ $text-bubble-border: #aaa;
     position: absolute;
 
     .component-outline {
-      stroke: black;
+      stroke: $component-outline;
       stroke-width: 1;
       fill: none;
     }
 
     .panel-vertical {
       stroke: none;
-      fill: $panel-fill;
     }
 
     .panel-horizontal {
       stroke: none;
-      fill: $panel-fill;
     }
   }
 
@@ -96,13 +94,13 @@ $text-bubble-border: #aaa;
   }
 
   .hightlight {
-    stroke: red;
+    stroke: $hightlight-color;
     stroke-width: 1;
-    fill: red;
+    fill: $hightlight-color;
   }
 
   .hightlight.outline {
     fill: none !important;
-    stroke-width: 4 !important;
+    stroke-width: 8 !important;
   }
 }

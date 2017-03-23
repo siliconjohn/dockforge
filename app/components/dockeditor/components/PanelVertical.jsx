@@ -6,7 +6,7 @@ const PanelVertical = ( props ) => {
   let { left, top, width } = props
 
   return (
-    <rect className="panel-vertical" x={ left } y={ top }
+    <rect className="panel-vertical" fill="url(#deckGradientVertical)" x={ left } y={ top }
      width={ width } height={ panelHeight - 1 }/>
   )
 }
