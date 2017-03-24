@@ -9,10 +9,10 @@ class AppContainer extends React.Component {
   render() {
     return (
       <div>
+        <Joyride ref="joyride" steps={ tour.tourSteps } type="continuous"
+          run="true" allowClicksThruHole="true" showSkipButton="true"/>
         <Navbar/>
         <DockEditor/>
-        <Joyride ref="joyride" steps={ tour.tourSteps } type="continuous" 
-          run="true" allowClicksThruHole="true" autoStart="true" showSkipButton="true"/>
       </div>
     )
   }
