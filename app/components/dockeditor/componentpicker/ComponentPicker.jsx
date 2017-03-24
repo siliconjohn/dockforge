@@ -8,7 +8,7 @@ class ComponentPicker extends React.Component {
     let { components } = this.props
 
     return (
-      <div className="component-picker" id="rrr">
+      <div className="component-picker">
         <div className="panel panel-default">
           <div className="panel-heading">Components</div>
           <div className="panel-body">

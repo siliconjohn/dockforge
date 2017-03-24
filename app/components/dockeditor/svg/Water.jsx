@@ -4,11 +4,11 @@ var Water = ( props ) => {
   let { svgWidth, svgHeight, svgShorelineHeight, svgShowGrid }  =  props
 
   // set class name and fill based on if svgShowGrid == true
-  let className = "water"
+  let className = "lake water"
   let fill = "url(#waterpattern)"
   if( svgShowGrid == true ) {
     fill = ""
-    className = "water-colored"
+    className = "lake water-colored"
   }
 
   return (

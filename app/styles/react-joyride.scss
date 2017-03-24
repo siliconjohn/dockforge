@@ -1,4 +1,4 @@
-$joyride-color: #f04 !default;
+$joyride-color: #008cba  !default;
 $joyride-zindex: 1500 !default;
 $joyride-overlay-color: rgba(#000, 0.5) !default;
 
@@ -27,14 +27,14 @@ $joyride-close-image: 'data:image/svg+xml,%3Csvg%20width%3D%22#{map-get($joyride
 $joyride-header-color: $joyride-tooltip-color !default;
 $joyride-header-font-size: 20px !default;
 $joyride-header-border-color: $joyride-color !default;
-$joyride-header-border-width: 1px !default;
+$joyride-header-border-width: 0px !default;
 
 $joyride-button-bg-color: $joyride-color !default;
 $joyride-button-color: #fff !default;
 $joyride-button-border-radius: 4px !default;
 
 $joyride-back-button-color: $joyride-color !default;
-$joyride-skip-button-color: #ccc !default;
+$joyride-skip-button-color: #333 !default;
 
 $joyride-tooltip-arrow-height: $joyride-tooltip-arrow-size / 2;
 $joyride-tooltip-arrow-scale: ($joyride-tooltip-arrow-size / ($joyride-tooltip-arrow-size * 0 + 1)) / 16; // strip-units crazy hack
