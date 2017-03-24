@@ -16,7 +16,7 @@ var ShoreLine = ( props ) => {
   }
 
   return (
-    <g>
+    <g id="shoreline">
       <rect className="shoreline" x={ -( svgWidth / 2 ) } y={ 0 }
        width={ svgWidth } height={ svgShorelineHeight }/>
      { getText() }
