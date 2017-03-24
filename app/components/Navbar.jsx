@@ -8,7 +8,7 @@ class Navbar extends React.Component {
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
-            <div className="navbar-brand">Dock Tool</div>
+            <div className="navbar-brand">Dock Forge</div>
             <ToolbarButtons/>
           </div>
         </div>
