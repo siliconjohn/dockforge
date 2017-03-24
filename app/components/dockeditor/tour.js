@@ -1,7 +1,6 @@
 
 export const tourSteps = [
-  {
-    autoStart:"true",
+  { 
     title: "Would you like a quick tutorial?",
     selector: "#app",
     type: "click",
@@ -12,7 +11,7 @@ export const tourSteps = [
         offsetY: -17
       },
       hole: {
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
       },
       arrow: {
         display: 'none'
@@ -33,7 +32,10 @@ export const tourSteps = [
     title: "Components",
     text: "Drag components from here to the water...",
     selector: ".component-picker",
-    type: "hover"
   },
-
+  {
+    title: "Toolbar",
+    text: "These are tools you can use to zoom in, rotate and change your dock's size",
+    selector: ".toolbar-btns",
+  }
 ]

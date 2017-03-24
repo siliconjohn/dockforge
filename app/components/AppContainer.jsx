@@ -11,7 +11,7 @@ class AppContainer extends React.Component {
       <div>
         <Navbar/>
         <DockEditor/>
-        <Joyride ref="joyride" steps={ tour.tourSteps } type="continuous"
+        <Joyride ref="joyride" steps={ tour.tourSteps } type="continuous" 
           run="true" allowClicksThruHole="true" autoStart="true" showSkipButton="true"/>
       </div>
     )
